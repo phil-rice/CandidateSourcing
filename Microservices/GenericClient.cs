@@ -12,15 +12,21 @@ namespace xingyi.job.Client
     {
     }
 
-    public class GenericClient<T> : IApiClient<T> where T : class
+    public class HttpClientSettings
+    {
+        public string BaseUrl { get; set; }
+    }
+
+
+    public class GenericClient<T> : IApiClient<T> where T : class 
     {
         private readonly HttpClient _httpClient;
         private readonly string _baseUrl; // Base URL should be provided during instantiation.
 
-        public GenericClient(HttpClient httpClient, string baseUrl)
+        public GenericClient(HttpClient httpClient, string BaseUrl)
         {
             _httpClient = httpClient;
-            _baseUrl = baseUrl;
+            _baseUrl = BaseUrl;
         }
 
         public async Task<List<T>> GetAllAsync()

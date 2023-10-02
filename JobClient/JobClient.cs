@@ -10,35 +10,29 @@ using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
-
-
+using Microsoft.Extensions.Options;
 
 namespace xingyi.job.Client
 {
     public interface IJobClient : IJobRepository
     {
     }
-
+    public class JobSettings : HttpClientSettings { }
 
     public class JobClient : GenericClient<Job>, IJobClient
     {
-        //TODO how to do this...
-        private const string BaseUrl = "http://localhost/api/Jobs"; // Replace with your API's address
-
-        public JobClient(HttpClient httpClient) : base(httpClient, BaseUrl)
+        public JobClient(HttpClient httpClient, IOptions<JobSettings> jobSettings) : base(httpClient, jobSettings.Value.BaseUrl+ "Job")
         {
         }
     }
     public interface ISectionTemplateClient : ISectionTemplateRepository
     {
     }
+    public class SectionTemplateSettings: HttpClientSettings {}
 
     public class SectionTemplateClient : GenericClient<SectionTemplate>, ISectionTemplateClient
     {
-        //TODO how to do this...
-        private const string BaseUrl = "http://localhost/api/SessionTemplate"; // Replace with your API's address
-
-        public SectionTemplateClient(HttpClient httpClient) : base(httpClient, BaseUrl)
+        public SectionTemplateClient(HttpClient httpClient, SectionTemplateSettings settings): base(httpClient, settings.BaseUrl+"SectionTemplate")
         {
         }
     }

@@ -18,7 +18,8 @@ artifacts/
 *.pfx
 *.publishsettings
 .vscode/
-.vsidx
+*.vsidx
+	
 ## Rider
 .idea/
 
