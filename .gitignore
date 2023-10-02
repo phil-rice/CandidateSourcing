@@ -1,0 +1,87 @@
+## .NET Core
+project.lock.json
+project.fragment.lock.json
+artifacts/
+**/bin/
+**/obj/
+
+## Tye
+.tye/
+
+## Visual Studio
+.vscode/
+.vscode-cpptools/
+.vscode/
+.vscode/
+*.dbmdl
+*.dbproj.schemaview
+*.pfx
+*.publishsettings
+.vscode/
+.vsidx
+## Rider
+.idea/
+
+## User-specific files
+*.py
+*.rsuser
+*.user
+*.userosscache
+*.suo
+*.locked
+*.swp
+*.swx
+*.swo
+*.[Cc]ache
+*.bak
+*.ncb
+*.sdf
+*.suo
+*.sqlite
+*.log
+*.DS_Store
+*.pyc
+
+## Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+## Folder config file
+Desktop.ini
+Recycle Bin used on file shares
+
+## VS Code directories
+.vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+## Windows thumbnail cache files
+Thumbs.db
+ehthumbs.db
+
+## Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+## VS Code directories
+.vscode/
+
+## Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+## Folder config file
+Desktop.ini
+Recycle Bin used on file shares
+
+## .NET Core
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+## Rider
+.idea/
+
+## ASP.NET Scaffolding
+ScaffoldingReadMe.txt
