@@ -4,16 +4,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using tests;
 using xingyi.common;
 using xingyi.job.Models;
 using xingyi.job.Repository;
-using xingyi.job.tests;
-using xingyi.tests;
+using xingyi.test.generic;
+using xingyi.tests.generic;
 
-namespace xingyi.job.tests
+namespace xingyi.tests.job
 {
-    public class JobFixture : IFixture<Job, Guid, IJobRepository, JobDbContext>
+    public class QuestionsFixture : IGenericFixture<Job, Guid, IJobRepository, JobDbContext>
     {
 
         public JobDbContext dbContext => new JobDbContext(new DbContextOptionsBuilder<JobDbContext>()
@@ -66,13 +65,6 @@ namespace xingyi.job.tests
         {
             await repo.AddAsync(item1);
             await repo.AddAsync(item2);
-        }
-    }
-
-    public class JobRepositoryTest : GenericRepoTest<Job, Guid, IJobRepository, JobDbContext>
-    {
-        public JobRepositoryTest() : base(new JobFixture())
-        {
         }
     }
 }

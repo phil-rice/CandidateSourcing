@@ -1,0 +1,14 @@
+﻿@page "{Id}"
+@model gui.Pages.Jobs.JobEditModel
+@addTagHelper *, gui
+
+<h1>Edit Job</h1>
+
+
+<form method="post">
+    <input type="hidden" asp-for="Job.Id" />
+    <label-and-input asp-for="Job.Title"></label-and-input>
+    <label-and-input asp-for="Job.Description"></label-and-input>
+    <label-and-input asp-for="Job.Owner"></label-and-input>
+    <button type="submit" class="btn btn-primary">Save</button>
+</form>

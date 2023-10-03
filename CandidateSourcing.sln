@@ -3,26 +3,26 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34031.279
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "job", "job\job.csproj", "{E9320CBC-8FE1-4396-AFDD-A8DEFB6259E0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "jobApi", "jobApi\jobApi.csproj", "{E9320CBC-8FE1-4396-AFDD-A8DEFB6259E0}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "application", "application\application.csproj", "{53098D05-0898-4916-8C46-E7D473F8732F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JobClient", "JobClient\JobClient.csproj", "{DE3C0E1C-A234-4DC8-8872-270A4C831E72}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JobClient", "JobClient\JobClient.csproj", "{DE3C0E1C-A234-4DC8-8872-270A4C831E72}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{3815EFF2-2D74-4D06-9A2A-15B9A5B1CA45}"
 	ProjectSection(SolutionItems) = preProject
 		ARCHITECTURAL_DECISION_LOG.md = ARCHITECTURAL_DECISION_LOG.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microservices", "Microservices\Microservices.csproj", "{F8EE8AB4-18B7-4C72-8B4D-FACE7B552528}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microservices", "Microservices\Microservices.csproj", "{F8EE8AB4-18B7-4C72-8B4D-FACE7B552528}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jobCommon", "jobCommon\jobCommon.csproj", "{56DD974A-B6E0-42D7-8AC1-9CC59B991BB9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "jobCommon", "jobCommon\jobCommon.csproj", "{56DD974A-B6E0-42D7-8AC1-9CC59B991BB9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gui", "gui\gui.csproj", "{2046FF96-1FFD-4AEC-8041-95C0394CA11B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "gui", "gui\gui.csproj", "{2046FF96-1FFD-4AEC-8041-95C0394CA11B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tests", "tests\tests.csproj", "{6AF09F0F-4858-4974-9F08-7E4571FF0A44}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "tests", "tests\tests.csproj", "{6AF09F0F-4858-4974-9F08-7E4571FF0A44}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "common", "common\common.csproj", "{34571AA3-E427-43F3-A962-8B9F100C9C5B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "common", "common\common.csproj", "{34571AA3-E427-43F3-A962-8B9F100C9C5B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

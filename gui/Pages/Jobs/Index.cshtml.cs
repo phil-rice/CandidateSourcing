@@ -8,17 +8,25 @@ namespace gui.Pages.Jobs
 {
     public class IndexModel : PageModel
     {
-        private readonly IJobClient client;
-        public List<Job> Jobs { get; set; } = new List<Job>();
-
 
         public IndexModel(IJobClient client)
         {
             this.client = client;
+
         }
-        async public void OnGet()
+
+
+        public List<Job> Jobs { get; private set; }
+
+        public async Task OnGetAsync()
         {
             Jobs = await client.GetAllAsync();
         }
+
+
+
+        private IJobClient client { get; }
+
+
     }
 }

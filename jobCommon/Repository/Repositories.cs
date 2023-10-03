@@ -12,8 +12,6 @@ namespace xingyi.job.Repository
     public interface IJobRepository : IRepository<Job, Guid> { }
     public class JobRepository : Repository<JobDbContext, Job, Guid>, IJobRepository
     {
-        private readonly JobDbContext _context;
-
         public JobRepository(JobDbContext context) :
             base(context, context => context.Jobs,
                   id => j => j.Id == id,
@@ -28,7 +26,6 @@ namespace xingyi.job.Repository
     public interface IQuestionRepository : IRepository<Question, Guid> { }
     public class QuestionRepository : Repository<JobDbContext, Question, Guid>, IQuestionRepository
     {
-        private readonly JobDbContext _context;
 
         public QuestionRepository(JobDbContext context) : base(context,
             context => context.Questions,
@@ -42,13 +39,11 @@ namespace xingyi.job.Repository
     public interface ISectionTemplateRepository : IRepository<SectionTemplate, Guid> { }
     public class SectionTemplateRespository : Repository<JobDbContext, SectionTemplate, Guid>, ISectionTemplateRepository
     {
-        private readonly JobDbContext _context;
-
         public SectionTemplateRespository(JobDbContext context) :
-            base(context,
-                context => context.SectionTemplates,
-                id => st => st.Id == id,
-                set => set)
+    base(context,
+        context => context.SectionTemplates,
+        id => st => st.Id == id,
+        set => set)
         {
         }
 

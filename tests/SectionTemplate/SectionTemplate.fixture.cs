@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 using xingyi.common;
 using xingyi.job.Models;
 using xingyi.job.Repository;
-using xingyi.job.tests;
-using xingyi.tests;
+using xingyi.test.generic;
+using xingyi.tests.generic;
 
-namespace xingyi.sectionTemplate.tests
+namespace xingyi.tests.sectionTemplate
 {
-    public class SectionTemplateFixture : IFixture<SectionTemplate, Guid, ISectionTemplateRepository, JobDbContext>
+    public class SectionTemplateFixture : IGenericFixture<SectionTemplate, Guid, ISectionTemplateRepository, JobDbContext>
     {
 
         public JobDbContext dbContext => new JobDbContext(new DbContextOptionsBuilder<JobDbContext>()
@@ -68,13 +68,4 @@ namespace xingyi.sectionTemplate.tests
     }
 
 
-
-
-
-    public class SectionTemplateRepositoryTest : GenericRepoTest<SectionTemplate, Guid, ISectionTemplateRepository, JobDbContext>
-    {
-        public SectionTemplateRepositoryTest() : base(new SectionTemplateFixture())
-        {
-        }
-    }
 }

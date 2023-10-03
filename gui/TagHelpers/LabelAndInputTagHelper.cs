@@ -33,6 +33,10 @@
             input.Attributes.Add("class", "form-control");
             input.Attributes.Add("type", "text"); // You might want to add logic to determine type based on the model metadata.
 
+            // Get the actual value from the model and set it as the value for the input
+            var value = For.ModelExplorer.GetSimpleDisplayText();
+            input.Attributes.Add("value", value);
+
             var validationSpan = new TagBuilder("span");
             validationSpan.Attributes.Add("class", "text-danger");
             validationSpan.Attributes.Add("data-valmsg-for", For.Name);
@@ -41,5 +45,6 @@
             output.Content.AppendHtml(input);
             output.Content.AppendHtml(validationSpan);
         }
+
     }
 }

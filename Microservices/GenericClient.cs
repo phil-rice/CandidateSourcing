@@ -35,8 +35,9 @@ namespace xingyi.microservices.Client
         }
         public async Task<List<T>> GetAllAsync(Boolean eagerLoad = false)
         {
+            var url = addEagerLoad(_baseUrl, eagerLoad);
 
-            var response = await _httpClient.GetAsync(addEagerLoad(_baseUrl,eagerLoad));
+            var response = await _httpClient.GetAsync(url);
             Console.WriteLine(response);
             response.EnsureSuccessStatusCode();
 

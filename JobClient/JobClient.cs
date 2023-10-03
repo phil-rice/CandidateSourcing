@@ -35,7 +35,18 @@ namespace xingyi.job.Client
 
     public class SectionTemplateClient : GenericClient<SectionTemplate,Guid>, ISectionTemplateClient
     {
-        public SectionTemplateClient(HttpClient httpClient, SectionTemplateSettings settings) : base(httpClient, settings.BaseUrl + "SectionTemplate")
+        public SectionTemplateClient(HttpClient httpClient, IOptions<SectionTemplateSettings> settings) : base(httpClient, settings.Value.BaseUrl + "SectionTemplate")
+        {
+        }
+    }
+    public interface IQuestionClient : IQuestionRepository
+    {
+    }
+    public class QuestionSettings : HttpClientSettings { }
+
+    public class QuestionClient : GenericClient<Question, Guid>, IQuestionClient
+    {
+        public QuestionClient(HttpClient httpClient, IOptions<QuestionSettings> settings) : base(httpClient, settings.Value.BaseUrl + "Question")
         {
         }
     }
