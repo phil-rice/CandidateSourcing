@@ -8,12 +8,13 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using xingyi.job.Models;
 using xingyi.job.Repository;
+using xingyi.microservices.Controllers;
 
 namespace xingyi.job.Controllers
 {
-    public class JobController : GenericController<Job>
+    public class JobController : GenericController<Job,Guid>
     {
-        public JobController(IJobRepository repository) : base(repository) { }
+        public JobController(IJobRepository repository) : base(repository,j=>j.Id) { }
         [HttpGet("test")]
         public IActionResult Test()
         {
@@ -21,14 +22,14 @@ namespace xingyi.job.Controllers
         }
 
     }
-    public class SectionTemplateController : GenericController<SectionTemplate>
+    public class SectionTemplateController : GenericController<SectionTemplate,Guid>
     {
-        public SectionTemplateController(ISectionTemplateRepository repository) : base(repository) { }
+        public SectionTemplateController(ISectionTemplateRepository repository) : base(repository, st =>st.Id) { }
 
     }
-    public class QuestionController : GenericController<Question>
+    public class QuestionController : GenericController<Question,Guid>
     {
-        public QuestionController(QuestionRepository repository) : base(repository) { }
+        public QuestionController(QuestionRepository repository) : base(repository, q=>q.Id) { }
 
     }
 }

@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
+using xingyi.microservices.Client;
 
 namespace xingyi.job.Client
 {
@@ -19,20 +20,22 @@ namespace xingyi.job.Client
     }
     public class JobSettings : HttpClientSettings { }
 
-    public class JobClient : GenericClient<Job>, IJobClient
+    public class JobClient : GenericClient<Job,Guid>, IJobClient
     {
-        public JobClient(HttpClient httpClient, IOptions<JobSettings> jobSettings) : base(httpClient, jobSettings.Value.BaseUrl+ "Job")
+        public JobClient(HttpClient httpClient, IOptions<JobSettings> jobSettings)
+            : base(httpClient, jobSettings.Value.BaseUrl + "Job")
         {
         }
+
     }
     public interface ISectionTemplateClient : ISectionTemplateRepository
     {
     }
-    public class SectionTemplateSettings: HttpClientSettings {}
+    public class SectionTemplateSettings : HttpClientSettings { }
 
-    public class SectionTemplateClient : GenericClient<SectionTemplate>, ISectionTemplateClient
+    public class SectionTemplateClient : GenericClient<SectionTemplate,Guid>, ISectionTemplateClient
     {
-        public SectionTemplateClient(HttpClient httpClient, SectionTemplateSettings settings): base(httpClient, settings.BaseUrl+"SectionTemplate")
+        public SectionTemplateClient(HttpClient httpClient, SectionTemplateSettings settings) : base(httpClient, settings.BaseUrl + "SectionTemplate")
         {
         }
     }

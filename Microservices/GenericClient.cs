@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using xingyi.microservices.repository;
 
-namespace xingyi.job.Client
+namespace xingyi.microservices.Client
 {
-    public interface IApiClient<T> : IRepository<T> where T : class
+    public interface IApiClient<T,Id> : IRepository<T,Id> where T : class
     {
     }
 
@@ -18,7 +18,7 @@ namespace xingyi.job.Client
     }
 
 
-    public class GenericClient<T> : IApiClient<T> where T : class 
+    public class GenericClient<T,Id> : IApiClient<T,Id> where T : class
     {
         private readonly HttpClient _httpClient;
         private readonly string _baseUrl; // Base URL should be provided during instantiation.
@@ -29,18 +29,24 @@ namespace xingyi.job.Client
             _baseUrl = BaseUrl;
         }
 
-        public async Task<List<T>> GetAllAsync()
+        private String addEagerLoad( string url, bool eagerLoad)
         {
-            var response = await _httpClient.GetAsync(_baseUrl);
+            return $"{url}?eagerLoad={eagerLoad}";
+        }
+        public async Task<List<T>> GetAllAsync(Boolean eagerLoad = false)
+        {
+
+            var response = await _httpClient.GetAsync(addEagerLoad(_baseUrl,eagerLoad));
+            Console.WriteLine(response);
             response.EnsureSuccessStatusCode();
 
             var content = await response.Content.ReadAsStringAsync();
             return JsonConvert.DeserializeObject<List<T>>(content);
         }
 
-        public async Task<T> GetByIdAsync(Guid id)
+        public async Task<T> GetByIdAsync(Id id, Boolean eagerLoad = true)
         {
-            var response = await _httpClient.GetAsync($"{_baseUrl}/{id}");
+            var response = await _httpClient.GetAsync(addEagerLoad($"{_baseUrl}/{id}", eagerLoad));
             response.EnsureSuccessStatusCode();
 
             var content = await response.Content.ReadAsStringAsync();
@@ -64,7 +70,7 @@ namespace xingyi.job.Client
             response.EnsureSuccessStatusCode();
         }
 
-        public async Task<bool> DeleteAsync(Guid id)
+        public async Task<bool> DeleteAsync(Id id)
         {
             var response = await _httpClient.DeleteAsync($"{_baseUrl}/{id}");
             return response.IsSuccessStatusCode;

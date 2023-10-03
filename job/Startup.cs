@@ -9,6 +9,8 @@
     using Microsoft.OpenApi.Models;
     using xingyi.job.Models;
     using xingyi.job.Repository;
+    using Newtonsoft.Json;
+    using Microsoft.AspNetCore.Mvc;
 
     public class Startup
     {
@@ -22,7 +24,12 @@
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllers()
+                     .AddNewtonsoftJson(options =>
+                     {
+                         options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+                         options.SerializerSettings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;
+                     });
 
             services.AddDbContext<JobDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("Job"))

@@ -9,34 +9,46 @@ using xingyi.microservices.repository;
 
 namespace xingyi.job.Repository
 {
-    public interface IJobRepository : IRepository<Job> { }
-    public class JobRepository : Repository<JobDbContext, Job>, IJobRepository
+    public interface IJobRepository : IRepository<Job, Guid> { }
+    public class JobRepository : Repository<JobDbContext, Job, Guid>, IJobRepository
     {
         private readonly JobDbContext _context;
 
-        public JobRepository(JobDbContext context) : base(context, context => context.Jobs)
+        public JobRepository(JobDbContext context) :
+            base(context, context => context.Jobs,
+                  id => j => j.Id == id,
+                  set => set.Include(j => j.JobSectionTemplates)
+                            .ThenInclude(jst => jst.SectionTemplate)
+                            .ThenInclude(st => st.Questions))
         {
         }
 
     }
 
-    public interface IQuestionRepository : IRepository<Question> { }
-    public class QuestionRepository : Repository<JobDbContext, Question>, IQuestionRepository
+    public interface IQuestionRepository : IRepository<Question, Guid> { }
+    public class QuestionRepository : Repository<JobDbContext, Question, Guid>, IQuestionRepository
     {
         private readonly JobDbContext _context;
 
-        public QuestionRepository(JobDbContext context) : base(context, context => context.Questions)
+        public QuestionRepository(JobDbContext context) : base(context,
+            context => context.Questions,
+            id => q => q.Id == id,
+            set => set)
         {
         }
 
     }
 
-    public interface ISectionTemplateRepository : IRepository<SectionTemplate> { }
-    public class SectionTemplateRespository : Repository<JobDbContext, SectionTemplate>, ISectionTemplateRepository
+    public interface ISectionTemplateRepository : IRepository<SectionTemplate, Guid> { }
+    public class SectionTemplateRespository : Repository<JobDbContext, SectionTemplate, Guid>, ISectionTemplateRepository
     {
         private readonly JobDbContext _context;
 
-        public SectionTemplateRespository(JobDbContext context) : base(context, context => context.SectionTemplates)
+        public SectionTemplateRespository(JobDbContext context) :
+            base(context,
+                context => context.SectionTemplates,
+                id => st => st.Id == id,
+                set => set)
         {
         }
 

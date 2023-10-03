@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace xingyi.job.Models
 {
-
+    [ToString, Equals(DoNotAddEqualityOperators = true)]
     public partial class Job
     {
         public Guid Id { get; set; }
@@ -18,7 +18,7 @@ namespace xingyi.job.Models
 
         public virtual ICollection<JobSectionTemplate> JobSectionTemplates { get; set; } = new List<JobSectionTemplate>();
     }
-
+    [ToString, Equals(DoNotAddEqualityOperators = true)]
     public class JobSectionTemplate
     {
         public Guid JobId { get; set; }
@@ -28,7 +28,7 @@ namespace xingyi.job.Models
         public Guid SectionTemplateId { get; set; }
         public SectionTemplate SectionTemplate { get; set; }
     }
-
+    [ToString, Equals(DoNotAddEqualityOperators = true)]
     public partial class SectionTemplate
     {
         public Guid Id { get; set; }
@@ -43,11 +43,11 @@ namespace xingyi.job.Models
         public ICollection<Question> Questions { get; set; } = new List<Question>();
 
     }
-
+    [ToString, Equals(DoNotAddEqualityOperators = true)]
     public class Question
     {
         public Guid Id { get; set; }
-        public Guid SectionTemplateId { get; set; }  
+        public Guid SectionTemplateId { get; set; }
 
         public string Title { get; set; } = null!;
         public string? Description { get; set; }

@@ -1,49 +1,55 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using xingyi.microservices.repository;
 
-namespace xingyi.job.Controllers
+namespace xingyi.microservices.Controllers
 {
+    /// <summary>
+    /// Please note that for this to work properly you need to 
+    /// add Newtonsoft JSON as the serialiser and use JsonSettings
+    /// 
+    /// services.AddControllers()
+    /// .AddNewtonsoftJson(options =>
+    ///    {
+    ///    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+    ///    options.SerializerSettings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;
+    ///});
+    /// </summary>
+    /// <typeparam name="TEntity"></typeparam>
     [Route("api/[controller]")]
     [ApiController]
-   abstract public class GenericController<TEntity> : ControllerBase where TEntity : class
+    abstract public class GenericController<TEntity, Id> : ControllerBase where TEntity : class
     {
-        private readonly IRepository<TEntity> _repository;
+        private readonly IRepository<TEntity,Id> _repository;
+        private readonly Func<TEntity, Id> idFn;
 
-        public GenericController(IRepository<TEntity> repository)
+        public GenericController(IRepository<TEntity,Id> repository, Func<TEntity, Id> idFn)
         {
             _repository = repository;
+            this.idFn = idFn;
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<TEntity>>> GetAll()
+        public async Task<ActionResult<IEnumerable<TEntity>>> GetAll([FromQuery] Boolean eagerLoad)
         {
-            var entities = await _repository.GetAllAsync();
-            if (entities == null || !entities.Any())
-                return NotFound();
-            return Ok(entities);
+            var entities = await _repository.GetAllAsync(eagerLoad);
+            return entities == null ? NotFound() : Ok(entities);
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<TEntity>> Get(Guid id)
+        public async Task<ActionResult<TEntity>> Get(Id id, [FromQuery] Boolean eagerLoad)
         {
-            var entity = await _repository.GetByIdAsync(id);
-            if (entity == null)
-                return NotFound();
-            return Ok(entity);
+            var entity = await _repository.GetByIdAsync(id, eagerLoad);
+            return entity == null ? NotFound() : Ok(entity);
         }
 
-        [HttpPut("{id}")]
-        public async Task<IActionResult> Put(Guid id, TEntity entity)
+        [HttpPut()]
+        public async Task<IActionResult> Put(TEntity entity)
         {
-            // Assumes that TEntity has a property "Id" of type Guid
-            var entityId = (Guid)typeof(TEntity).GetProperty("Id").GetValue(entity);
-            if (id != entityId)
-                return BadRequest();
-
             await _repository.UpdateAsync(entity);
             return NoContent();
         }
@@ -51,17 +57,16 @@ namespace xingyi.job.Controllers
         [HttpPost]
         public async Task<ActionResult<TEntity>> Post(TEntity entity)
         {
-            await _repository.AddAsync(entity);
-            return CreatedAtAction("Get", new { id = typeof(TEntity).GetProperty("Id").GetValue(entity) }, entity);
+            var entityWithId = await _repository.AddAsync(entity);
+            Id id = idFn(entityWithId);
+            return CreatedAtAction("Get", new { id = id }, entity);
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(Guid id)
+        public async Task<IActionResult> Delete(Id id)
         {
             var deleted = await _repository.DeleteAsync(id);
-            if (deleted)
-                return NoContent();
-            return NotFound();
+            return deleted ? NoContent() : NotFound();
         }
     }
 }
