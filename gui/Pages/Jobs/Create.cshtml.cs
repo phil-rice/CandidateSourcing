@@ -1,36 +1,18 @@
+using gui.GenericPages;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using xingyi.gui;
 using xingyi.job.Client;
 using xingyi.job.Models;
+using xingyi.job.Repository;
 
 namespace gui.Pages.Jobs
 {
-    public class JobCreateModel : PageModel
+    public class JobCreateModel : GenericCreateModel<Job, Guid, IJobRepository>
     {
-        private readonly IJobClient client;
-
-        [BindProperty]
-        public Job NewJob { get; set; }
-
-        public JobCreateModel(IJobClient client)
+        public JobCreateModel(IJobRepository client) : base(client)
         {
-            this.client = client;
-        }
-
-        public void OnGet()
-        {
-        }
-
-        public async Task<IActionResult> OnPostAsync()
-        {
-            ModelStateHelper.DumpModelState(ModelState);
-            if (ModelState.IsValid)
-            {
-                await client.AddAsync(NewJob);
-                return RedirectToPage("Index");
-            }
-            return Page();
         }
     }
+
 }

@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using xingyi.job.Client;
+using xingyi.job.Repository;
 
 namespace xingyi.gui
 {
@@ -21,8 +22,8 @@ namespace xingyi.gui
         {
             services.Configure<JobSettings>(Configuration.GetSection("ApiSettings"));
             services.Configure<SectionTemplateSettings>(Configuration.GetSection("ApiSettings"));
-            services.AddHttpClient<IJobClient, JobClient>();
-            services.AddHttpClient<ISectionTemplateClient, SectionTemplateClient>();
+            services.AddHttpClient<IJobRepository, JobClient>();
+            services.AddHttpClient<ISectionTemplateRepository, SectionTemplateClient>();
             services.AddRazorPages();
         }
 

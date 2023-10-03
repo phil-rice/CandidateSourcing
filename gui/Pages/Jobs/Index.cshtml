@@ -1,5 +1,5 @@
 ﻿@page
-@model gui.Pages.Jobs.IndexModel
+@model gui.Pages.Jobs.JobIndexModel
 
 <h1>Jobs</h1>
 
@@ -14,7 +14,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var job in Model.Jobs)
+        @foreach (var job in Model.Items)
         {
             <tr>
                 <td>@job.Title</td>

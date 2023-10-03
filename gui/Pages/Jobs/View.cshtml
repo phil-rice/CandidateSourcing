@@ -9,29 +9,29 @@
         <table class="table table-bordered">
             <tr>
                 <th>ID</th>
-                <td>@Model.Job.Id</td>
+                <td>@Model.Item.Id</td>
             </tr>
             <tr>
                 <th>Title</th>
-                <td>@Model.Job.Title</td>
+                <td>@Model.Item.Title</td>
             </tr>
             <tr>
                 <th>Description</th>
-                <td>@Model.Job.Description</td>
+                <td>@Model.Item.Description</td>
             </tr>
             <tr>
                 <th>Owner</th>
-                <td>@Model.Job.Owner</td>
+                <td>@Model.Item.Owner</td>
             </tr>
         </table>
     </div>
 </div>
 
 <h3>Job Section Templates</h3>
-@if (Model.Job.JobSectionTemplates != null && Model.Job.JobSectionTemplates.Count > 0)
+@if (Model.Item.JobSectionTemplates != null && Model.Item.JobSectionTemplates.Count > 0)
 {
     <ul>
-        @foreach (var template in Model.Job.JobSectionTemplates)
+        @foreach (var template in Model.Item.JobSectionTemplates)
         {
             <li>@template.SectionTemplate.Title</li>
         }

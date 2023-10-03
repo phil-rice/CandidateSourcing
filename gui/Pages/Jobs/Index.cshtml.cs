@@ -1,3 +1,4 @@
+using gui.GenericPages;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using xingyi.job.Client;
@@ -6,27 +7,12 @@ using xingyi.job.Repository;
 
 namespace gui.Pages.Jobs
 {
-    public class IndexModel : PageModel
+    public class JobIndexModel : GenericIndexModel<Job, Guid, IJobRepository>
     {
 
-        public IndexModel(IJobClient client)
+        public JobIndexModel(IJobRepository repo) : base(repo)
         {
-            this.client = client;
 
         }
-
-
-        public List<Job> Jobs { get; private set; }
-
-        public async Task OnGetAsync()
-        {
-            Jobs = await client.GetAllAsync();
-        }
-
-
-
-        private IJobClient client { get; }
-
-
     }
 }

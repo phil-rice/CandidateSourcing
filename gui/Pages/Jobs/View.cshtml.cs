@@ -1,29 +1,17 @@
+using gui.GenericPages;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using xingyi.job.Client;
 using xingyi.job.Models;
+using xingyi.job.Repository;
 
 namespace gui.Pages.Jobs
 {
-    public class JobViewModel : PageModel
+    public class JobViewModel : GenericViewModel<Job, Guid, IJobRepository>
     {
-        private readonly IJobClient client;
-        [FromRoute]
-        public Guid Id { get; set; }
-        [BindProperty]
-        public Job Job { get; private set; }
 
-        public JobViewModel(IJobClient client)
+        public JobViewModel(IJobRepository repo) : base(repo)
         {
-            this.client = client;
         }
-
-
-        public async Task OnGetAsync()
-        {
-            System.Diagnostics.Debug.WriteLine($"ID: {Id}");
-            Job = await client.GetByIdAsync(Id);
-        }
-
     }
 }
