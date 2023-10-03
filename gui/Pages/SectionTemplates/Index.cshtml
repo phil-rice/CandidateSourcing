@@ -1,9 +1,9 @@
 ﻿@page
-@model gui.Pages.Jobs.JobIndexModel
+@model gui.Pages.SectionTemplates.SectionTemplateIndexModel
 
-<h1>Jobs</h1>
+<h1>Section Templates</h1>
 
-<a class="btn btn-primary" href="/Jobs/Create">Add New Job</a>
+<a class="btn btn-primary" href="/SectionTemplates/Create">Add New Section Template</a>
 <table class="table">
     <thead>
         <tr>
@@ -19,9 +19,9 @@
             <tr>
                 <td>@item.Title</td>
                 <td>@item.Description</td>
-                <td>@item.Owner</td>
-                <td><a href="/Jobs/View/@item.Id">View</a></td>
-                <td><a href="/Jobs/Edit/@item.Id">Edit</a></td>
+
+                <td><a href="/SectionTemplates/View/@item.Id">View</a></td>
+                <td><a href="/SectionTemplates/Edit/@item.Id">Edit</a></td>
             </tr>
         }
     </tbody>

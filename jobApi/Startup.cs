@@ -32,7 +32,7 @@
                      });
 
             services.AddDbContext<JobDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("Job"))
+                options.UseSqlServer(Configuration.GetConnectionString("Job"), b => b.MigrationsAssembly("jobApi"))
             );
 
             services.AddScoped<IJobRepository, JobRepository>();
