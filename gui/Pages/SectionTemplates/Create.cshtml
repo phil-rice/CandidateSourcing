@@ -1,5 +1,6 @@
 ﻿@page
 @model gui.Pages.SectionTemplates.SectionTemplateCreateModel
+
 @addTagHelper *, gui
 
 <h1>Add New Section template</h1>
@@ -15,11 +16,10 @@
 
     <!-- "Add Question" Button -->
     <dynamic-fields-add-button bind-to="Questions" />
-    <div class="form-group">
-        <button type="button" id="add.questions.button">Add Question</button>
-    </div>
+    <button type="button" id="add.questions.button">Add Question</button>
 
     <button type="submit" class="btn btn-primary">Save</button>
 </form>
+<dynamic-fields-script bind-to="Questions" items-definition="Title:text,Description:text" />
 
-<dynamic-fields-script items-definition="Title:text,Description:text" bind-to="Questions"/>
+
