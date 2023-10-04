@@ -7,5 +7,19 @@
 <form method="post">
     <label-and-input asp-for="NewItem.Title"></label-and-input>
     <label-and-input asp-for="NewItem.Description"></label-and-input>
+
+    <h4>Questions</h4>
+
+    <!-- Dynamic Question fields -->
+    <dynamic-fields-group id="Questions" attributes="Title:text,Description:text" asp-for="NewItem.Questions" />
+
+    <!-- "Add Question" Button -->
+    <dynamic-fields-add-button bind-to="Questions" />
+    <div class="form-group">
+        <button type="button" id="add.questions.button">Add Question</button>
+    </div>
+
     <button type="submit" class="btn btn-primary">Save</button>
 </form>
+
+<dynamic-fields-script items-definition="Title:text,Description:text" bind-to="Questions"/>
