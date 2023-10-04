@@ -17,7 +17,7 @@ using xingyi.tests.generic;
 
 namespace xingyi.tests.sectionTemplate
 {
-    public class SectionTemplateConsumerPactTest : GenericClientConsumerPactTest<SectionTemplate, Guid, ISectionTemplateRepository,JobDbContext, SectionTemplateClient>
+    public class SectionTemplateConsumerPactTest : GenericClientConsumerPactTest<SectionTemplate, Guid, SectionTemplateRepository,JobDbContext, SectionTemplateClient>
     {
 
 

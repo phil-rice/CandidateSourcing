@@ -22,4 +22,8 @@
 	  <ProjectReference Include="..\JobClient\JobClient.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="TagHelpers\" />
+	</ItemGroup>
+
 </Project>

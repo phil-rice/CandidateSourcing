@@ -14,10 +14,11 @@ using xingyi.job.Models;
 using xingyi.test;
 using xingyi.job.Repository;
 using xingyi.tests.generic;
+using xingyi.tests.questions;
 
 namespace xingyi.tests.job
 {
-    public class JobClientConsumerPactTest : GenericClientConsumerPactTest<Job, Guid, IJobRepository, JobDbContext, JobClient>
+    public class JobClientConsumerPactTest : GenericClientConsumerPactTest<Job, Guid, JobRepository, JobDbContext, JobClient>
     {
 
 
@@ -30,7 +31,7 @@ namespace xingyi.tests.job
                 return new JobClient(httpClient, new OptionsWrapper<JobSettings>(jobSettings));
 
             },
-            new QuestionsFixture(),
+            new JobFixture(),
             "Job"
             )
         {

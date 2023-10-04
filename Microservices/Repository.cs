@@ -9,7 +9,7 @@ using Newtonsoft.Json;
 
 namespace xingyi.microservices.repository
 {
-    public interface IRepository<T,Id> where T : class
+    public interface IRepository<T, Id> where T : class
     {
         Task<List<T>> GetAllAsync(Boolean eagerLoad = false);
         Task<T> GetByIdAsync(Id id, Boolean eagerLoad = true);
@@ -17,16 +17,24 @@ namespace xingyi.microservices.repository
         Task UpdateAsync(T entity);
         Task<bool> DeleteAsync(Id id);
     }
-    abstract public class Repository<C, T,Id> : IRepository<T,Id>
+    abstract public class Repository<C, T, Id> : IRepository<T, Id>
         where T : class
         where C : DbContext
     {
         private readonly C _context;
         private readonly Func<DbSet<T>, IQueryable<T>> eagerLoadFn;
         private readonly DbSet<T> _dbSet;
-        private readonly Func<Id,Expression<Func<T, bool>>> idEquals;
+        private readonly Func<Id, Expression<Func<T, bool>>> idEquals;
 
-        protected Repository(C context, Func<C,DbSet<T>> dbSet, Func<Id, Expression<Func<T, bool>>> idEquals, Func<DbSet<T>, IQueryable<T>> eagerLoadFn)
+        public void cleanDb()
+        {
+            foreach (var entity in _context.ChangeTracker.Entries())
+            {
+                entity.State = EntityState.Detached;
+            }
+        }
+
+        protected Repository(C context, Func<C, DbSet<T>> dbSet, Func<Id, Expression<Func<T, bool>>> idEquals, Func<DbSet<T>, IQueryable<T>> eagerLoadFn)
         {
             _context = context;
             _dbSet = dbSet(context);

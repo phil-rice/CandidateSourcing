@@ -17,7 +17,7 @@ using xingyi.tests.generic;
 
 namespace xingyi.tests.questions
 {
-    public class QuestionClientConsumerPactTest : GenericClientConsumerPactTest<Question, Guid, IQuestionRepository, JobDbContext, QuestionClient>
+    public class QuestionClientConsumerPactTest : GenericClientConsumerPactTest<Question, Guid, QuestionRepository, JobDbContext, QuestionClient>
     {
         public QuestionClientConsumerPactTest() : base(
     port: 9024,

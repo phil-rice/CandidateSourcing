@@ -13,14 +13,14 @@ using xingyi.tests.job;
 
 namespace xingyi.tests.questions
 {
-    public class QuestionsFixture : IGenericFixture<Question, Guid, IQuestionRepository, JobDbContext>
+    public class QuestionsFixture : IGenericFixture<Question, Guid, QuestionRepository, JobDbContext>
     {
 
         public JobDbContext dbContext => new JobDbContext(new DbContextOptionsBuilder<JobDbContext>()
                         .UseInMemoryDatabase(databaseName: "JobTest")
                         .Options);
 
-        public Func<JobDbContext, IQuestionRepository> repoFn => c => new QuestionRepository(c);
+        public Func<JobDbContext, QuestionRepository> repoFn => c => new QuestionRepository(c);
         public Func<Question, Guid> getId => j => j.Id;
         public Action<Question> mutate(string seed)
         {
@@ -31,40 +31,48 @@ namespace xingyi.tests.questions
             Title = "Title1",
             Description = "Description1"
         };
-        public Guid id1 => Guids.from("Q1");
+        public Guid id1 => IdFixture.qId1;
+        public Guid id2 => IdFixture.qId2;
         public Question item1 => new Question
         {
             Id = id1,
             Title = "Title1",
-            Description = "Description1"
-          
+            Description = "Description1",
+            SectionTemplateId = IdFixture.stId1
+
         };
         public Question item2 => new Question
         {
-            Id = Guids.from("Q2"),
+            Id = id2,
             Title = "Title2",
-            Description = "Description2"
-          
+            Description = "Description2",
+            SectionTemplateId = IdFixture.stId1
+
         };
         public Question eagerItem1 => new Question
         {
             Id = id1,
             Title = "Title1",
-            Description = "Description1"
-          
+            Description = "Description1",
+            SectionTemplateId = IdFixture.stId1
+
+
         };
         public Question eagerItem2 => new Question
         {
-            Id = Guids.from("Q2"),
+            Id = id2,
             Title = "Title2",
-            Description = "Description2"
-          
+            Description = "Description2",
+            SectionTemplateId = IdFixture.stId1
+
         };
 
-        async public Task populate(IQuestionRepository repo)
+        async public Task populate(QuestionRepository repo)
         {
-            await repo.AddAsync(item1);
-            await repo.AddAsync(item2);
+            await repo.AddAsync(eagerItem1);
+            await repo.AddAsync(eagerItem2);
+            repo.cleanDb();
+
         }
     }
 }

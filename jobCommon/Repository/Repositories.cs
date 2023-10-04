@@ -37,13 +37,13 @@ namespace xingyi.job.Repository
     }
 
     public interface ISectionTemplateRepository : IRepository<SectionTemplate, Guid> { }
-    public class SectionTemplateRespository : Repository<JobDbContext, SectionTemplate, Guid>, ISectionTemplateRepository
+    public class SectionTemplateRepository : Repository<JobDbContext, SectionTemplate, Guid>, ISectionTemplateRepository
     {
-        public SectionTemplateRespository(JobDbContext context) :
+        public SectionTemplateRepository(JobDbContext context) :
     base(context,
         context => context.SectionTemplates,
         id => st => st.Id == id,
-        set => set)
+        set => set.Include(s => s.Questions))
         {
         }
 

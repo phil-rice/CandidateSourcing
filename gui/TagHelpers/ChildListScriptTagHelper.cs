@@ -65,8 +65,8 @@ namespace xingyi.TagHelpers
         {
             string thisId = $"{BindTo.Name}['+ newIndex + '].{attributeName}";
 
-
-            string templateStart = $"<div class=\"form-group\"><label for=\"{thisId}\">{attributeName}</label>";
+            string parentClass = attributeType == "checkbox" ? "form-check" : "form-group";
+            string templateStart = $"<div class=\"{parentClass}\"><label for=\"{thisId}\">{attributeName}</label>";
             string templateBody = string.Empty;
 
             switch (attributeType)
@@ -81,7 +81,7 @@ namespace xingyi.TagHelpers
                     templateBody = $"<textarea name=\"{thisId}\" id=\"{thisId}\" class=\"form-control\"></textarea>";
                     break;
                 case "checkbox":
-                    templateBody = $"<input type=\"checkbox\" name=\"{thisId}\" id=\"{thisId}\" class=\"form-control\" />";
+                    templateBody = $"<input type=\"checkbox\" name=\"{thisId}\" id=\"{thisId}\" class=\"form-check-input\"\" />";
                     break;
                 default:
                     throw new InvalidOperationException($"Cannot handle attribute type {attributeType} for {attributeName}");

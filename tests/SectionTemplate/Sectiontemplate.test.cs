@@ -13,7 +13,7 @@ using xingyi.tests.sectionTemplate;
 namespace xingyi.tests.sectionTemplate
 {
   
-    public class SectionTemplateRepositoryTest : GenericRepoTest<SectionTemplate, Guid, ISectionTemplateRepository, JobDbContext>
+    public class SectionTemplateRepositoryTest : GenericRepoTest<SectionTemplate, Guid, SectionTemplateRepository, JobDbContext>
     {
         public SectionTemplateRepositoryTest() : base(new SectionTemplateFixture())
         {

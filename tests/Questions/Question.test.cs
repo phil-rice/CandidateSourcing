@@ -12,9 +12,9 @@ using xingyi.test.generic;
 
 namespace xingyi.tests.questions
 {
-    public class QuestionReopsitoryTest : GenericRepoTest<Question, Guid, IQuestionRepository, JobDbContext>
+    public class QuestionRepositoryTest : GenericRepoTest<Question, Guid, QuestionRepository, JobDbContext>
     {
-        public QuestionReopsitoryTest() : base(new QuestionsFixture())
+        public QuestionRepositoryTest() : base(new QuestionsFixture())
         {
         }
     }

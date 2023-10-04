@@ -37,7 +37,7 @@
 
             services.AddScoped<IJobRepository, JobRepository>();
             services.AddScoped<IQuestionRepository, QuestionRepository>();
-            services.AddScoped<ISectionTemplateRepository, SectionTemplateRespository>();
+            services.AddScoped<ISectionTemplateRepository, SectionTemplateRepository>();
 
             services.AddSwaggerGen(c =>
             {

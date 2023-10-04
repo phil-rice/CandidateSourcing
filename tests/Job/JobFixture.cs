@@ -12,14 +12,14 @@ using xingyi.tests.generic;
 
 namespace xingyi.tests.job
 {
-    public class QuestionsFixture : IGenericFixture<Job, Guid, IJobRepository, JobDbContext>
+    public class JobFixture : IGenericFixture<Job, Guid, JobRepository, JobDbContext>
     {
 
         public JobDbContext dbContext => new JobDbContext(new DbContextOptionsBuilder<JobDbContext>()
                         .UseInMemoryDatabase(databaseName: "JobTest")
                         .Options);
 
-        public Func<JobDbContext, IJobRepository> repoFn => c => new JobRepository(c);
+        public Func<JobDbContext, JobRepository> repoFn => c => new JobRepository(c);
         public Func<Job, Guid> getId => j => j.Id;
         public Action<Job> mutate(string seed)
         {
@@ -31,7 +31,8 @@ namespace xingyi.tests.job
             Description = "Description1",
             Owner = "Owner1"
         };
-        public Guid id1 => Guids.from("job1");
+        public Guid id1 => IdFixture.jobId1;
+        public Guid id2 => IdFixture.jobId2;
         public Job item1 => new Job
         {
             Id = id1,
@@ -41,7 +42,7 @@ namespace xingyi.tests.job
         };
         public Job item2 => new Job
         {
-            Id = Guids.from("job2"),
+            Id = id2,
             Title = "Title2",
             Description = "Description2",
             Owner = "Owner2"
@@ -55,16 +56,17 @@ namespace xingyi.tests.job
         };
         public Job eagerItem2 => new Job
         {
-            Id = Guids.from("job2"),
+            Id = id2,
             Title = "Title2",
             Description = "Description2",
             Owner = "Owner2"
         };
 
-        async public Task populate(IJobRepository repo)
+        async public Task populate(JobRepository repo)
         {
-            await repo.AddAsync(item1);
-            await repo.AddAsync(item2);
+            await repo.AddAsync(eagerItem1);
+            await repo.AddAsync(eagerItem2);
+            repo.cleanDb();
         }
     }
 }

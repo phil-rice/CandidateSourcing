@@ -12,12 +12,12 @@
     <h4>Questions</h4>
 
     <!-- Dynamic Question fields -->
-    <child-list bind-to="NewItem.Questions" attributes="Title:text,Description:text"></child-list>
+    <child-list bind-to="NewItem.Questions" attributes="@Model.QuestionFields"></child-list>
 
     <child-list-add-button bind-to="NewItem.Questions">Add Questions</child-list-add-button>
 
     <button type="submit" class="btn btn-primary">Save</button>
 </form>
- <child-list-script bind-to="NewItem.Questions" items-definition="Title:text,Description:text" /> 
+<child-list-script bind-to="NewItem.Questions" items-definition="@Model.QuestionFields" />
 
 
