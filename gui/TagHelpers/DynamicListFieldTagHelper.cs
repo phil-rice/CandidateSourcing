@@ -22,11 +22,15 @@ namespace xingyi.TagHelpers
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
             output.TagName = "div";
-            output.Attributes.SetAttribute("id", Id+ "-group");
+            output.Attributes.SetAttribute("id", Id + "-group");
             var attributeList = AttributeParser.ParseAttributes(Attributes);
+
+            bool itemsExist = false; // Flag to check if items exist
+            
 
             foreach (var item in SafeHelpers.safeEnumerable((Items.Model as IEnumerable<object>)))
             {
+                itemsExist = true; // Set the flag to true when items exist
                 output.Content.AppendHtml($"<div id='{Id}' class='section-item'>");
                 Type itemType = item.GetType();
 
@@ -40,10 +44,13 @@ namespace xingyi.TagHelpers
                         output.Content.AppendHtml(inputHtml);
                     }
                 }
-
-                output.Content.AppendHtml("</div>");
+                output.Content.AppendHtml("</div>"); // Close each item's div
             }
+            output.Content.AppendHtml("<!-- closing -->"); // Close each item's div
+
+
         }
+
     }
     public static class InputGenerator
     {

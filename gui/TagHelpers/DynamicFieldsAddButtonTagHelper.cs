@@ -13,15 +13,12 @@ namespace gui.TagHelpers
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
-            output.TagName = "div"; // Set the outermost tag to div
-            output.Attributes.SetAttribute("class", "form-group");
 
             var buttonId = $"add.{BindTo.ToLower()}.button";
-            var buttonText = $"Add {BindTo}";
-
-            output.Content.SetHtmlContent($@"
-            <button type='button' id='{buttonId}'>{buttonText}</button>
-        ");
+            output.TagName = "button";
+            output.Content.SetContent(output.GetChildContentAsync().Result.GetContent());
+            output.Attributes.SetAttribute("type", "button");
+            output.Attributes.SetAttribute("id", buttonId);
         }
     }
 

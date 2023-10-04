@@ -12,14 +12,13 @@
     <h4>Questions</h4>
 
     <!-- Dynamic Question fields -->
-    <dynamic-fields-group id="Questions" attributes="Title:text,Description:text" asp-for="NewItem.Questions" />
+    <dynamic-fields-group id="Questions" attributes="Title:text,Description:text" asp-for="NewItem.Questions"></dynamic-fields-group>
 
     <!-- "Add Question" Button -->
-    <dynamic-fields-add-button bind-to="Questions" />
-    <button type="button" id="add.questions.button">Add Question</button>
+    <dynamic-fields-add-button bind-to="Questions">Add Questions</dynamic-fields-add-button>
 
     <button type="submit" class="btn btn-primary">Save</button>
 </form>
-<dynamic-fields-script bind-to="Questions" items-definition="Title:text,Description:text" />
+ <dynamic-fields-script bind-to="Questions" items-definition="Title:text,Description:text" /> 
 
 
