@@ -32,7 +32,7 @@ namespace xingyi.Tests.TagHelpers
         [Test]
         public void Process_GeneratesExpectedScriptFunction()
         {
-            var tagHelper = new DynamicFieldsScriptTagHelper
+            var tagHelper = new ChildListScriptTagHelper
             {
                 BindTo = "TestContainer"
             };
@@ -49,7 +49,7 @@ namespace xingyi.Tests.TagHelpers
         [TestCase("IsPublished", "checkbox", "<input type='checkbox' name='TestContainer[0].IsPublished' />")]
         public void Process_GeneratesExpectedHtmlContent(string field, string fieldType, string expectedHtml)
         {
-            var tagHelper = new DynamicFieldsScriptTagHelper
+            var tagHelper = new ChildListScriptTagHelper
             {
                 BindTo = "TestContainer"
               
