@@ -12,7 +12,7 @@ namespace gui.GenericPages
         private readonly C repo;
 
         [BindProperty]
-        public T NewItem { get; set; }
+        public T Item { get; set; }
 
         public GenericCreateModel(C repo)
         {
@@ -24,7 +24,7 @@ namespace gui.GenericPages
             ModelStateHelper.DumpModelState(ModelState);
             if (ModelState.IsValid)
             {
-                await repo.AddAsync(NewItem);
+                await repo.AddAsync(Item);
                 return RedirectToPage("Index");
             }
             return Page();

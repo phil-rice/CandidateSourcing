@@ -4,16 +4,17 @@
 
 <h1>Add New Section template</h1>
 
-<display asp-for="NewItem">"</display>
+<display asp-for="Item">"</display>
 
 <form method="post">
-    <label-and-input asp-for="NewItem.Title"></label-and-input>
-    <label-and-input asp-for="NewItem.Description"></label-and-input>
+    <label-and-input asp-for="Item.Title"></label-and-input>
+    <label-and-input asp-for="Item.Description"></label-and-input>
+    <label-and-boolean asp-for="Item.CanEditWho"></label-and-boolean>
     <h4>Questions</h4>
-    <child-list bind-to="NewItem.Questions" attributes="@Model.QuestionFields"></child-list>
-    <child-list-add-button bind-to="NewItem.Questions">Add Questions</child-list-add-button>
+    <child-list bind-to="Item.Questions" attributes="@Model.QuestionFields"></child-list>
+    <child-list-add-button bind-to="Item.Questions">Add Questions</child-list-add-button>
     <button type="submit" class="btn btn-primary">Save</button>
 </form>
-<child-list-script bind-to="NewItem.Questions" items-definition="@Model.QuestionFields" />
+<child-list-script bind-to="Item.Questions" items-definition="@Model.QuestionFields" />
 
 

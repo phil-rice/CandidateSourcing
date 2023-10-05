@@ -13,7 +13,9 @@ namespace xingyi.common
     {
         public static Guid from(string input)
         {
-            // Use MD5 to get a 16-byte hash of the string
+            if (string.IsNullOrEmpty(input)) return Guid.Empty; // Return a GUID with all zero values.
+           
+            // Use MD5 to get a 16-byte hash of the string . And... it's OK to use MD5 here even though thats a weak hash. This is just for tests to get repeatable guids
             using (var provider = MD5.Create())
             {
                 byte[] inputBytes = Encoding.Default.GetBytes(input);
