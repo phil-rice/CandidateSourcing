@@ -29,11 +29,11 @@ namespace xingyi.TagHelpers
             {
                 string attributeName = definition.Key;
                 string attributeType = definition.Value;
-
-                return GenerateInputElement(attributeName, attributeType);
+                return InputGenerator.GenerateInputHtml(attributeName, attributeType,BindTo, "newIndex","");
             });
 
             string joinedTemplates = string.Join("", generatedTemplates);
+            string inCard = $"<div class=\"card-body\">{joinedTemplates}</div>";
 
             string boundName = BindTo.Name;
 
@@ -43,9 +43,9 @@ namespace xingyi.TagHelpers
                 + "console.log('element', element);"
                 + "var newIndex = (element && element.children) ? element.children.length : 0;"
                 + "console.log('newIndex', newIndex);"
-                + "var template = document.createElement('div');"
-                + $"template.className = '{boundName}-group';"
-                + $"template.innerHTML = '{joinedTemplates}';"
+                + "var template = document.createElement('card');"
+                + $"template.className = 'card';"
+                + $"template.innerHTML = '{inCard}';"
                 + $"element.appendChild(template);"
                 + "});"
                 + "});";
@@ -61,35 +61,7 @@ namespace xingyi.TagHelpers
             return attributes;
         }
 
-        private string GenerateInputElement(string attributeName, string attributeType)
-        {
-            string thisId = $"{BindTo.Name}['+ newIndex + '].{attributeName}";
-
-            string parentClass = attributeType == "checkbox" ? "form-check" : "form-group";
-            string templateStart = $"<div class=\"{parentClass}\"><label for=\"{thisId}\">{attributeName}</label>";
-            string templateBody = string.Empty;
-
-            switch (attributeType)
-            {
-                case "text":
-                    templateBody = $"<input type=\"text\" name=\"{thisId}\" id=\"{thisId}\" class=\"form-control\" />";
-                    break;
-                case "hidden":
-                    templateBody = $"<input type=\"hidden\" name=\"{thisId}\" id=\"{thisId}\" />";
-                    break;
-                case "textarea":
-                    templateBody = $"<textarea name=\"{thisId}\" id=\"{thisId}\" class=\"form-control\"></textarea>";
-                    break;
-                case "checkbox":
-                    templateBody = $"<input type=\"checkbox\" name=\"{thisId}\" id=\"{thisId}\" class=\"form-check-input\"\" />";
-                    break;
-                default:
-                    throw new InvalidOperationException($"Cannot handle attribute type {attributeType} for {attributeName}");
-            }
-
-            return templateStart + templateBody + "</div>";
-        }
-
+     
 
 
     }

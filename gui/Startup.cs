@@ -25,6 +25,10 @@ namespace xingyi.gui
             services.AddHttpClient<IJobRepository, JobClient>();
             services.AddHttpClient<ISectionTemplateRepository, SectionTemplateClient>();
             services.AddRazorPages();
+            services.AddMvc().AddViewOptions(options =>
+            {
+                options.HtmlHelperOptions.ClientValidationEnabled = true;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
