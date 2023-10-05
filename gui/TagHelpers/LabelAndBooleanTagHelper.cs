@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
+using xingyi.common;
 
 namespace xingyi.TagHelpers
 {
@@ -18,38 +19,30 @@ namespace xingyi.TagHelpers
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
-            output.TagName = "div"; // Set to div as outermost tag
+            output.TagName = "div";
             output.Attributes.Add("class", "form-group");
 
-            // Build the inner HTML structure
-            var innerHtml = new TagBuilder("div");
-            innerHtml.AddCssClass("form-check");
-
-            // Checkbox input
             var checkboxInput = new TagBuilder("input");
-            checkboxInput.AddCssClass("form-check-input");
             checkboxInput.Attributes.Add("type", "checkbox");
+            checkboxInput.Attributes.Add("class", "form-check-input");
             checkboxInput.Attributes.Add("id", For.Name);
             checkboxInput.Attributes.Add("name", For.Name);
-            bool? isChecked = For.Model as bool?;
 
+            bool? isChecked = For.Model as bool?;
             if (isChecked.HasValue && isChecked.Value)
             {
                 checkboxInput.Attributes.Add("checked", "checked");
             }
 
-
-            // Label
             var label = new TagBuilder("label");
-            label.AddCssClass("form-check-label");
+            label.Attributes.Add("class", "form-check-label");
             label.Attributes.Add("for", For.Name);
-            label.InnerHtml.Append(For.Metadata.DisplayName ?? For.Name);
 
-            // Append everything to innerHtml
-            innerHtml.InnerHtml.AppendHtml(checkboxInput);
-            innerHtml.InnerHtml.AppendHtml(label);
+            var labelName = Strings.ExtractAndFormatLabel(For.Name);
+            label.InnerHtml.Append(labelName);
 
-            output.Content.AppendHtml(innerHtml);
+            output.Content.AppendHtml(checkboxInput);
+            output.Content.AppendHtml(label);
         }
     }
 }
