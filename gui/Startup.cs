@@ -9,7 +9,7 @@ using System;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.Extensions.Logging;
-
+using gui.Middleware;
 
 namespace xingyi.gui
 {
@@ -33,6 +33,7 @@ namespace xingyi.gui
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddLogging();
             services.AddDistributedMemoryCache();
             services.AddSession();
 
@@ -80,21 +81,27 @@ namespace xingyi.gui
                 app.UseExceptionHandler("/Error");
                 app.UseHsts();
             }
+            app.UseRequestResponseLogging(options => { options.Prefix = "Start: "; options.Enabled = false; });
 
             app.UseHttpsRedirection();
+            app.UseRequestResponseLogging(options => { options.Prefix = "AfterRedirect: "; options.Enabled = false; });
             app.UseStaticFiles();
 
             app.UseRouting();
+            app.UseRequestResponseLogging(options => { options.Prefix = "After routing: "; options.Enabled = false; });
 
             app.UseSession();
+            app.UseRequestResponseLogging(options => { options.Prefix = "After use session: "; options.Enabled = false; });
             app.UseAuthentication();
             app.UseAuthorization();
 
+            app.UseRequestResponseLogging(options => { options.Prefix = "After use auth/auth: "; options.Enabled = false; });
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapRazorPages();
                 endpoints.MapControllers();
             });
+            app.UseRequestResponseLogging(options => { options.Prefix = "After use use endpoints: "; });
 
         }
     }

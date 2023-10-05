@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using xingyi.gui;
 using xingyi.job.Client;
@@ -7,7 +9,8 @@ using xingyi.microservices.repository;
 
 namespace gui.GenericPages
 {
-    public class GenericCreateModel<T, ID ,C> : PageModel where T: class where C : IRepository<T, ID>
+    [Authorize]
+    public class GenericCreateModel<T, ID, C> : PageModel where T : class, new() where C : IRepository<T, ID>
     {
         private readonly C repo;
 
@@ -19,6 +22,17 @@ namespace gui.GenericPages
             this.repo = repo;
         }
 
+        virtual async public Task modifyItemOnCreate(T Item)
+        {
+
+        }
+
+       virtual  public async Task OnGetAsync()
+        {
+            T i = new T();
+            await modifyItemOnCreate(i);
+            Item = i;
+        }
         public async Task<IActionResult> OnPostAsync()
         {
             ModelStateHelper.DumpModelState(ModelState);

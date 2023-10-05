@@ -11,6 +11,7 @@
     using xingyi.job.Repository;
     using Newtonsoft.Json;
     using Microsoft.AspNetCore.Mvc;
+    using gui.Middleware;
 
     public class Startup
     {
@@ -59,6 +60,7 @@
                 // Use HSTS if required
                 // app.UseHsts();
             }
+            app.UseMiddleware<RequestResponseLoggingMiddleware>();
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {

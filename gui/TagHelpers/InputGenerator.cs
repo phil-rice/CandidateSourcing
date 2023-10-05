@@ -21,6 +21,9 @@ namespace xingyi.TagHelpers
                 case "text":
                     templateBody = $"<input type=\"text\" name=\"{thisId}\" id=\"{thisId}\" class=\"form-control\" {valueAttribute} />";
                     break;
+                case "readonly":
+                    templateBody = $"<input type=\"text\" name=\"{thisId}\" id=\"{thisId}\" class=\"form-control\" {valueAttribute} readyonly />";
+                    break;
                 case "hidden":
                     templateBody = $"<input type=\"hidden\" name=\"{thisId}\" id=\"{thisId}\" {valueAttribute} />";
                     break;

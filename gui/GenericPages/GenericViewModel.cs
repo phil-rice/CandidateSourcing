@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using xingyi.job.Client;
 using xingyi.job.Models;
@@ -6,6 +7,7 @@ using xingyi.microservices.repository;
 
 namespace gui.GenericPages
 {
+    [Authorize]
     public class GenericViewModel<T, ID, C> : PageModel where T : class where C : IRepository<T, ID>
     {
         private readonly IRepository<T, ID> repo;

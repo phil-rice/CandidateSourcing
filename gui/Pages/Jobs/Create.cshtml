@@ -1,12 +1,23 @@
 ﻿@page
+@using xingyi.job.Models;
 @model gui.Pages.Jobs.JobCreateModel
 @addTagHelper *, gui
 
 <h1>Add New Job</h1>
 
 <form method="post">
-    <label-and-input asp-for="Item.Title"></label-and-input>
-    <label-and-input asp-for="Item.Description"></label-and-input>
-    <label-and-input asp-for="Item.Owner"></label-and-input>
+    <label-and-input asp-for="Item.Job.Title"></label-and-input>
+    <label-and-input asp-for="Item.Job.Description"></label-and-input>
+    <label-and-input asp-for="Item.Job.Owner" readonly="true"></label-and-input>
+
+    <h2>Section Templates</h2>
+    @for (int i = 0; i < Model.Item.SectionTemplates.Count(); i++)
+    {
+        <div class="form-check">
+            <label-and-boolean asp-for="Item.SectionTemplates[i].IsChecked"></label-and-boolean>
+            <input asp-for="Item.SectionTemplates[i].Id" type="hidden" />
+            <!-- You can add other properties from SectionTemplate here as hidden inputs if needed -->
+        </div>
+    }
     <button type="submit" class="btn btn-primary">Save</button>
 </form>

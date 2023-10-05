@@ -1,10 +1,21 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace xingyi.job.Models
 {
+    public partial class Job
+    {
+
+        public bool contains(SectionTemplate st)
+        {
+            return JobSectionTemplates.Any(jst => jst.SectionTemplate == st);
+        }
+
+    }
+
     [ToString, Equals(DoNotAddEqualityOperators = true)]
     public partial class Job
     {
@@ -31,15 +42,16 @@ namespace xingyi.job.Models
         [Required]
         public Guid JobId { get; set; }
 
-        [ForeignKey("JobId")]
-        public Job Job { get; set; }
-
-        //Navigation
         [Required]
         public Guid SectionTemplateId { get; set; }
 
+        //Navigation
+        [ForeignKey("JobId")]
+        [JsonIgnore]
+        public Job? Job { get; set; }
+
         [ForeignKey("SectionTemplateId")]
-        public SectionTemplate SectionTemplate { get; set; }
+        public SectionTemplate? SectionTemplate { get; set; }
     }
     [ToString, Equals(DoNotAddEqualityOperators = true)]
     public partial class SectionTemplate
@@ -47,19 +59,20 @@ namespace xingyi.job.Models
         [Key]
         public Guid Id { get; set; }
 
+        public string owner;
         public bool? CanEditWho { get; set; }
 
         [Required]
         [StringLength(255)]
         public string Title { get; set; } = null!;
 
-        [StringLength(255)] 
+        [StringLength(255)]
         public string? Description { get; set; }
 
         //Navigation
         [InverseProperty("SectionTemplate")]
         public ICollection<JobSectionTemplate> JobsSectionTemplates { get; set; } = new List<JobSectionTemplate>();
-       
+
         public ICollection<Question> Questions { get; set; } = new List<Question>();
     }
 

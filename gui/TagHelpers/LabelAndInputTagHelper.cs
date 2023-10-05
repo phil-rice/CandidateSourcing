@@ -12,6 +12,9 @@
         [HtmlAttributeName(ForAttributeName)]
         public ModelExpression For { get; set; }
 
+        [HtmlAttributeName("readonly")]
+        public bool IsReadonly { get; set; } = false;  // Default value is false
+
         [ViewContext]
         [HtmlAttributeNotBound]
         public ViewContext ViewContext { get; set; }
@@ -31,7 +34,12 @@
             input.Attributes.Add("id", For.Name);
             input.Attributes.Add("name", For.Name);
             input.Attributes.Add("class", "form-control");
-            input.Attributes.Add("type", "text"); // You might want to add logic to determine type based on the model metadata.
+            input.Attributes.Add("type", "text");  
+
+            if (IsReadonly)
+            {
+                input.Attributes.Add("readonly", "readonly");
+            }
 
             // Get the actual value from the model and set it as the value for the input
             var value = For.ModelExplorer.GetSimpleDisplayText();
@@ -45,6 +53,5 @@
             output.Content.AppendHtml(input);
             output.Content.AppendHtml(validationSpan);
         }
-
     }
 }

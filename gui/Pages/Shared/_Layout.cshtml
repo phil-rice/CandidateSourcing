@@ -61,6 +61,34 @@
 
     <script>
         //Resolves Razor pages generally incompetant handling of checkboxs. By default checkboxes break razor.
+        //This is to with with the label-and-boolean taghelper
+        //
+        $(document).ready(function () {
+            $(document).on('change', '.toggle-checkbox', function () {
+                console.log("Checkbox change event triggered.");
+
+                var targetHiddenInput = $(this).data('toggle-target');
+                console.log("Target Hidden Input ID:", targetHiddenInput);
+
+                var isChecked = $(this).is(':checked');
+                console.log("Checkbox is checked:", isChecked);
+
+                // Using a more forgiving selector to select the hidden input
+                var targetElement = $("input[id='" + targetHiddenInput + "']");
+                if (targetElement.length) {
+                    targetElement.val(isChecked.toString());
+                    console.log("Updated hidden input value.");
+                } else {
+                    console.log("Target hidden input not found.");
+                }
+            });
+
+        });
+
+
+    </script>
+   @*  <script>
+        //Resolves Razor pages generally incompetant handling of checkboxs. By default checkboxes break razor.
         $(document).ready(function () {
             // Attach the event handler to every form on the page
             $('form').on('submit', function () {
@@ -74,7 +102,7 @@
                 });
             });
         });
-    </script>
+    </script> *@
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>
