@@ -49,6 +49,23 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
 
+    <script>
+        //Resolves Razor pages generally incompetant handling of checkboxs. By default checkboxes break razor.
+        $(document).ready(function () {
+            // Attach the event handler to every form on the page
+            $('form').on('submit', function () {
+                // Find every checkbox within the current form
+                $(this).find('input[type="checkbox"]').each(function () {
+                    if ($(this).is(':checked')) {
+                        $(this).val('true');
+                    } else {
+                        $(this).val('false');
+                    }
+                });
+            });
+        });
+    </script>
+
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

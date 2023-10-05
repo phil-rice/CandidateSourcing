@@ -1,12 +1,18 @@
 ﻿@page "{Id}"
 @model gui.Pages.SectionTemplates.SectionTemplateEditModel
+@addTagHelper *, gui
 
 <h1>Edit SectionTemplate</h1>
 
+<display asp-for="Item">"</display>
 
 <form method="post">
     <input type="hidden" asp-for="Item.Id" />
     <label-and-input asp-for="Item.Title"></label-and-input>
     <label-and-input asp-for="Item.Description"></label-and-input>
+    <h4>Questions</h4>
+    <child-list bind-to="Item.Questions" attributes="@Model.QuestionFields"></child-list>
+    <child-list-add-button bind-to="Item.Questions">Add Questions</child-list-add-button>
     <button type="submit" class="btn btn-primary">Save</button>
 </form>
+<child-list-script bind-to="Item.Questions" items-definition="@Model.QuestionFields" />

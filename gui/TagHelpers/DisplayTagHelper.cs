@@ -23,7 +23,7 @@ namespace xingyi.TagHelpers
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
-            output.TagName = "pre"; // This sets the wrapping tag to <pre>
+            output.TagName = "p"; // This sets the wrapping tag to <pre>
 
             if (For?.Model != null)
             {

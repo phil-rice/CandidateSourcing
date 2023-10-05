@@ -26,7 +26,7 @@ namespace xingyi.TagHelpers
             var items = SafeHelpers.safeEnumerable((Items.Model as IEnumerable<object>));
             if (items.Any())
             {
-                   var index = 0;
+                var index = 0;
                 foreach (var item in items)
                 {
 
@@ -43,11 +43,9 @@ namespace xingyi.TagHelpers
                             output.Content.AppendHtml(inputHtml);
                         }
                     }
-                    output.Content.AppendHtml("</div></div></div>"); 
+                    output.Content.AppendHtml("</div></div></div>");
                     index += 1;
                 }
-
-
             }
         }
 

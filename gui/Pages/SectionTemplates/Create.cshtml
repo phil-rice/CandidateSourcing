@@ -1,6 +1,5 @@
 ﻿@page
 @model gui.Pages.SectionTemplates.SectionTemplateCreateModel
-
 @addTagHelper *, gui
 
 <h1>Add New Section template</h1>
@@ -10,14 +9,9 @@
 <form method="post">
     <label-and-input asp-for="NewItem.Title"></label-and-input>
     <label-and-input asp-for="NewItem.Description"></label-and-input>
-
     <h4>Questions</h4>
-
-    <!-- Dynamic Question fields -->
     <child-list bind-to="NewItem.Questions" attributes="@Model.QuestionFields"></child-list>
-
     <child-list-add-button bind-to="NewItem.Questions">Add Questions</child-list-add-button>
-
     <button type="submit" class="btn btn-primary">Save</button>
 </form>
 <child-list-script bind-to="NewItem.Questions" items-definition="@Model.QuestionFields" />

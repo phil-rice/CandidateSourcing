@@ -9,6 +9,8 @@ namespace gui.Pages.SectionTemplates
 {
     public class SectionTemplateEditModel : GenericEditModel<SectionTemplate, Guid, ISectionTemplateRepository>
     {
+        public string QuestionFields { get; } = SectionTemplateCommon.QuestionFields;
+
         public SectionTemplateEditModel(ISectionTemplateRepository client) : base(client)
         {
         }
