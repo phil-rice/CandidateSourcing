@@ -1,0 +1,23 @@
+﻿@page
+@model gui.Pages.Admin.DashboardModel
+
+<h2>Admin Dashboard</h2>
+
+<h1>Welcome to the Admin Dashboard!</h1>
+<p>
+    Please note that every user is treated as an administrator for jobs that they might want to create
+</p>
+<p>If you want to use this website to create your own job applications please do so!</p>
+
+<h2>  <a asp-page="/Jobs/Index">Jobs</a></h2>
+<p>A job is a role that you want to fulfill</p>
+<p>To create a job you need a title and description. You need to select the 'section templates' for that job and that's it</p>
+<p>Note: you cannot create a section template while creating a job, so make them first</p>
+
+<h2>  <a asp-page="/SectionTemplates/Index">Section Template</a></h2>
+<p>When processing a job application different people have to fill in different bits of data</p>
+<p>For example a candidate needs to fill in their details</p>
+<p>Interviewers need to fill in the result of their interview</p>
+<p>These Sections (or Section Templates) are how you define the questions that need to be filled in</p>
+<p>Please note that once an application has started changes to these templates do not impact the questions in the application</p>
+
