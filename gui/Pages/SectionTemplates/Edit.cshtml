@@ -10,6 +10,7 @@
     <input type="hidden" asp-for="Item.Id" />
     <label-and-input asp-for="Item.Title"></label-and-input>
     <label-and-input asp-for="Item.Description"></label-and-input>
+    <label-and-boolean asp-for="Item.CanEditWho"></label-and-boolean>
     <h4>Questions</h4>
     <child-list bind-to="Item.Questions" attributes="@Model.QuestionFields"></child-list>
     <child-list-add-button bind-to="Item.Questions">Add Questions</child-list-add-button>

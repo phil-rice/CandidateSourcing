@@ -1,0 +1,25 @@
+﻿@page
+@model LoginModel
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div class="card">
+                <div class="card-header">
+                    Login
+                </div>
+                <div class="card-body">
+                    <p class="text-center">Login with your Google Account</p>
+                    <!-- Redirects the user to Google's OAuth page -->
+                    <a href="ExternalLogin?provider=Google&returnUrl=/"
+                       class="btn btn-danger w-100">
+                        <i class="fab fa-google"></i> Login with Google
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Font Awesome for Google Icon -->
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>

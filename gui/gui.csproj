@@ -1,13 +1,18 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>f2aefa6c-2e67-4557-85dd-799118ab5d33</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
+	  <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="6.0.22" />
+	  <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.22" />
 	  <PackageReference Include="Microsoft.AspNetCore.Mvc.TagHelpers" Version="2.2.0" />
+	  <PackageReference Include="Microsoft.AspNetCore.Session" Version="2.2.0" />
+	  <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.16" />
 	  <ProjectReference Include="..\common\common.csproj" />
     <ProjectReference Include="..\JobClient\JobClient.csproj" />
   </ItemGroup>
