@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics;
 
 namespace xingyi.job.Models
 {
@@ -11,12 +12,13 @@ namespace xingyi.job.Models
 
         public bool contains(SectionTemplate st)
         {
-            return JobSectionTemplates.Any(jst => jst.SectionTemplate == st);
+            return JobSectionTemplates.Any(jst => jst.SectionTemplate.Id == st.Id);
         }
 
     }
 
     [ToString, Equals(DoNotAddEqualityOperators = true)]
+    [DebuggerDisplay("Job: (ID: {ID}, Title: {Title})")]
     public partial class Job
     {
         [Key]
@@ -37,6 +39,8 @@ namespace xingyi.job.Models
         public virtual ICollection<JobSectionTemplate> JobSectionTemplates { get; set; } = new List<JobSectionTemplate>();
     }
     [ToString, Equals(DoNotAddEqualityOperators = true)]
+    [DebuggerDisplay("JobSectionTemplate: (Job: {JobId}, SectionTemplateId: {SectionTemplateId})")]
+
     public class JobSectionTemplate
     {
         [Required]
@@ -54,6 +58,7 @@ namespace xingyi.job.Models
         public SectionTemplate? SectionTemplate { get; set; }
     }
     [ToString, Equals(DoNotAddEqualityOperators = true)]
+    [DebuggerDisplay("SectionTemplate: (Id: {Id}, owner: {owner}, Title: {Title})")]
     public partial class SectionTemplate
     {
         [Key]

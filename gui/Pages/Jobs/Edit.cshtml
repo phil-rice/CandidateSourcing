@@ -1,14 +1,23 @@
 ﻿@page "{Id}"
+@using xingyi.common;
 @model gui.Pages.Jobs.JobEditModel
 @addTagHelper *, gui
 
 <h1>Edit Job</h1>
 
-
+<display asp-for="Item">"</display>
 <form method="post">
-    <input type="hidden" asp-for="Item.Id" />
-    <label-and-input asp-for="Item.Title"></label-and-input>
-    <label-and-input asp-for="Item.Description"></label-and-input>
-    <label-and-input asp-for="Item.Owner" readonly="true"></label-and-input>
+    <input type="hidden" asp-for="Item.Job.Id" />
+    <label-and-input asp-for="Item.Job.Title"></label-and-input>
+    <label-and-input asp-for="Item.Job.Description"></label-and-input>
+    <label-and-input asp-for="Item.Job.Owner" readonly="true"></label-and-input>
+    @for (int i = 0; i < SafeHelpers.safeList(Model.Item.SectionTemplates).Count(); i++)
+    {
+        <div class="form-check">
+            <label-and-boolean asp-for="Item.SectionTemplates[i].IsChecked" asp-label="Item.SectionTemplates[i].Title"></label-and-boolean>
+            <input asp-for="Item.SectionTemplates[i].Id" type="hidden" />
+            <!-- You can add other properties from SectionTemplate here as hidden inputs if needed -->
+        </div>
+    }
     <button type="submit" class="btn btn-primary">Save</button>
 </form>

@@ -21,9 +21,9 @@ namespace xingyi.microservices.repository
         where T : class
         where C : DbContext
     {
-        private readonly C _context;
+        protected readonly C _context;
         private readonly Func<DbSet<T>, IQueryable<T>> eagerLoadFn;
-        private readonly DbSet<T> _dbSet;
+        protected readonly DbSet<T> _dbSet;
         private readonly Func<Id, Expression<Func<T, bool>>> idEquals;
 
         public void cleanDb()
@@ -81,8 +81,10 @@ namespace xingyi.microservices.repository
             return entity;
         }
 
+        protected virtual async Task populateEntityForUpdate(T entity) {  }
         public async Task UpdateAsync(T entity)
         {
+            await populateEntityForUpdate(entity);
             _dbSet.Update(entity);
             await _context.SaveChangesAsync();
         }

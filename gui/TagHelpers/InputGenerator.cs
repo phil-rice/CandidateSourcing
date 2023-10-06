@@ -11,7 +11,8 @@ namespace xingyi.TagHelpers
                 $"{BindTo.Name}['+{index}+'].{attributeName}";
 
             string parentClass = attributeType == "checkbox" ? "form-check" : "form-group";
-            string templateStart = $"<div class=\"{parentClass}\"><label for=\"{value}\">{attributeName}</label>";
+            string labelString = attributeType == "hidden" ? "" : $"<label for=\"{value}\">{attributeName}</label>";
+            string templateStart = $"<div class=\"{parentClass}\">{labelString}";
             string templateBody = string.Empty;
 
             string valueAttribute = $"value=\"{value}\"";
@@ -32,7 +33,9 @@ namespace xingyi.TagHelpers
                     break;
                 case "checkbox":
                     bool isChecked = value != null && value != "" && Convert.ToBoolean(value);
-                    templateBody = $"<input type=\"checkbox\" name=\"{thisId}\" id=\"{thisId}\" class=\"form-check-input\" {(isChecked ? "checked" : string.Empty)} />";
+                    string hidden = $"<input type=\"hidden\" name=\"{thisId}\" id=\"{thisId}\" class=\"form-check-input\" {(isChecked ? "checked" : string.Empty)} />";
+                    string checkbox = $"<input type=\"checkbox\"  class=\"form-check-input\" {(isChecked ? "checked" : string.Empty)} />";
+                    templateBody = hidden + checkbox;
                     break;
                 default:
                     throw new InvalidOperationException($"Cannot handle attribute type {attributeType} for {attributeName}");

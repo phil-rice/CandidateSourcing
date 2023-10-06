@@ -1,4 +1,5 @@
 ﻿@page
+@using xingyi.common;
 @using xingyi.job.Models;
 @model gui.Pages.Jobs.JobCreateModel
 @addTagHelper *, gui
@@ -11,10 +12,10 @@
     <label-and-input asp-for="Item.Job.Owner" readonly="true"></label-and-input>
 
     <h2>Section Templates</h2>
-    @for (int i = 0; i < Model.Item.SectionTemplates.Count(); i++)
+    @for (int i = 0; i < SafeHelpers.safeList(Model.Item.SectionTemplates).Count(); i++)
     {
         <div class="form-check">
-            <label-and-boolean asp-for="Item.SectionTemplates[i].IsChecked"></label-and-boolean>
+            <label-and-boolean asp-for="Item.SectionTemplates[i].IsChecked" asp-label="Item.SectionTemplates[i].Title"></label-and-boolean>
             <input asp-for="Item.SectionTemplates[i].Id" type="hidden" />
             <!-- You can add other properties from SectionTemplate here as hidden inputs if needed -->
         </div>

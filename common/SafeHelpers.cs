@@ -12,5 +12,9 @@ namespace xingyi.common
         {
             return list == null ? new List<T>() : list;
         }
+        public static List<T> safeList<T>(this List<T> list)
+        {
+            return list == null ? new List<T>() : list;
+        }
     }
 }
