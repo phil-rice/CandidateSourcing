@@ -17,10 +17,16 @@ namespace xingyi.tests.generic
         public static Guid stId2 = Guids.from("st2");
         public static Guid qId1 = Guids.from("q1");
         public static Guid qId2 = Guids.from("q2");
+        public static Guid appId1 = Guids.from("app1");
+        public static Guid appId2 = Guids.from("app2");
+        public static Guid secId1 = Guids.from("sec1");
+        public static Guid secId2 = Guids.from("sec2");
+        public static Guid aId1 = Guids.from("a1");
+        public static Guid aId2 = Guids.from("a2");
     }
     public interface IGenericFixture<T, Id, R, C> where T : class where C : DbContext where R : IRepository<T, Id>
     {
-  
+
 
         public C dbContext { get; }
         public Func<C, R> repoFn { get; }

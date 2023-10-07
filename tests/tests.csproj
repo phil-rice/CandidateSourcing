@@ -17,9 +17,15 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <ProjectReference Include="..\ApplicationApi\ApplicationApi.csproj" />
+	  <ProjectReference Include="..\applicationClient\applicationClient.csproj" />
+	  <ProjectReference Include="..\applicationCommon\applicationCommon.csproj" />
 	  <ProjectReference Include="..\common\common.csproj" />
 	  <ProjectReference Include="..\gui\gui.csproj" />
+	  <ProjectReference Include="..\jobApi\jobApi.csproj" />
 	  <ProjectReference Include="..\JobClient\JobClient.csproj" />
+	  <ProjectReference Include="..\jobCommon\jobCommon.csproj" />
+	  <ProjectReference Include="..\Microservices\Microservices.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

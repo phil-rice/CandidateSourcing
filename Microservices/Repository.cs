@@ -33,6 +33,17 @@ namespace xingyi.microservices.repository
                 entity.State = EntityState.Detached;
             }
         }
+        protected bool IsEntityBeingTracked<TEntity>(TEntity entity) where TEntity : class
+        {
+            return _context.ChangeTracker.Entries<TEntity>().Any(e => e.Entity == entity);
+        }
+        protected void AddIfNotTracked<TEntity>(TEntity entity) where TEntity : class
+        {
+            if (!IsEntityBeingTracked(entity))
+            {
+                _context.Set<TEntity>().Add(entity);
+            }
+        }
 
         protected Repository(C context, Func<C, DbSet<T>> dbSet, Func<Id, Expression<Func<T, bool>>> idEquals, Func<DbSet<T>, IQueryable<T>> eagerLoadFn)
         {

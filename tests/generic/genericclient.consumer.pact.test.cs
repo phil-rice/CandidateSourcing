@@ -26,16 +26,14 @@ namespace xingyi.tests.generic
         where Cl : GenericClient<T, Id>
     {
 
-        private readonly int port;
-        private Cl client;
+        private Func<int, Cl> clientFn ;
         private IGenericFixture<T, Id, R, C> fixture;
         private string itemClassName = "Job";
         private IPactBuilderV2 pact;
 
-        protected GenericClientConsumerPactTest(int port, Func<int, Cl> client, IGenericFixture<T, Id, R, C> fixture, string itemClassName)
+        protected GenericClientConsumerPactTest(Func<int, Cl> clientFn, IGenericFixture<T, Id, R, C> fixture, string itemClassName)
         {
-            this.port = port;
-            this.client = client(port);
+            this.clientFn = clientFn;
             this.fixture = fixture;
             this.itemClassName = itemClassName;
         }
@@ -48,7 +46,7 @@ namespace xingyi.tests.generic
                 PactDir = @"..\..\..\..\artifacts\pacts"
             };
             IPactV2 pact = Pact.V2($"{itemClassName}Client", $"{itemClassName}Api", config);
-            this.pact = pact.WithHttpInteractions(port);
+            this.pact = pact.WithHttpInteractions();
         }
 
         [Test]
@@ -65,6 +63,7 @@ namespace xingyi.tests.generic
 
             await pact.VerifyAsync(async ctx =>
             {
+                var client = clientFn(ctx.MockServerUri.Port);
                 var result = await client.GetAllAsync();
                 Assert.AreEqual(0, result.Count());
 
@@ -86,6 +85,7 @@ namespace xingyi.tests.generic
 
             await pact.VerifyAsync(async ctx =>
             {
+                var client = clientFn(ctx.MockServerUri.Port);
                 var result = await client.GetAllAsync();
                 Assertions.ListsEqual(expected, result);
 
@@ -107,6 +107,8 @@ namespace xingyi.tests.generic
 
             await pact.VerifyAsync(async ctx =>
             {
+
+                var client = clientFn(ctx.MockServerUri.Port);
                 var result = await client.GetByIdAsync(id1);
                 Assert.AreEqual(fixture.item1, result);
 
@@ -126,6 +128,8 @@ namespace xingyi.tests.generic
 
             await pact.VerifyAsync(async ctx =>
             {
+
+                var client = clientFn(ctx.MockServerUri.Port);
                 var result = await client.AddAsync(fixture.noIdItem1);
                 Assert.AreEqual(fixture.eagerItem1, result);
 

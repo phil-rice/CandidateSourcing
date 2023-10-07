@@ -20,17 +20,6 @@ namespace xingyi.job.Repository
                             .ThenInclude(st => st.Questions))
         {
         }
-        public bool IsEntityBeingTracked<TEntity>(TEntity entity) where TEntity : class
-        {
-            return _context.ChangeTracker.Entries<TEntity>().Any(e => e.Entity == entity);
-        }
-        public void AddIfNotTracked<TEntity>(TEntity entity) where TEntity : class
-        {
-            if (!IsEntityBeingTracked(entity))
-            {
-                _context.Set<TEntity>().Add(entity);
-            }
-        }
 
         override protected async Task populateEntityForUpdate(Job job)
         {

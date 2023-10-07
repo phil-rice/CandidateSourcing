@@ -7,11 +7,11 @@
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
     using Microsoft.OpenApi.Models;
-    using xingyi.job.Models;
     using xingyi.job.Repository;
     using Newtonsoft.Json;
     using Microsoft.AspNetCore.Mvc;
     using gui.Middleware;
+
 
     public class Startup
     {
@@ -79,8 +79,8 @@
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers();  // Maps to the Controllers for routing.
-                                             // Add other endpoint mappings as necessary.
+                endpoints.MapControllers(); 
+                                           
             });
         }
     }
