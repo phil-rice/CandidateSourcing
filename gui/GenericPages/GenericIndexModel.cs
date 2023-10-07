@@ -18,7 +18,7 @@ namespace gui.GenericPages
 
         public List<T> Items { get; private set; }
 
-        public async Task OnGetAsync()
+        virtual public async Task OnGetAsync()
         {
             Items = await repo.GetAllAsync();
         }
