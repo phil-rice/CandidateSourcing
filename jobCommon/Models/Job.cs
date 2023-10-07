@@ -44,6 +44,7 @@ namespace xingyi.job.Models
     public class JobSectionTemplate
     {
         [Required]
+        [Key]
         public Guid JobId { get; set; }
 
         [Required]

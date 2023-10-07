@@ -11,7 +11,9 @@ using xingyi.job.Models;
 using xingyi.job.Repository;
 using xingyi.microservices.repository;
 using xingyi.test;
+using xingyi.tests.application;
 using xingyi.tests.generic;
+using xingyi.tests.section;
 
 namespace xingyi.test.generic
 {
@@ -21,10 +23,22 @@ namespace xingyi.test.generic
         private IGenericFixture<T, Id, R, C> fixture;
         private C _context;
         private R _repository;
+        private SectionFixture sectionFixture;
+        private ApplicationFixture applicationFixture;
 
         protected GenericRepoTest(IGenericFixture<T, Id, R, C> fixture)
         {
             this.fixture = fixture;
+        }
+
+        protected GenericRepoTest(SectionFixture sectionFixture)
+        {
+            this.sectionFixture = sectionFixture;
+        }
+
+        protected GenericRepoTest(ApplicationFixture applicationFixture)
+        {
+            this.applicationFixture = applicationFixture;
         }
 
         [SetUp]

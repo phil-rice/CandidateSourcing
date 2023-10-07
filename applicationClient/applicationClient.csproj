@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\applicationCommon\applicationCommon.csproj" />
     <ProjectReference Include="..\Microservices\Microservices.csproj" />
   </ItemGroup>
 

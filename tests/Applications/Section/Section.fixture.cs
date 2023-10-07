@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using xingyi.application;
 using xingyi.common;
+using xingyi.job;
 using xingyi.job.Models;
 using xingyi.job.Repository;
 using xingyi.test.generic;
@@ -14,11 +15,11 @@ using xingyi.tests.answers;
 using xingyi.tests.generic;
 using xingyi.tests.job;
 using xingyi.tests.questions;
-using static xingyi.application.Repository.ApplicationRepository;
+using static xingyi.job.Repository.ApplicationRepository;
 
 namespace xingyi.tests.section
 {
-    public class SectionFixture : IGenericFixture<Section, Guid, SectionRepository, ApplicationDbContext>
+    public class SectionFixture : IGenericFixture<Section, Guid, SectionRepository, JobDbContext>
     {
         private AnswersFixture answersFixture;
 
@@ -27,12 +28,12 @@ namespace xingyi.tests.section
             answersFixture = new AnswersFixture();
         }
 
-        public ApplicationDbContext dbContext => new ApplicationDbContext(new DbContextOptionsBuilder<ApplicationDbContext>()
+        public JobDbContext dbContext => new JobDbContext(new DbContextOptionsBuilder<JobDbContext>()
                         .UseInMemoryDatabase(databaseName: "SectionTest")
                          .EnableSensitiveDataLogging(true)
                         .Options);
 
-        public Func<ApplicationDbContext, SectionRepository> repoFn => c => new SectionRepository(c);
+        public Func<JobDbContext, SectionRepository> repoFn => c => new SectionRepository(c);
         public Func<Section, Guid> getId => j => j.Id;
         public Action<Section> mutate(string seed)
         {

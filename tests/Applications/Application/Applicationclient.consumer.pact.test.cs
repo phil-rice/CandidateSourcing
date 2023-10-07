@@ -16,12 +16,11 @@ using xingyi.job.Repository;
 using xingyi.tests.generic;
 using xingyi.tests.questions;
 using xingyi.application;
-using applicationClient;
-using xingyi.application.Repository;
+using xingyi.job;
 
 namespace xingyi.tests.application
 {
-    public class ApplicationClientConsumerPactTest : GenericClientConsumerPactTest<Application, Guid, ApplicationRepository, ApplicationDbContext, ApplicationClient>
+    public class ApplicationClientConsumerPactTest : GenericClientConsumerPactTest<Application, Guid, ApplicationRepository, JobDbContext, ApplicationClient>
     {
 
 

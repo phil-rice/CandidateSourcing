@@ -6,24 +6,26 @@ using System.Text;
 using System.Threading.Tasks;
 using xingyi.application;
 using xingyi.common;
+using xingyi.job;
 using xingyi.job.Models;
 using xingyi.job.Repository;
 using xingyi.test.generic;
 using xingyi.tests.generic;
 using xingyi.tests.job;
-using static xingyi.application.Repository.ApplicationRepository;
+
+using static xingyi.job.Repository.ApplicationRepository;
 
 namespace xingyi.tests.answers
 {
-    public class AnswersFixture : IGenericFixture<Answer, Guid, AnswersRepository, ApplicationDbContext>
+    public class AnswersFixture : IGenericFixture<Answer, Guid, AnswersRepository, JobDbContext>
     {
 
-        public ApplicationDbContext dbContext => 
-            new ApplicationDbContext(new DbContextOptionsBuilder<ApplicationDbContext>()
+        public JobDbContext dbContext => 
+            new JobDbContext(new DbContextOptionsBuilder<JobDbContext>()
                         .UseInMemoryDatabase(databaseName: "AnswersTest")
                         .Options);
 
-        public Func<ApplicationDbContext, AnswersRepository> repoFn => c => new AnswersRepository(c);
+        public Func<JobDbContext, AnswersRepository> repoFn => c => new AnswersRepository(c);
 
         public Func<Answer, Guid> getId => j => j.Id;
         public Action<Answer> mutate(string seed)

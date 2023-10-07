@@ -16,12 +16,14 @@ using xingyi.job.Repository;
 using xingyi.tests.generic;
 
 using xingyi.application;
-using static xingyi.application.Repository.ApplicationRepository;
-using applicationClient;
+
+using xingyi.job;
+using static xingyi.job.Repository.ApplicationRepository;
+
 
 namespace xingyi.tests.section
 {
-    public class SectionConsumerPactTest : GenericClientConsumerPactTest<Section, Guid, SectionRepository, ApplicationDbContext, SectionClient>
+    public class SectionConsumerPactTest : GenericClientConsumerPactTest<Section, Guid, SectionRepository, JobDbContext, SectionClient>
     {
 
 

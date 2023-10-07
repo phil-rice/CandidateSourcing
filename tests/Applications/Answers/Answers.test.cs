@@ -6,14 +6,15 @@ using System.Text;
 using System.Threading.Tasks;
 using xingyi.application;
 using xingyi.common;
+using xingyi.job;
 using xingyi.job.Models;
 using xingyi.job.Repository;
 using xingyi.test.generic;
-using static xingyi.application.Repository.ApplicationRepository;
+using static xingyi.job.Repository.ApplicationRepository;
 
 namespace xingyi.tests.answers
 {
-    public class AnswerRepositoryTest : GenericRepoTest<Answer, Guid, AnswersRepository, ApplicationDbContext>
+    public class AnswerRepositoryTest : GenericRepoTest<Answer, Guid, AnswersRepository, JobDbContext>
     {
         public AnswerRepositoryTest() : base(new AnswersFixture())
         {

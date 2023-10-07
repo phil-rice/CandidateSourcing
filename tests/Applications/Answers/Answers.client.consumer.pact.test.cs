@@ -17,12 +17,12 @@ using xingyi.tests.generic;
 
 using xingyi.tests.answers;
 using xingyi.application;
-using static xingyi.application.Repository.ApplicationRepository;
-using applicationClient;
+using static xingyi.job.Repository.ApplicationRepository;
+using xingyi.job;
 
 namespace xingyi.tests.answer
 {
-    public class AnswerClientConsumerPactTest : GenericClientConsumerPactTest<Answer, Guid, AnswersRepository, ApplicationDbContext, AnswerClient>
+    public class AnswerClientConsumerPactTest : GenericClientConsumerPactTest<Answer, Guid, AnswersRepository, JobDbContext, AnswerClient>
     {
         public AnswerClientConsumerPactTest() : base(
     port =>

@@ -27,6 +27,8 @@ namespace xingyi.application
         public string DetailedComments { get; set; }
 
         // Navigation Properties
+        [ForeignKey("JobId")]
+        public Job Job { get; set; } = null!;
         public ICollection<Section> Sections { get; set; } = new List<Section>();
     }
 

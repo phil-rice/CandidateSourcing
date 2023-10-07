@@ -11,7 +11,7 @@
     using Newtonsoft.Json;
     using Microsoft.AspNetCore.Mvc;
     using gui.Middleware;
-
+    using static xingyi.job.Repository.ApplicationRepository;
 
     public class Startup
     {
@@ -39,6 +39,11 @@
             services.AddScoped<IJobRepository, JobRepository>();
             services.AddScoped<IQuestionRepository, QuestionRepository>();
             services.AddScoped<ISectionTemplateRepository, SectionTemplateRepository>();
+            services.AddScoped<IApplicationRepository, ApplicationRepository>();
+            services.AddScoped<IAnswersRepository, AnswersRepository>();
+            services.AddScoped<ISectionRepository, SectionRepository>();
+
+
 
             services.AddSwaggerGen(c =>
             {

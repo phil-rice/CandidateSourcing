@@ -38,11 +38,7 @@
                 options.UseSqlServer(Configuration.GetConnectionString("Application"), b => b.MigrationsAssembly("ApplicationApi"))
             );
 
-            services.AddScoped<IApplicationRepository, ApplicationRepository>();
-            services.AddScoped<IAnswersRepository, AnswersRepository>();
-            services.AddScoped<ISectionRepository, SectionRepository>();
-
-            services.AddSwaggerGen(c =>
+                services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Application", Version = "v1.0" });
             });

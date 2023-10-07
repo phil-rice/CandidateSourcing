@@ -13,7 +13,6 @@
 		<PackageReference Include="Microsoft.AspNetCore.Mvc.TagHelpers" Version="2.2.0" />
 		<PackageReference Include="Microsoft.AspNetCore.Session" Version="2.2.0" />
 		<PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.16" />
-		<ProjectReference Include="..\applicationClient\applicationClient.csproj" />
 		<ProjectReference Include="..\common\common.csproj" />
 		<ProjectReference Include="..\JobClient\JobClient.csproj" />
 		<PackageReference Include="Fody" Version="6.8.0">

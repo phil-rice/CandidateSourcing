@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using xingyi.microservices.repository;
+using xingyi.application;
 
 namespace xingyi.job.Repository
 {
@@ -37,7 +38,7 @@ namespace xingyi.job.Repository
                 }
                 catch (InvalidOperationException ex)
                 {
-                 //We are ok with this. Perhaps it came from the database already instead of from an api
+                    //We are ok with this. Perhaps it came from the database already instead of from an api
                 }
 
             }
@@ -94,6 +95,43 @@ namespace xingyi.job.Repository
         context => context.SectionTemplates,
         id => st => st.Id == id,
         set => set.Include(s => s.Questions))
+        {
+        }
+
+    }
+    public interface IApplicationRepository : IRepository<Application, Guid> { }
+    public class ApplicationRepository : Repository<JobDbContext, Application, Guid>, IApplicationRepository
+    {
+        public ApplicationRepository(JobDbContext context) :
+            base(context, context => context.Applications,
+                  id => j => j.Id == id,
+                  set => set.Include(a => a.Sections)
+                            .ThenInclude(s => s.Answers))
+        {
+
+        }
+    }
+
+    public interface ISectionRepository : IRepository<Section, Guid> { }
+    public class SectionRepository : Repository<JobDbContext, Section, Guid>, ISectionRepository
+    {
+        public SectionRepository(JobDbContext context) :
+    base(context,
+        context => context.Sections,
+        id => st => st.Id == id,
+        set => set.Include(s => s.Answers))
+        {
+        }
+
+    }
+    public interface IAnswersRepository : IRepository<Answer, Guid> { }
+    public class AnswersRepository : Repository<JobDbContext, Answer, Guid>, IAnswersRepository
+    {
+        public AnswersRepository(JobDbContext context) :
+    base(context,
+        context => context.Answers,
+        id => st => st.Id == id,
+        set => set)
         {
         }
 

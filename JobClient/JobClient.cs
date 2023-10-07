@@ -12,6 +12,8 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
 using xingyi.microservices.Client;
+using static xingyi.job.Repository.ApplicationRepository;
+using xingyi.application;
 
 namespace xingyi.job.Client
 {
@@ -49,5 +51,48 @@ namespace xingyi.job.Client
         public QuestionClient(HttpClient httpClient, IOptions<QuestionSettings> settings) : base(httpClient, settings.Value.BaseUrl + "Question")
         {
         }
+    }
+    public interface IApplicationClient : IApplicationRepository
+    {
+    }
+    public class ApplicationSettings : HttpClientSettings { }
+
+    public class ApplicationClient : GenericClient<Application, Guid>, IApplicationClient
+    {
+        public ApplicationClient(HttpClient httpClient, IOptions<ApplicationSettings> settings)
+            : base(httpClient, settings.Value.BaseUrl + "Application")
+        {
+        }
+
+    }
+
+
+
+    public interface ISectionClient : ISectionRepository
+    {
+    }
+    public class SectionSettings : HttpClientSettings { }
+
+    public class SectionClient : GenericClient<Section, Guid>, ISectionClient
+    {
+        public SectionClient(HttpClient httpClient, IOptions<SectionSettings> settings)
+            : base(httpClient, settings.Value.BaseUrl + "Section")
+        {
+        }
+
+    }
+
+    public interface IAnswerClient : IAnswersRepository
+    {
+    }
+    public class AnswerSettings : HttpClientSettings { }
+
+    public class AnswerClient : GenericClient<Answer, Guid>, IAnswerClient
+    {
+        public AnswerClient(HttpClient httpClient, IOptions<AnswerSettings> settings)
+            : base(httpClient, settings.Value.BaseUrl + "Answer")
+        {
+        }
+
     }
 }

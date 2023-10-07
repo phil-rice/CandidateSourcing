@@ -10,10 +10,6 @@ namespace xingyi.application
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
-        public DbSet<Application> Applications { get; set; }
-        public DbSet<Section> Sections { get; set; }
-
-        public DbSet<Answer> Answers { get; set; }
 
 
     }
