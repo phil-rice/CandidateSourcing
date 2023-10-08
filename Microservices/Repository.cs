@@ -22,6 +22,7 @@ namespace xingyi.microservices.repository
         where C : DbContext
     {
         protected readonly C _context;
+        private readonly Func<DbSet<T>, IQueryable<T>> nonEagerLoadFn;
         private readonly Func<DbSet<T>, IQueryable<T>> eagerLoadFn;
         protected readonly DbSet<T> _dbSet;
         private readonly Func<Id, Expression<Func<T, bool>>> idEquals;
@@ -45,11 +46,15 @@ namespace xingyi.microservices.repository
             }
         }
 
-        protected Repository(C context, Func<C, DbSet<T>> dbSet, Func<Id, Expression<Func<T, bool>>> idEquals, Func<DbSet<T>, IQueryable<T>> eagerLoadFn)
+        protected Repository(C context, Func<C, DbSet<T>> dbSet, Func<Id, Expression<Func<T, bool>>> idEquals,
+            Func<DbSet<T>, IQueryable<T>> nonEagerLoadFn,
+            Func<DbSet<T>, IQueryable<T>> eagerLoadFn
+            )
         {
             _context = context;
             _dbSet = dbSet(context);
             this.idEquals = idEquals;
+            this.nonEagerLoadFn = nonEagerLoadFn;
             this.eagerLoadFn = eagerLoadFn;
         }
 

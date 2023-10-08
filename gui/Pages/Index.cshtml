@@ -1,10 +1,58 @@
 ﻿@page
+@using gui.Pages.Shared;
+@using xingyi.common;
+@using xingyi.application;
+@using xingyi.job;
+@using xingyi.job.Models;
 @model IndexModel
 @{
     ViewData["Title"] = "Home page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div>
+    <h1 class="display-4">@User.Identity.Name</h1>
+
+    @if (Model.Nothing)
+    {
+        <p>Welcome to the site.</p>
+
+        <p>You are currently not a candidate, or an interviewer. And you currently aren't posting any vacancies'</p>
+    }
+
+    <p>Find out more about <a href="/Info/PostingVacancies">Posting Vacancies</a></p>
+    <p>Find out more about <a href="/Info/FillingIn">Filling in details</a></p>
+
+
+
+
+    @Html.Partial("_SectionToDoList", new TodoDisplayDto<Section>
+    {
+    Title= "Details you have been asked to provide",
+    Message = "This is the list of details you have been asked to fill in",
+    Items = Model.MyTodoSections
+    })
+
+    @Html.Partial("_SectionToDoList", new TodoDisplayDto<Section>
+    {
+    Title= "Details you have already provided",
+    Message = "These are now 'closed' as you have completed them",
+    Items = Model.MyDoneSections
+    })
+
+    <a href="/Jobs/Create"> Create a new Job (Vacancy)</a>
+
+    @Html.Partial("_JobsToDoList", new TodoDisplayDto<Job>
+    {
+    Title= "Jobs (Vacancies) that you have created",
+    Message = "",
+    Items = Model.MyActiveJobs
+    })
+    @Html.Partial("_JobsToDoList", new TodoDisplayDto<Job>
+    {
+    Title= "Jobs (Vacancies) that you have created, and have been filled or cancelled",
+    Message = "",
+    Items = Model.MyCompletedJobs
+    })
+
+
 </div>

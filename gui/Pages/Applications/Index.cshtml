@@ -1,7 +1,7 @@
 ﻿@page
 @model gui.Pages.Applications.ApplicationsIndexModel
 
-<h1>Section Templates</h1>
+<h1>Applications</h1>
 
 <a class="btn btn-primary" href="/SectionTemplates/Create">Add New Application</a>
 <table class="table">
@@ -15,7 +15,7 @@
         @foreach (var item in Model.Items)
         {
             <tr>
-                <td>@item.JobId</td>
+                <td>@item.Job.Title</td>
                 <td>@item.Candidate</td>
 
                 <td><a href="/Applications/View/@item.Id">View</a></td>

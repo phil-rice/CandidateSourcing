@@ -38,9 +38,18 @@ namespace xingyi.gui
             services.AddSession();
 
             services.Configure<JobSettings>(Configuration.GetSection("ApiSettings"));
-            services.Configure<SectionTemplateSettings>(Configuration.GetSection("ApiSettings"));
             services.AddHttpClient<IJobRepository, JobClient>();
+            
+            services.Configure<SectionTemplateSettings>(Configuration.GetSection("ApiSettings"));
             services.AddHttpClient<ISectionTemplateRepository, SectionTemplateClient>();
+
+
+            services.Configure<ApplicationSettings>(Configuration.GetSection("ApiSettings"));
+            services.AddHttpClient<IApplicationRepository, ApplicationClient>();
+
+            services.Configure<SectionSettings>(Configuration.GetSection("ApiSettings"));
+            services.AddHttpClient<ISectionRepository, SectionClient>();
+
             services.AddRazorPages();
             services.AddMvc().AddViewOptions(options =>
             {

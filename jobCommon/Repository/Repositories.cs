@@ -10,12 +10,25 @@ using xingyi.application;
 
 namespace xingyi.job.Repository
 {
+    public interface IJobAndAppRepository : IRepository<Job, Guid> { }
+    public class JobAndAppRepository : Repository<JobDbContext, Job, Guid>, IJobAndAppRepository
+    {
+        public JobAndAppRepository(JobDbContext context) :
+            base(context, context => context.Jobs,
+                                 id => j => j.Id == id,
+                                set => set,
+                                set => set.Include(j => j.Applications))
+        {
+        }
+    }
+
     public interface IJobRepository : IRepository<Job, Guid> { }
     public class JobRepository : Repository<JobDbContext, Job, Guid>, IJobRepository
     {
         public JobRepository(JobDbContext context) :
             base(context, context => context.Jobs,
                   id => j => j.Id == id,
+                  set => set,
                   set => set.Include(j => j.JobSectionTemplates)
                             .ThenInclude(jst => jst.SectionTemplate)
                             .ThenInclude(st => st.Questions))
@@ -81,6 +94,7 @@ namespace xingyi.job.Repository
         public QuestionRepository(JobDbContext context) : base(context,
             context => context.Questions,
             id => q => q.Id == id,
+            set => set,
             set => set)
         {
         }
@@ -94,6 +108,7 @@ namespace xingyi.job.Repository
     base(context,
         context => context.SectionTemplates,
         id => st => st.Id == id,
+        set => set,
         set => set.Include(s => s.Questions))
         {
         }
@@ -105,7 +120,9 @@ namespace xingyi.job.Repository
         public ApplicationRepository(JobDbContext context) :
             base(context, context => context.Applications,
                   id => j => j.Id == id,
-                  set => set.Include(a => a.Sections)
+                  set => set.Include(a => a.Id),
+                  set => set.Include(a => a.Job)
+                             .Include(a => a.Sections)
                             .ThenInclude(s => s.Answers))
         {
 
@@ -119,6 +136,7 @@ namespace xingyi.job.Repository
     base(context,
         context => context.Sections,
         id => st => st.Id == id,
+        s => s,
         set => set.Include(s => s.Answers))
         {
         }
@@ -131,6 +149,7 @@ namespace xingyi.job.Repository
     base(context,
         context => context.Answers,
         id => st => st.Id == id,
+        s => s,
         set => set)
         {
         }

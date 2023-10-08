@@ -77,8 +77,14 @@ namespace jobCommon.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
+                    b.Property<bool>("Failed")
+                        .HasColumnType("bit");
+
                     b.Property<Guid>("JobId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("Suceeded")
+                        .HasColumnType("bit");
 
                     b.HasKey("Id");
 
@@ -101,8 +107,18 @@ namespace jobCommon.Migrations
                         .HasMaxLength(300)
                         .HasColumnType("nvarchar(300)");
 
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
                     b.Property<bool>("Finished")
                         .HasColumnType("bit");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<string>("Who")
                         .IsRequired()
@@ -124,6 +140,9 @@ namespace jobCommon.Migrations
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Finished")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Owner")
                         .IsRequired()
@@ -221,7 +240,7 @@ namespace jobCommon.Migrations
             modelBuilder.Entity("xingyi.application.Application", b =>
                 {
                     b.HasOne("xingyi.job.Models.Job", "Job")
-                        .WithMany()
+                        .WithMany("Applications")
                         .HasForeignKey("JobId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -280,6 +299,8 @@ namespace jobCommon.Migrations
 
             modelBuilder.Entity("xingyi.job.Models.Job", b =>
                 {
+                    b.Navigation("Applications");
+
                     b.Navigation("JobSectionTemplates");
                 });
 

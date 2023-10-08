@@ -23,6 +23,15 @@ namespace xingyi.application
         [MaxLength(100)]
         public string Candidate { get; set; }
 
+        public bool Failed { get; set; }
+        public bool Suceeded { get; set; }
+
+        public Boolean inProcess()
+        {
+            return !Failed && !Suceeded;
+        }
+
+
         [MaxLength(500)]
         public string DetailedComments { get; set; }
 
@@ -43,6 +52,12 @@ namespace xingyi.application
 
         [Required]
         public Guid ApplicationId { get; set; }
+        [Required]
+        [StringLength(255)]
+        public string Title { get; set; }
+        [Required]
+        [StringLength(255)]
+        public string Description { get; set; }
 
         [MaxLength(100)]
         public string Who { get; set; }

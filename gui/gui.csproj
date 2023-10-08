@@ -24,4 +24,8 @@
 
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="Pages\Home\" />
+	</ItemGroup>
+
 </Project>

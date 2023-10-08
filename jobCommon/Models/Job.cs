@@ -4,18 +4,10 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics;
+using xingyi.application;
 
 namespace xingyi.job.Models
 {
-    public partial class Job
-    {
-
-        public bool contains(SectionTemplate st)
-        {
-            return JobSectionTemplates.Any(jst => jst.SectionTemplate.Id == st.Id);
-        }
-
-    }
 
     [ToString, Equals(DoNotAddEqualityOperators = true)]
     [DebuggerDisplay("Job: (ID: {ID}, Title: {Title})")]
@@ -34,9 +26,18 @@ namespace xingyi.job.Models
         [StringLength(255)]
         public string Owner { get; set; } = null!;
 
+        public bool Finished { get; set; } = false;
+
         //Navigation
         [InverseProperty("Job")]
         public virtual ICollection<JobSectionTemplate> JobSectionTemplates { get; set; } = new List<JobSectionTemplate>();
+
+        [InverseProperty("Job")]
+        public ICollection<Application> Applications { get; set; } = new List<Application>();
+        public bool contains(SectionTemplate st)
+        {
+            return JobSectionTemplates.Any(jst => jst.SectionTemplate.Id == st.Id);
+        }
     }
     [ToString, Equals(DoNotAddEqualityOperators = true)]
     [DebuggerDisplay("JobSectionTemplate: (Job: {JobId}, SectionTemplateId: {SectionTemplateId})")]

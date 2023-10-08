@@ -7,6 +7,7 @@ using xingyi.job.Repository;
 
 namespace gui.Pages.Jobs
 {
+
     public class JobIndexModel : GenericIndexModel<Job, Guid, IJobRepository>
     {
 
