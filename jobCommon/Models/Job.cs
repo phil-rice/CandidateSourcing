@@ -11,7 +11,7 @@ namespace xingyi.job.Models
 {
 
     [ToString, Equals(DoNotAddEqualityOperators = true)]
-    [DebuggerDisplay("Job: (ID: {ID}, Title: {Title})")]
+    [DebuggerDisplay("Job: (Id: {Id}, Title: {Title})")]
     public partial class Job
     {
         [Key]
@@ -55,9 +55,11 @@ namespace xingyi.job.Models
         //Navigation
         [ForeignKey("JobId")]
         [JsonIgnore]
+        [IgnoreDuringToString]
         public Job? Job { get; set; }
 
         [ForeignKey("SectionTemplateId")]
+        [IgnoreDuringToString]
         public SectionTemplate? SectionTemplate { get; set; }
      
 
@@ -131,7 +133,8 @@ namespace xingyi.job.Models
                 Title = Title,
                 Description = Description,
                 ScoreOutOfTen = ScoreOutOfTen,
-                Singleline = Singleline
+                Singleline = Singleline,
+                AnswerText=""
             };
         }
     }

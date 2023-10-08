@@ -36,49 +36,54 @@ namespace xingyi.job.Repository
         {
         }
 
-        override protected async Task populateEntityForUpdate(Job job)
+        public void PrintTrackedEntities(DbContext context)
         {
-            var sectionTemplateIds = job.JobSectionTemplates.Select(jst => jst.SectionTemplateId).ToList();
-            var sectionTemplates = await _context.SectionTemplates
-                                                 .Where(st => sectionTemplateIds.Contains(st.Id))
-                                                 .ToListAsync();
-            foreach (var jst in job.JobSectionTemplates)
+            foreach (var entry in context.ChangeTracker.Entries())
             {
-                jst.SectionTemplate = sectionTemplates.FirstOrDefault(st => st.Id == jst.SectionTemplateId);
-                jst.Job = job;
-                try
+                Console.WriteLine($"Entity Type: {entry.Entity.GetType().Name}");
+                Console.WriteLine($"Entity State: {entry.State}");
+
+                foreach (var prop in entry.OriginalValues.Properties)
                 {
-                    _context.JobSectionTemplates.Add(jst); //if the job isn't already in the database then this won't be and the relationships won't be updated
-                }
-                catch (InvalidOperationException ex)
-                {
-                    //We are ok with this. Perhaps it came from the database already instead of from an api
+                    var original = entry.OriginalValues[prop];
+                    var current = entry.CurrentValues[prop];
+                    Console.WriteLine($"Property: {prop.Name} | Original: {original} | Current: {current}");
                 }
 
-            }
+                Console.WriteLine(new string('-', 50)); // Just a separator for readability
 
-
-            // Get all JobSectionTemplate IDs associated with this job from the database
-            var existingSectionIds = await _context.JobSectionTemplates
-                                                   .Where(jst => jst.JobId == job.Id)
-                                                   .Select(jst => jst.SectionTemplateId)
-                                                   .ToListAsync();
-
-            // Get the SectionTemplate IDs from the provided job object
-            var providedSectionIds = job.JobSectionTemplates.Select(jst => jst.SectionTemplateId).ToList();
-
-            // Identify the JobSectionTemplates that are in the database but not in the provided job object
-            var sectionsToDeleteIds = existingSectionIds.Except(providedSectionIds).ToList();
-
-            if (sectionsToDeleteIds.Any())
-            {
-                // Delete the identified JobSectionTemplates
-                var sectionsToDelete = _context.JobSectionTemplates
-                                               .Where(jst => jst.JobId == job.Id && sectionsToDeleteIds.Contains(jst.SectionTemplateId));
-                _context.JobSectionTemplates.RemoveRange(sectionsToDelete);
-                await _context.SaveChangesAsync();
             }
         }
+
+        override protected async Task<Job> populateEntityForUpdate(Job job)
+        {
+            //This doesn't work if the job has already been read from the database. EntityFramework is incredibly hard to work with.
+            var existingJob = await GetByIdAsync(job.Id, true);
+            existingJob.Title = job.Title;
+            existingJob.Description = job.Description;
+            existingJob.Finished = job.Finished;
+            //existingJob.Owner = job.Owner; decided not to allow this
+            var existingSectionids = existingJob.JobSectionTemplates.Select(jst => jst.SectionTemplateId).ToList();
+            var providedSectionIds = job.JobSectionTemplates.Select(jst => jst.SectionTemplateId).ToList();
+            var sectionsToDeleteIds = existingSectionids.Except(providedSectionIds).ToList();
+            var sectionsToAddIds = providedSectionIds.Except(existingSectionids).ToList();
+
+            var jstsToDelete = existingJob.JobSectionTemplates.Where(jst => sectionsToDeleteIds.Contains(jst.SectionTemplateId)).ToList();
+            foreach (var jst in jstsToDelete)
+            {
+                existingJob.JobSectionTemplates.Remove(jst);
+                _context.JobSectionTemplates.Remove(jst);  // Still remove directly from DbSet for clarity
+            }
+            foreach (var id in sectionsToAddIds)
+            {
+                var jst = new JobSectionTemplate { JobId = job.Id, Job = existingJob, SectionTemplateId = id };
+                existingJob.JobSectionTemplates.Add(jst); // Update the navigational property
+            }
+            return existingJob;
+        }
+
+
+        
 
         public async Task UpdateJobFields(Job job)
         {

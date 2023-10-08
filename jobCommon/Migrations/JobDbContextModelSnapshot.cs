@@ -170,7 +170,7 @@ namespace jobCommon.Migrations
                     b.Property<Guid>("SectionTemplateId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.HasKey("JobId");
+                    b.HasKey("JobId", "SectionTemplateId");
 
                     b.HasIndex("SectionTemplateId");
 

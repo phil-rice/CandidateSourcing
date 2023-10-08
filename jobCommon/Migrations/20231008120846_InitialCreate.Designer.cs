@@ -12,7 +12,7 @@ using xingyi.job;
 namespace jobCommon.Migrations
 {
     [DbContext(typeof(JobDbContext))]
-    [Migration("20231008061934_InitialCreate")]
+    [Migration("20231008120846_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -173,7 +173,7 @@ namespace jobCommon.Migrations
                     b.Property<Guid>("SectionTemplateId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.HasKey("JobId");
+                    b.HasKey("JobId", "SectionTemplateId");
 
                     b.HasIndex("SectionTemplateId");
 

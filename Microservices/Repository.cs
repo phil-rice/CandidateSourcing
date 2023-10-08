@@ -97,11 +97,11 @@ namespace xingyi.microservices.repository
             return entity;
         }
 
-        protected virtual async Task populateEntityForUpdate(T entity) {  }
+        protected virtual async Task<T> populateEntityForUpdate(T entity) { return entity; }
         public async Task UpdateAsync(T entity)
         {
-            await populateEntityForUpdate(entity);
-            _dbSet.Update(entity);
+            var updated = await populateEntityForUpdate(entity);
+            _dbSet.Update(updated);
             await _context.SaveChangesAsync();
         }
 

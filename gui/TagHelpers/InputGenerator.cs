@@ -34,7 +34,7 @@ namespace xingyi.TagHelpers
                 case "checkbox":
                     bool isChecked = value != null && value != "" && Convert.ToBoolean(value);
                     string hidden = $"<input type=\"hidden\" name=\"{thisId}\" id=\"{thisId}\" class=\"form-check-input\" {(isChecked ? "checked" : string.Empty)} />";
-                    string checkbox = $"<input type=\"checkbox\"  class=\"form-check-input\" {(isChecked ? "checked" : string.Empty)} />";
+                    string checkbox = $"<input type=\"checkbox\"  class=\"form-check-input toggle-checkbox\" data-toggle-target=\"{thisId}\" {(isChecked ? "checked" : string.Empty)} />";
                     templateBody = hidden + checkbox;
                     break;
                 default:

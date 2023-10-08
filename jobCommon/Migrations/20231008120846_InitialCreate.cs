@@ -73,7 +73,7 @@ namespace jobCommon.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_JobSectionTemplates", x => x.JobId);
+                    table.PrimaryKey("PK_JobSectionTemplates", x => new { x.JobId, x.SectionTemplateId });
                     table.ForeignKey(
                         name: "FK_JobSectionTemplates_Jobs_JobId",
                         column: x => x.JobId,

@@ -73,8 +73,12 @@ namespace gui.Pages.Applications
                 var id = Guid.NewGuid();
                 var job = await jobRepo.GetByIdAsync(JobId);
                 var sections = job.JobSectionTemplates.Select(jst =>
-                                jst.SectionTemplate).Select(st =>
-                                st.asSection(id, Guid.NewGuid())).ToList();
+                                jst.SectionTemplate).Select(st => {
+                                    var sect = st.asSection(id, Guid.NewGuid());
+                                    if (sect.Who== "The Candidate")
+                                        sect.Who = Item.Candidate;
+                                    return sect;
+                                }).ToList();
                 var app = new Application
                 {
                     Id = id,
