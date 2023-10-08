@@ -17,12 +17,25 @@ using xingyi.application;
 
 namespace xingyi.job.Client
 {
+    public interface IJobAndAppClient : IJobAndAppRepository
+    {
+    }
+    public class JobAndAppSettings : HttpClientSettings { }
+
+    public class JobAndAppClient : GenericClient<Job, Guid>, IJobAndAppClient
+    {
+        public JobAndAppClient(HttpClient httpClient, IOptions<JobAndAppSettings> jobSettings)
+            : base(httpClient, jobSettings.Value.BaseUrl + "JobAndApp")
+        {
+        }
+
+    }
     public interface IJobClient : IJobRepository
     {
     }
     public class JobSettings : HttpClientSettings { }
 
-    public class JobClient : GenericClient<Job,Guid>, IJobClient
+    public class JobClient : GenericClient<Job, Guid>, IJobClient
     {
         public JobClient(HttpClient httpClient, IOptions<JobSettings> jobSettings)
             : base(httpClient, jobSettings.Value.BaseUrl + "Job")
@@ -35,7 +48,7 @@ namespace xingyi.job.Client
     }
     public class SectionTemplateSettings : HttpClientSettings { }
 
-    public class SectionTemplateClient : GenericClient<SectionTemplate,Guid>, ISectionTemplateClient
+    public class SectionTemplateClient : GenericClient<SectionTemplate, Guid>, ISectionTemplateClient
     {
         public SectionTemplateClient(HttpClient httpClient, IOptions<SectionTemplateSettings> settings) : base(httpClient, settings.Value.BaseUrl + "SectionTemplate")
         {

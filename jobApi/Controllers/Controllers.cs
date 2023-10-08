@@ -14,6 +14,11 @@ using xingyi.microservices.Controllers;
 
 namespace xingyi.job.Controllers
 {
+    public class JobAndAppController : GenericController<Job,Guid>
+    {
+        public JobAndAppController(IJobAndAppRepository repository) : base(repository,j=>j.Id) { }
+
+    }
     public class JobController : GenericController<Job,Guid>
     {
         public JobController(IJobRepository repository) : base(repository,j=>j.Id) { }

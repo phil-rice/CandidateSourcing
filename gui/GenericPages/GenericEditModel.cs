@@ -21,7 +21,7 @@ namespace gui.GenericPages
         {
             this.repo = repo;
         }
-        public async Task<IActionResult> OnPostAsync()
+        public virtual async Task<IActionResult> OnPostAsync()
         {
             ModelStateHelper.DumpModelState(ModelState);
             if (ModelState.IsValid)

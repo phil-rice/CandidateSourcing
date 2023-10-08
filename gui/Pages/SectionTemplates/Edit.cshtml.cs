@@ -14,5 +14,7 @@ namespace gui.Pages.SectionTemplates
         public SectionTemplateEditModel(ISectionTemplateRepository client) : base(client)
         {
         }
+
+   
     }
 }

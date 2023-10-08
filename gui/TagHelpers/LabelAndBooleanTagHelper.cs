@@ -16,7 +16,6 @@ namespace xingyi.TagHelpers
         [HtmlAttributeName(ForAttributeName)]
         public ModelExpression For { get; set; }
 
-        // Added new Label property
         [HtmlAttributeName("asp-label")]
         public ModelExpression Label { get; set; }
 

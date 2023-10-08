@@ -17,7 +17,8 @@ namespace xingyi.job.Repository
             base(context, context => context.Jobs,
                                  id => j => j.Id == id,
                                 set => set,
-                                set => set.Include(j => j.Applications))
+                                set => set.Include(j => j.Applications).ThenInclude(a => a.Sections)
+                                .Include(j => j.JobSectionTemplates).ThenInclude(jst => jst.SectionTemplate))
         {
         }
     }

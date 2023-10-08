@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics;
 using xingyi.application;
+using xingyi.common;
 
 namespace xingyi.job.Models
 {
@@ -30,10 +31,10 @@ namespace xingyi.job.Models
 
         //Navigation
         [InverseProperty("Job")]
-        public virtual ICollection<JobSectionTemplate> JobSectionTemplates { get; set; } = new List<JobSectionTemplate>();
+        public virtual List<JobSectionTemplate> JobSectionTemplates { get; set; } = new List<JobSectionTemplate>();
 
         [InverseProperty("Job")]
-        public ICollection<Application> Applications { get; set; } = new List<Application>();
+        public List<Application> Applications { get; set; } = new List<Application>();
         public bool contains(SectionTemplate st)
         {
             return JobSectionTemplates.Any(jst => jst.SectionTemplate.Id == st.Id);
@@ -58,6 +59,8 @@ namespace xingyi.job.Models
 
         [ForeignKey("SectionTemplateId")]
         public SectionTemplate? SectionTemplate { get; set; }
+     
+
     }
     [ToString, Equals(DoNotAddEqualityOperators = true)]
     [DebuggerDisplay("SectionTemplate: (Id: {Id}, owner: {owner}, Title: {Title})")]
@@ -66,8 +69,10 @@ namespace xingyi.job.Models
         [Key]
         public Guid Id { get; set; }
 
-        public string owner;
+        public string Owner { get; set; }
         public bool? CanEditWho { get; set; }
+
+        public string Who  { get; set; }
 
         [Required]
         [StringLength(255)]
@@ -80,7 +85,22 @@ namespace xingyi.job.Models
         [InverseProperty("SectionTemplate")]
         public ICollection<JobSectionTemplate> JobsSectionTemplates { get; set; } = new List<JobSectionTemplate>();
 
-        public ICollection<Question> Questions { get; set; } = new List<Question>();
+        public List<Question> Questions { get; set; } = new List<Question>();
+        public Section asSection(Guid appId,Guid sectionId)
+        {
+            var answers = SafeHelpers.safeList(Questions).Select(q => q.asAnswer(sectionId)).ToList();
+            return new Section
+            {
+                Id = sectionId,
+                ApplicationId = appId,
+                Title = Title,
+                Description = Description,
+                Who = Who,
+                Comments = "",
+                Finished = false,
+                Answers = answers
+            };
+        }
     }
 
     [ToString, Equals(DoNotAddEqualityOperators = true)]
@@ -102,5 +122,17 @@ namespace xingyi.job.Models
         public bool? ScoreOutOfTen { get; set; }
 
         public bool? Singleline { get; set; }
+
+        public Answer asAnswer(Guid sectionId)
+        {
+            return new Answer
+            {
+                SectionId = sectionId,
+                Title = Title,
+                Description = Description,
+                ScoreOutOfTen = ScoreOutOfTen,
+                Singleline = Singleline
+            };
+        }
     }
 }

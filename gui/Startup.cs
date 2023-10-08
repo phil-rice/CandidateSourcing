@@ -37,6 +37,9 @@ namespace xingyi.gui
             services.AddDistributedMemoryCache();
             services.AddSession();
 
+            services.Configure<JobAndAppSettings>(Configuration.GetSection("ApiSettings"));
+            services.AddHttpClient<IJobAndAppRepository, JobAndAppClient>();
+            
             services.Configure<JobSettings>(Configuration.GetSection("ApiSettings"));
             services.AddHttpClient<IJobRepository, JobClient>();
             

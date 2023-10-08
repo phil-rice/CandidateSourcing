@@ -23,8 +23,8 @@ namespace xingyi.application
         [MaxLength(100)]
         public string Candidate { get; set; }
 
-        public bool Failed { get; set; }
-        public bool Suceeded { get; set; }
+        public bool Failed { get; set; } = false;
+        public bool Suceeded { get; set; } = false;
 
         public Boolean inProcess()
         {
@@ -33,12 +33,12 @@ namespace xingyi.application
 
 
         [MaxLength(500)]
-        public string DetailedComments { get; set; }
+        public string DetailedComments { get; set; } = "";
 
         // Navigation Properties
         [ForeignKey("JobId")]
-        public Job Job { get; set; } = null!;
-        public ICollection<Section> Sections { get; set; } = new List<Section>();
+        public Job? Job { get; set; } = null;
+        public List<Section> Sections { get; set; } = new List<Section>();
     }
 
     [ToString, Equals(DoNotAddEqualityOperators = true)]
@@ -59,6 +59,7 @@ namespace xingyi.application
         [StringLength(255)]
         public string Description { get; set; }
 
+        public bool CanEditWho { get; set; }
         [MaxLength(100)]
         public string Who { get; set; }
 
@@ -69,7 +70,8 @@ namespace xingyi.application
 
         // Navigation Properties
         [ForeignKey("ApplicationId")]
-        public Application Application { get; set; }
+        [IgnoreDuringToString]
+        public Application? Application { get; set; }
         public List<Answer> Answers { get; set; } = new List<Answer>();
     }
 

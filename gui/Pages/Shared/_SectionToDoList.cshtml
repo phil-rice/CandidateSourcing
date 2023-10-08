@@ -1,0 +1,15 @@
+﻿@using xingyi.application;
+
+@model TodoDisplayDto<Section>
+
+@if (Model.Items.Count > 0){
+    <h2>@Model.Title</h2>
+
+    <p>@Model.Message</p>
+    <ul>
+        @foreach (var sect in Model.Items)
+        {
+            <li>@sect.Title</li>
+        }
+    </ul>
+}

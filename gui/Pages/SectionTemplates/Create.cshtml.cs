@@ -13,6 +13,12 @@ namespace gui.Pages.SectionTemplates
         public SectionTemplateCreateModel(ISectionTemplateRepository client) : base(client)
         {
         }
+        public override async Task modifyItemOnCreate(SectionTemplate Item)
+        {
+            var email = User.FindFirst(System.Security.Claims.ClaimTypes.Email)?.Value;
+
+            Item.Owner = email;
+        }
     }
 
 }

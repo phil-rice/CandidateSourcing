@@ -1,0 +1,23 @@
+﻿@page "{JobId}"
+@model gui.Pages.Applications.ApplicationCreateModel
+@addTagHelper *, gui
+
+<h1>Add Candidate for @Model.Item.JobName</h1>
+
+<display asp-for="Item">"</display>
+
+<form method="post">
+    <input type="hidden" asp-for="Item.JobName" />
+    <label-and-input asp-for="Item.Candidate"></label-and-input>
+    <h2>Who fills in which section</h2>
+     @for (var i = 0; i< Model.Item.sections.Count(); i++)
+    {
+        var st = Model.Item.sections[i];
+        bool rdOnly = st?.CanEditWho==false;
+        <label-and-input asp-for="Item.sections[i].Who" asp-label="Item.sections[i].Title" readonly="@rdOnly"></label-and-input>
+    }
+    <button type="submit" class="btn btn-primary">Save</button>
+
+</form>
+
+

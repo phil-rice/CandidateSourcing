@@ -26,15 +26,21 @@ namespace gui.GenericPages
         {
 
         }
+        virtual async public Task modifyItemOnPost(T Item)
+        {
 
-       virtual  public async Task OnGetAsync()
+        }
+
+        virtual public async Task OnGetAsync()
         {
             T i = new T();
             await modifyItemOnCreate(i);
             Item = i;
         }
-        public async Task<IActionResult> OnPostAsync()
+       virtual public async Task<IActionResult> OnPostAsync()
         {
+            await modifyItemOnPost(Item);
+            TryValidateModel(Item);
             ModelStateHelper.DumpModelState(ModelState);
             if (ModelState.IsValid)
             {

@@ -3,6 +3,7 @@
     using Microsoft.AspNetCore.Mvc.Rendering;
     using Microsoft.AspNetCore.Mvc.ViewFeatures;
     using Microsoft.AspNetCore.Razor.TagHelpers;
+    using xingyi.common;
 
     [HtmlTargetElement("label-and-input", Attributes = ForAttributeName)]
     public class LabelAndInputTagHelper : TagHelper
@@ -11,6 +12,9 @@
 
         [HtmlAttributeName(ForAttributeName)]
         public ModelExpression For { get; set; }
+
+        [HtmlAttributeName("asp-label")]
+        public ModelExpression Label { get; set; }
 
         [HtmlAttributeName("readonly")]
         public bool IsReadonly { get; set; } = false;  // Default value is false
@@ -25,10 +29,12 @@
             output.TagMode = TagMode.StartTagAndEndTag;
             output.Attributes.Add("class", "form-group");
 
+            var labelName = Label?.Model == null ? Strings.ExtractAndFormatLabel(For.Name) : Strings.ExtractAndFormatLabel(Label.Model.ToString());
+
             var label = new TagBuilder("label");
             label.Attributes.Add("for", For.Name);
             label.Attributes.Add("class", "control-label");
-            label.InnerHtml.Append(For.Metadata.DisplayName ?? For.Metadata.Name);
+            label.InnerHtml.Append(labelName);
 
             var input = new TagBuilder("input");
             input.Attributes.Add("id", For.Name);

@@ -36,6 +36,7 @@
                 options.UseSqlServer(Configuration.GetConnectionString("Job"), b => b.MigrationsAssembly("jobApi"))
             );
 
+            services.AddScoped<IJobAndAppRepository, JobAndAppRepository>();
             services.AddScoped<IJobRepository, JobRepository>();
             services.AddScoped<IQuestionRepository, QuestionRepository>();
             services.AddScoped<ISectionTemplateRepository, SectionTemplateRepository>();

@@ -1,0 +1,46 @@
+﻿@using xingyi.application;
+
+@model TodoDisplayDto<JobAndApplications>
+
+@if (Model.Items.Count > 0)
+{
+    <h2>@Model.Title</h2>
+
+    <p>@Model.Message</p>
+
+    @foreach (var jobAndApp in Model.Items)
+    {
+        <h2>@jobAndApp.Job.Title</h2>
+        <a href="/Applications/Create/@jobAndApp.Job.Id" class="btn btn-primary">Add Candidate</a>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Candidate</th>
+                    @foreach (var app in jobAndApp.Job.JobSectionTemplates)
+                    {
+                        <th>@app.SectionTemplate.Title</th>
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Items.Count == 0)
+                {
+                <tr><td colspan="100">No Candidates</td></tr>
+                }
+
+                @foreach (var ap in jobAndApp.Applications)
+                {
+                    <tr>
+                        <td>@ap.Candidate</td>
+                        @foreach (var sect in ap.Sections)
+                        {
+                            <td>@sect.Who</td>
+                        }
+                    </tr>
+                }
+        </table>
+
+    }
+
+}

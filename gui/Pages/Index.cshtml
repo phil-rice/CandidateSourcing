@@ -41,17 +41,17 @@
 
     <a href="/Jobs/Create"> Create a new Job (Vacancy)</a>
 
-    @Html.Partial("_JobsToDoList", new TodoDisplayDto<Job>
+    @Html.Partial("_JobAndAppsToDoList", new TodoDisplayDto<JobAndApplications>
     {
     Title= "Jobs (Vacancies) that you have created",
     Message = "",
-    Items = Model.MyActiveJobs
+    Items = Model.MyActiveApps
     })
-    @Html.Partial("_JobsToDoList", new TodoDisplayDto<Job>
+    @Html.Partial("_JobAndAppsToDoList", new TodoDisplayDto<JobAndApplications>
     {
     Title= "Jobs (Vacancies) that you have created, and have been filled or cancelled",
     Message = "",
-    Items = Model.MyCompletedJobs
+    Items = Model.MyCompletedApps
     })
 
 
