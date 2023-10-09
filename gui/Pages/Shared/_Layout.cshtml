@@ -12,28 +12,31 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-page="/Index">Candidate Sourcing</a>
+                <a class="navbar-brand" asp-area="" asp-page="/Index">
+                    <img src="/sourcing-icon-27.jpg" alt=" Candidate Sourcing Icon" style="width: 24px; height: 24px; margin-right: 5px;">
+
+                </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
-                        </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle  text-dark" href="#" id="entitiesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Admin</a>
                             <ul class="dropdown-menu" aria-labelledby="entitiesDropdown">
-                                <li><a class="dropdown-item" asp-area="" asp-page="/Admin/Dashboard">Dashboard</a></li>
                                 <li><a class="dropdown-item" asp-page="/Jobs/Index">Jobs</a></li>
                                 <li><a class="dropdown-item" asp-page="/SectionTemplates/Index">Sections</a></li>
                             </ul>
                         </li>
+
+
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-page="/Info/AboutUs">About Us</a>
+                        </li>
                         <li class="nav-item">
                             @await Html.PartialAsync("_LoginPartial")
                         </li>
-
                     </ul>
                 </div>
             </div>

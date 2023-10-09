@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace gui.Pages
 {
-    public class PostingVacanciesModel : PageModel
+    public class FillingInModel : PageModel
     {
         public void OnGet()
         {
