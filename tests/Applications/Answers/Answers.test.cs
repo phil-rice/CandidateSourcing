@@ -14,7 +14,7 @@ using static xingyi.job.Repository.ApplicationRepository;
 
 namespace xingyi.tests.answers
 {
-    public class AnswerRepositoryTest : GenericRepoTest<Answer, Guid, AnswersRepository, JobDbContext>
+    public class AnswerRepositoryTest : GenericRepoTest<Answer, Guid, AnswersRepository, JobDbContext, AnswerWhere>
     {
         public AnswerRepositoryTest() : base(new AnswersFixture())
         {

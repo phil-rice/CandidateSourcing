@@ -16,7 +16,7 @@ using xingyi.tests.questions;
 
 namespace xingyi.tests.sectionTemplate
 {
-    public class SectionTemplateFixture : IGenericFixture<SectionTemplate, Guid, SectionTemplateRepository, JobDbContext>
+    public class SectionTemplateFixture : IGenericFixture<SectionTemplate, Guid, SectionTemplateRepository, JobDbContext, SectionTemplateWhere>
     {
         private QuestionsFixture questionFixture;
 

@@ -22,7 +22,7 @@ using xingyi.job;
 
 namespace xingyi.tests.answer
 {
-    public class AnswerClientConsumerPactTest : GenericClientConsumerPactTest<Answer, Guid, AnswersRepository, JobDbContext, AnswerClient>
+    public class AnswerClientConsumerPactTest : GenericClientConsumerPactTest<Answer, Guid, AnswersRepository, JobDbContext, AnswerClient, AnswerWhere>
     {
         public AnswerClientConsumerPactTest() : base(
     port =>

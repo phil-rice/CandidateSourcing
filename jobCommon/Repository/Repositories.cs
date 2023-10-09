@@ -10,8 +10,10 @@ using xingyi.application;
 
 namespace xingyi.job.Repository
 {
-    public interface IJobAndAppRepository : IRepository<Job, Guid> { }
-    public class JobAndAppRepository : Repository<JobDbContext, Job, Guid>, IJobAndAppRepository
+
+    public class JobWhere { }
+    public interface IJobAndAppRepository : IRepository<Job, Guid, JobWhere> { }
+    public class JobAndAppRepository : Repository<JobDbContext, Job, Guid, JobWhere>, IJobAndAppRepository
     {
         public JobAndAppRepository(JobDbContext context) :
             base(context, context => context.Jobs,
@@ -23,8 +25,8 @@ namespace xingyi.job.Repository
         }
     }
 
-    public interface IJobRepository : IRepository<Job, Guid> { }
-    public class JobRepository : Repository<JobDbContext, Job, Guid>, IJobRepository
+    public interface IJobRepository : IRepository<Job, Guid, JobWhere> { }
+    public class JobRepository : Repository<JobDbContext, Job, Guid, JobWhere>, IJobRepository
     {
         public JobRepository(JobDbContext context) :
             base(context, context => context.Jobs,
@@ -93,8 +95,9 @@ namespace xingyi.job.Repository
 
     }
 
-    public interface IQuestionRepository : IRepository<Question, Guid> { }
-    public class QuestionRepository : Repository<JobDbContext, Question, Guid>, IQuestionRepository
+    public class QuestionWhere { }
+    public interface IQuestionRepository : IRepository<Question, Guid, QuestionWhere> { }
+    public class QuestionRepository : Repository<JobDbContext, Question, Guid, QuestionWhere>, IQuestionRepository
     {
 
         public QuestionRepository(JobDbContext context) : base(context,
@@ -107,8 +110,10 @@ namespace xingyi.job.Repository
 
     }
 
-    public interface ISectionTemplateRepository : IRepository<SectionTemplate, Guid> { }
-    public class SectionTemplateRepository : Repository<JobDbContext, SectionTemplate, Guid>, ISectionTemplateRepository
+    public class SectionTemplateWhere { }
+
+    public interface ISectionTemplateRepository : IRepository<SectionTemplate, Guid, SectionTemplateWhere> { }
+    public class SectionTemplateRepository : Repository<JobDbContext, SectionTemplate, Guid, SectionTemplateWhere>, ISectionTemplateRepository
     {
         public SectionTemplateRepository(JobDbContext context) :
     base(context,
@@ -120,8 +125,10 @@ namespace xingyi.job.Repository
         }
 
     }
-    public interface IApplicationRepository : IRepository<Application, Guid> { }
-    public class ApplicationRepository : Repository<JobDbContext, Application, Guid>, IApplicationRepository
+
+    public class ApplicationWhere { }
+    public interface IApplicationRepository : IRepository<Application, Guid, ApplicationWhere> { }
+    public class ApplicationRepository : Repository<JobDbContext, Application, Guid, ApplicationWhere>, IApplicationRepository
     {
         public ApplicationRepository(JobDbContext context) :
             base(context, context => context.Applications,
@@ -135,8 +142,9 @@ namespace xingyi.job.Repository
         }
     }
 
-    public interface ISectionRepository : IRepository<Section, Guid> { }
-    public class SectionRepository : Repository<JobDbContext, Section, Guid>, ISectionRepository
+    public class SectionWhere { }
+    public interface ISectionRepository : IRepository<Section, Guid, SectionWhere> { }
+    public class SectionRepository : Repository<JobDbContext, Section, Guid, SectionWhere>, ISectionRepository
     {
         public SectionRepository(JobDbContext context) : base(context,
         context => context.Sections,
@@ -147,8 +155,9 @@ namespace xingyi.job.Repository
              .Include(s => s.Application).ThenInclude(a => a.Job)) { }
 
     }
-    public interface IAnswersRepository : IRepository<Answer, Guid> { }
-    public class AnswersRepository : Repository<JobDbContext, Answer, Guid>, IAnswersRepository
+    public class AnswerWhere { }
+    public interface IAnswersRepository : IRepository<Answer, Guid, AnswerWhere> { }
+    public class AnswersRepository : Repository<JobDbContext, Answer, Guid, AnswerWhere>, IAnswersRepository
     {
         public AnswersRepository(JobDbContext context) :
     base(context,

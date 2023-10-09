@@ -19,7 +19,7 @@ using static xingyi.job.Repository.ApplicationRepository;
 
 namespace xingyi.tests.section
 {
-    public class SectionFixture : IGenericFixture<Section, Guid, SectionRepository, JobDbContext>
+    public class SectionFixture : IGenericFixture<Section, Guid, SectionRepository, JobDbContext, SectionWhere>
     {
         private AnswersFixture answersFixture;
 

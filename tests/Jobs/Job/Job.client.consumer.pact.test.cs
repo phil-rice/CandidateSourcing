@@ -19,7 +19,7 @@ using xingyi.job;
 
 namespace xingyi.tests.job
 {
-    public class JobClientConsumerPactTest : GenericClientConsumerPactTest<Job, Guid, JobRepository, JobDbContext, JobClient>
+    public class JobClientConsumerPactTest : GenericClientConsumerPactTest<Job, Guid, JobRepository, JobDbContext, JobClient ,JobWhere>
     {
 
         public JobClientConsumerPactTest() : base(

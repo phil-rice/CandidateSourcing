@@ -13,7 +13,7 @@ using xingyi.test.generic;
 
 namespace xingyi.tests.job
 {
-    public class JobRepositoryTest : GenericRepoTest<Job, Guid, JobRepository, JobDbContext>
+    public class JobRepositoryTest : GenericRepoTest<Job, Guid, JobRepository, JobDbContext, JobWhere>
     {
         public JobRepositoryTest() : base(new JobFixture())
         {

@@ -24,7 +24,7 @@ namespace xingyi.tests.generic
         public static Guid aId1 = Guids.from("a1");
         public static Guid aId2 = Guids.from("a2");
     }
-    public interface IGenericFixture<T, Id, R, C> where T : class where C : DbContext where R : IRepository<T, Id>
+    public interface IGenericFixture<T, Id, R, C, Where> where T : class where C : DbContext where R : IRepository<T, Id, Where>
     {
 
 

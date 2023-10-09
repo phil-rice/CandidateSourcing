@@ -14,7 +14,7 @@ using xingyi.tests.sectionTemplate;
 namespace xingyi.tests.sectionTemplate
 {
 
-    public class SectionTemplateRepositoryTest : GenericRepoTest<SectionTemplate, Guid, SectionTemplateRepository, JobDbContext>
+    public class SectionTemplateRepositoryTest : GenericRepoTest<SectionTemplate, Guid, SectionTemplateRepository, JobDbContext, SectionTemplateWhere>
     {
         public SectionTemplateRepositoryTest() : base(new SectionTemplateFixture())
         {

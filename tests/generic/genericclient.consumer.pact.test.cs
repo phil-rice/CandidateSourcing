@@ -19,19 +19,19 @@ using xingyi.test.generic;
 
 namespace xingyi.tests.generic
 {
-    abstract public class GenericClientConsumerPactTest<T, Id, R, C, Cl>
+    abstract public class GenericClientConsumerPactTest<T, Id, R, C, Cl, Where>
         where T : class
         where C : DbContext
-        where R : IRepository<T, Id>
-        where Cl : GenericClient<T, Id>
+        where R : IRepository<T, Id, Where>
+        where Cl : GenericClient<T, Id, Where>
     {
 
         private Func<int, Cl> clientFn ;
-        private IGenericFixture<T, Id, R, C> fixture;
+        private IGenericFixture<T, Id, R, C, Where> fixture;
         private string itemClassName = "Job";
         private IPactBuilderV2 pact;
 
-        protected GenericClientConsumerPactTest(Func<int, Cl> clientFn, IGenericFixture<T, Id, R, C> fixture, string itemClassName)
+        protected GenericClientConsumerPactTest(Func<int, Cl> clientFn, IGenericFixture<T, Id, R, C, Where> fixture, string itemClassName)
         {
             this.clientFn = clientFn;
             this.fixture = fixture;

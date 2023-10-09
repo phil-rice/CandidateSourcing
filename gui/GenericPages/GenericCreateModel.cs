@@ -10,7 +10,7 @@ using xingyi.microservices.repository;
 namespace gui.GenericPages
 {
     [Authorize]
-    public class GenericCreateModel<T, ID, C> : PageModel where T : class, new() where C : IRepository<T, ID>
+    public class GenericCreateModel<T, ID, C, Where> : PageModel where T : class, new() where C : IRepository<T, ID, Where>
     {
         private readonly C repo;
 

@@ -7,7 +7,7 @@ using xingyi.job.Repository;
 
 namespace gui.Pages.SectionTemplates
 {
-    public class SectionTemplateEditModel : GenericEditModel<SectionTemplate, Guid, ISectionTemplateRepository>
+    public class SectionTemplateEditModel : GenericEditModel<SectionTemplate, Guid, ISectionTemplateRepository, SectionTemplateWhere>
     {
         public string QuestionFields { get; } = SectionTemplateCommon.QuestionFields;
 

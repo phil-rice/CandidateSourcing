@@ -7,7 +7,7 @@ using xingyi.job.Repository;
 
 namespace gui.Pages.Jobs
 {
-    public class JobViewModel : GenericViewModel<Job, Guid, IJobRepository>
+    public class JobViewModel : GenericViewModel<Job, Guid, IJobRepository, JobWhere>
     {
 
         public JobViewModel(IJobRepository repo) : base(repo)

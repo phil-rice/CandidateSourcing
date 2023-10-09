@@ -22,12 +22,12 @@ namespace xingyi.microservices.Controllers
     /// <typeparam name="TEntity"></typeparam>
     [Route("api/[controller]")]
     [ApiController]
-    abstract public class GenericController<TEntity, Id> : ControllerBase where TEntity : class
+    abstract public class GenericController<TEntity, Id, Where> : ControllerBase where TEntity : class
     {
-        private readonly IRepository<TEntity,Id> _repository;
+        private readonly IRepository<TEntity,Id, Where> _repository;
         private readonly Func<TEntity, Id> idFn;
 
-        public GenericController(IRepository<TEntity,Id> repository, Func<TEntity, Id> idFn)
+        public GenericController(IRepository<TEntity,Id, Where> repository, Func<TEntity, Id> idFn)
         {
             _repository = repository;
             this.idFn = idFn;

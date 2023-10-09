@@ -23,7 +23,7 @@ using static xingyi.job.Repository.ApplicationRepository;
 
 namespace xingyi.tests.section
 {
-    public class SectionConsumerPactTest : GenericClientConsumerPactTest<Section, Guid, SectionRepository, JobDbContext, SectionClient>
+    public class SectionConsumerPactTest : GenericClientConsumerPactTest<Section, Guid, SectionRepository, JobDbContext, SectionClient, SectionWhere>
     {
 
 

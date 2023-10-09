@@ -20,7 +20,7 @@ using xingyi.job;
 
 namespace xingyi.tests.application
 {
-    public class ApplicationClientConsumerPactTest : GenericClientConsumerPactTest<Application, Guid, ApplicationRepository, JobDbContext, ApplicationClient>
+    public class ApplicationClientConsumerPactTest : GenericClientConsumerPactTest<Application, Guid, ApplicationRepository, JobDbContext, ApplicationClient, ApplicationWhere>
     {
 
 

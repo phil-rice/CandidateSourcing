@@ -9,15 +9,15 @@ using xingyi.microservices.repository;
 namespace gui.GenericPages
 {
     [Authorize]
-    public class GenericEditModel<T, ID, C> : PageModel where T : class where C : IRepository<T, ID>
+    public class GenericEditModel<T, ID, C, Where> : PageModel where T : class where C : IRepository<T, ID, Where>
     {
-        private readonly IRepository<T,ID> repo;
+        private readonly IRepository<T,ID, Where> repo;
         [FromRoute]
         public ID Id { get; set; }
         [BindProperty]
         public T Item { get; set; }
 
-        public GenericEditModel(IRepository<T, ID> repo)
+        public GenericEditModel(IRepository<T, ID, Where> repo)
         {
             this.repo = repo;
         }

@@ -6,7 +6,7 @@ using xingyi.job.Repository;
 
 namespace gui.Pages.SectionTemplates
 {
-    public class SectionTemplateViewModel : GenericViewModel<SectionTemplate, Guid, ISectionTemplateRepository>
+    public class SectionTemplateViewModel : GenericViewModel<SectionTemplate, Guid, ISectionTemplateRepository, SectionTemplateWhere>
     {
 
         public SectionTemplateViewModel(ISectionTemplateRepository repo) : base(repo)

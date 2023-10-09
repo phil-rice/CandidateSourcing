@@ -17,7 +17,7 @@ using static xingyi.job.Repository.ApplicationRepository;
 
 namespace xingyi.tests.answers
 {
-    public class AnswersFixture : IGenericFixture<Answer, Guid, AnswersRepository, JobDbContext>
+    public class AnswersFixture : IGenericFixture<Answer, Guid, AnswersRepository, JobDbContext, AnswerWhere>
     {
 
         public JobDbContext dbContext => 

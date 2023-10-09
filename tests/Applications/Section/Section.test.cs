@@ -16,7 +16,7 @@ using static xingyi.job.Repository.ApplicationRepository;
 namespace xingyi.tests.section
 {
 
-    public class SectionRepositoryTest : GenericRepoTest<Section, Guid, SectionRepository, JobDbContext>
+    public class SectionRepositoryTest : GenericRepoTest<Section, Guid, SectionRepository, JobDbContext, SectionWhere>
     {
         public SectionRepositoryTest() : base(new SectionFixture())
         {

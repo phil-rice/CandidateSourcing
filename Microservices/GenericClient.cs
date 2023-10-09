@@ -8,7 +8,7 @@ using xingyi.microservices.repository;
 
 namespace xingyi.microservices.Client
 {
-    public interface IApiClient<T,Id> : IRepository<T,Id> where T : class
+    public interface IApiClient<T,Id, Where> : IRepository<T,Id, Where> where T : class
     {
     }
 
@@ -18,7 +18,7 @@ namespace xingyi.microservices.Client
     }
 
 
-    public class GenericClient<T,Id> : IApiClient<T,Id> where T : class
+    public class GenericClient<T,Id, Where> : IApiClient<T,Id, Where> where T : class
     {
         private readonly HttpClient _httpClient;
         private readonly string _baseUrl; // Base URL should be provided during instantiation.

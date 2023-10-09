@@ -7,10 +7,10 @@ using xingyi.microservices.repository;
 namespace gui.GenericPages
 {
     [Authorize]
-    public class GenericIndexModel<T, ID, C> : PageModel where T : class where C : IRepository<T, ID>
+    public class GenericIndexModel<T, ID, C, Where> : PageModel where T : class where C : IRepository<T, ID, Where>
     {
-        private IRepository<T, ID> repo { get; }
-        public GenericIndexModel(IRepository<T, ID> repo)
+        private IRepository<T, ID, Where> repo { get; }
+        public GenericIndexModel(IRepository<T, ID, Where> repo)
         {
             this.repo = repo;
 

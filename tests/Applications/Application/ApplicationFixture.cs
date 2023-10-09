@@ -18,7 +18,7 @@ using xingyi.tests.job;
 
 namespace xingyi.tests.application
 {
-    public class ApplicationFixture : IGenericFixture<Application, Guid, ApplicationRepository, JobDbContext>
+    public class ApplicationFixture : IGenericFixture<Application, Guid, ApplicationRepository, JobDbContext, ApplicationWhere>
     {
         private JobFixture jobFixture = new JobFixture();
 

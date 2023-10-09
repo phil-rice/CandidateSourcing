@@ -18,7 +18,7 @@ using xingyi.job;
 
 namespace xingyi.tests.questions
 {
-    public class QuestionClientConsumerPactTest : GenericClientConsumerPactTest<Question, Guid, QuestionRepository, JobDbContext, QuestionClient>
+    public class QuestionClientConsumerPactTest : GenericClientConsumerPactTest<Question, Guid, QuestionRepository, JobDbContext, QuestionClient, QuestionWhere>
     {
         public QuestionClientConsumerPactTest() : base(
     port =>

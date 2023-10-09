@@ -22,7 +22,7 @@ namespace xingyi.job.Client
     }
     public class JobAndAppSettings : HttpClientSettings { }
 
-    public class JobAndAppClient : GenericClient<Job, Guid>, IJobAndAppClient
+    public class JobAndAppClient : GenericClient<Job, Guid, JobWhere>, IJobAndAppClient
     {
         public JobAndAppClient(HttpClient httpClient, IOptions<JobAndAppSettings> jobSettings)
             : base(httpClient, jobSettings.Value.BaseUrl + "JobAndApp")
@@ -35,7 +35,7 @@ namespace xingyi.job.Client
     }
     public class JobSettings : HttpClientSettings { }
 
-    public class JobClient : GenericClient<Job, Guid>, IJobClient
+    public class JobClient : GenericClient<Job, Guid, JobWhere>, IJobClient
     {
         public JobClient(HttpClient httpClient, IOptions<JobSettings> jobSettings)
             : base(httpClient, jobSettings.Value.BaseUrl + "Job")
@@ -48,7 +48,7 @@ namespace xingyi.job.Client
     }
     public class SectionTemplateSettings : HttpClientSettings { }
 
-    public class SectionTemplateClient : GenericClient<SectionTemplate, Guid>, ISectionTemplateClient
+    public class SectionTemplateClient : GenericClient<SectionTemplate, Guid, SectionTemplateWhere>, ISectionTemplateClient
     {
         public SectionTemplateClient(HttpClient httpClient, IOptions<SectionTemplateSettings> settings) : base(httpClient, settings.Value.BaseUrl + "SectionTemplate")
         {
@@ -59,7 +59,7 @@ namespace xingyi.job.Client
     }
     public class QuestionSettings : HttpClientSettings { }
 
-    public class QuestionClient : GenericClient<Question, Guid>, IQuestionClient
+    public class QuestionClient : GenericClient<Question, Guid, QuestionWhere>, IQuestionClient
     {
         public QuestionClient(HttpClient httpClient, IOptions<QuestionSettings> settings) : base(httpClient, settings.Value.BaseUrl + "Question")
         {
@@ -70,7 +70,7 @@ namespace xingyi.job.Client
     }
     public class ApplicationSettings : HttpClientSettings { }
 
-    public class ApplicationClient : GenericClient<Application, Guid>, IApplicationClient
+    public class ApplicationClient : GenericClient<Application, Guid,ApplicationWhere>, IApplicationClient
     {
         public ApplicationClient(HttpClient httpClient, IOptions<ApplicationSettings> settings)
             : base(httpClient, settings.Value.BaseUrl + "Application")
@@ -86,7 +86,7 @@ namespace xingyi.job.Client
     }
     public class SectionSettings : HttpClientSettings { }
 
-    public class SectionClient : GenericClient<Section, Guid>, ISectionClient
+    public class SectionClient : GenericClient<Section, Guid, SectionWhere>, ISectionClient
     {
         public SectionClient(HttpClient httpClient, IOptions<SectionSettings> settings)
             : base(httpClient, settings.Value.BaseUrl + "Section")
@@ -100,7 +100,7 @@ namespace xingyi.job.Client
     }
     public class AnswerSettings : HttpClientSettings { }
 
-    public class AnswerClient : GenericClient<Answer, Guid>, IAnswerClient
+    public class AnswerClient : GenericClient<Answer, Guid, AnswerWhere>, IAnswerClient
     {
         public AnswerClient(HttpClient httpClient, IOptions<AnswerSettings> settings)
             : base(httpClient, settings.Value.BaseUrl + "Answer")

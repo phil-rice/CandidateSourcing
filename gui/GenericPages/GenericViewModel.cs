@@ -8,15 +8,15 @@ using xingyi.microservices.repository;
 namespace gui.GenericPages
 {
     [Authorize]
-    public class GenericViewModel<T, ID, C> : PageModel where T : class where C : IRepository<T, ID>
+    public class GenericViewModel<T, ID, C, Where> : PageModel where T : class where C : IRepository<T, ID, Where>
     {
-        private readonly IRepository<T, ID> repo;
+        private readonly IRepository<T, ID, Where> repo;
         [FromRoute]
         public ID Id { get; set; }
         [BindProperty]
         public T Item { get; private set; }
 
-        public GenericViewModel(IRepository<T, ID> repo)
+        public GenericViewModel(IRepository<T, ID, Where> repo)
         {
             this.repo = repo;
         }

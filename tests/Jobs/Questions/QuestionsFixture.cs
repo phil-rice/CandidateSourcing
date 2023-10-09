@@ -15,7 +15,7 @@ using xingyi.tests.job;
 
 namespace xingyi.tests.questions
 {
-    public class QuestionsFixture : IGenericFixture<Question, Guid, QuestionRepository, JobDbContext>
+    public class QuestionsFixture : IGenericFixture<Question, Guid, QuestionRepository, JobDbContext, QuestionWhere>
     {
 
         public JobDbContext dbContext => new JobDbContext(new DbContextOptionsBuilder<JobDbContext>()

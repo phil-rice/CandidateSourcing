@@ -18,15 +18,15 @@ using xingyi.tests.section;
 namespace xingyi.test.generic
 {
    
-    abstract public class GenericRepoTest<T, Id, R, C> where T : class where C : DbContext where R : IRepository<T, Id>
+    abstract public class GenericRepoTest<T, Id, R, C, Where> where T : class where C : DbContext where R : IRepository<T, Id, Where>
     {
-        private IGenericFixture<T, Id, R, C> fixture;
+        private IGenericFixture<T, Id, R, C, Where> fixture;
         private C _context;
         private R _repository;
         private SectionFixture sectionFixture;
         private ApplicationFixture applicationFixture;
 
-        protected GenericRepoTest(IGenericFixture<T, Id, R, C> fixture)
+        protected GenericRepoTest(IGenericFixture<T, Id, R, C, Where> fixture)
         {
             this.fixture = fixture;
         }

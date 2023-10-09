@@ -9,7 +9,7 @@ using Newtonsoft.Json;
 
 namespace xingyi.microservices.repository
 {
-    public interface IRepository<T, Id> where T : class
+    public interface IRepository<T, Id, Where> where T : class
     {
         Task<List<T>> GetAllAsync(Boolean eagerLoad = false);
         Task<T> GetByIdAsync(Id id, Boolean eagerLoad = true);
@@ -17,7 +17,7 @@ namespace xingyi.microservices.repository
         Task UpdateAsync(T entity);
         Task<bool> DeleteAsync(Id id);
     }
-    abstract public class Repository<C, T, Id> : IRepository<T, Id>
+    abstract public class Repository<C, T, Id, Where> : IRepository<T, Id, Where>
         where T : class
         where C : DbContext
     {

@@ -13,7 +13,7 @@ using xingyi.tests.generic;
 
 namespace xingyi.tests.job
 {
-    public class JobFixture : IGenericFixture<Job, Guid, JobRepository, JobDbContext>
+    public class JobFixture : IGenericFixture<Job, Guid, JobRepository, JobDbContext, JobWhere>
     {
 
         public JobDbContext dbContext => new JobDbContext(new DbContextOptionsBuilder<JobDbContext>()

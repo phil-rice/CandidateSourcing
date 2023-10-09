@@ -14,7 +14,7 @@ using xingyi.tests.answers;
 
 namespace xingyi.tests.questions
 {
-    public class QuestionRepositoryTest : GenericRepoTest<Question, Guid, QuestionRepository, JobDbContext>
+    public class QuestionRepositoryTest : GenericRepoTest<Question, Guid, QuestionRepository, JobDbContext, QuestionWhere>
     {
         public QuestionRepositoryTest() : base(new QuestionsFixture())
         {
