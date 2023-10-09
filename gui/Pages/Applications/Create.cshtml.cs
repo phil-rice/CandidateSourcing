@@ -1,6 +1,7 @@
 using gui.GenericPages;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.ComponentModel.DataAnnotations;
 using xingyi.application;
 using xingyi.gui;
 using xingyi.job.Models;
@@ -19,6 +20,7 @@ namespace gui.Pages.Applications
     public class SectionDetail
     {
         public string? Title { get; set; }
+        [EmailAddress]
         public string Who { get; set; }
         public bool? CanEditWho { get; set; }
 
@@ -64,18 +66,26 @@ namespace gui.Pages.Applications
 
         public async Task<IActionResult> OnPostAsync()
         {
+            var job = await jobRepo.GetByIdAsync(JobId);
             ModelStateHelper.DumpModelState(ModelState);
             if (ModelState.IsValid)
             {
                 var id = Guid.NewGuid();
-                var job = await jobRepo.GetByIdAsync(JobId);
-                var sections = job.JobSectionTemplates.Select(jst =>
-                                jst.SectionTemplate).Select(st => {
-                                    var sect = st.asSection(id, Guid.NewGuid());
-                                    if (sect.Who== "The Candidate")
-                                        sect.Who = Item.Candidate;
-                                    return sect;
-                                }).ToList();
+                job.PostGet();
+
+                var sections = new List<Section>();
+
+                for (var i = 0; i < job.JobSectionTemplates.Count(); i++)
+                {
+                    var st = job.JobSectionTemplates.ToList()[i].SectionTemplate;
+                    var sect = st.asSection(id, Guid.NewGuid());
+                    if (sect.Who == "The Candidate")
+                        sect.Who = Item.Candidate;
+                    else
+                        sect.Who = Item.sections[i].Who;
+
+                    sections.Add(sect);
+                }
                 var app = new Application
                 {
                     Id = id,
@@ -85,9 +95,22 @@ namespace gui.Pages.Applications
                 };
                 Console.WriteLine(app);
                 await appRepo.AddAsync(app);
-                return RedirectToPage("/Jobs/View", new { id = JobId });
+                return RedirectToPage("/Index", new { id = JobId });
 
-            };
+            }
+            else
+            {
+                for (var i = 0; i < Item.sections.Count; i++)
+                {
+                    var st = job.JobSectionTemplates.ToList()[i].SectionTemplate;
+                    Item.sections[i].Title = st.Title;
+                    Item.sections[i].CanEditWho = st.CanEditWho != false;
+                    if (st.Who == "The Candidate")
+                    {
+                        Item.sections[i].Who = "The Candidate";
+                    }
+                }
+            }
 
             return Page();
         }

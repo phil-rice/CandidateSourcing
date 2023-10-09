@@ -51,7 +51,7 @@ namespace xingyi.tests.answers
         {
             Id = id1,
             Title = "Title1",
-            Description = "Description1",
+            HelpText = "HelpText1",
             SectionId = IdFixture.secId1,
 
             AnswerText = "answer1"
@@ -62,7 +62,7 @@ namespace xingyi.tests.answers
         {
             Id = id2,
             Title = "Title2",
-            Description = "Description2",
+            HelpText = "HelpText2",
             SectionId = IdFixture.secId1,
             AnswerText = "answer2"
 

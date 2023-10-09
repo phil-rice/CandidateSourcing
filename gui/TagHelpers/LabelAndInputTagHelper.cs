@@ -27,8 +27,11 @@
         [HtmlAttributeName("score")]
         public int Score { get; set; } = 0;
 
-
-
+        private readonly IHtmlGenerator _htmlGenerator;
+        public LabelAndInputTagHelper(IHtmlGenerator htmlGenerator)
+        {
+            _htmlGenerator = htmlGenerator;
+        }
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
             output.TagName = "div";
@@ -57,9 +60,13 @@
             var value = For.ModelExplorer.GetSimpleDisplayText();
             input.Attributes.Add("value", value);
 
-            var validationSpan = new TagBuilder("span");
-            validationSpan.Attributes.Add("class", "text-danger");
-            validationSpan.Attributes.Add("data-valmsg-for", For.Name);
+            var validationSpan = _htmlGenerator.GenerateValidationMessage(
+                                    ViewContext,
+                                    modelExplorer: For.ModelExplorer,
+                                    expression: For.Name,
+                                    message: null,
+                                    tag: "span",
+                                    htmlAttributes: null);
 
             var scoreSpan = new TagBuilder("span");
             var scoreSlider = new TagBuilder("input");
@@ -68,7 +75,7 @@
                 // Construct the <span> tag for displaying score
                 scoreSpan.Attributes.Add("id", "sliderValue-" + For.Name);
                 scoreSpan.InnerHtml.Append(Score.ToString());
-            
+
                 // Construct the <input> tag for the slider
                 scoreSlider.Attributes.Add("type", "range");
                 scoreSlider.Attributes.Add("min", "1");

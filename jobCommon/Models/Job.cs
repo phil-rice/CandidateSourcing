@@ -14,6 +14,14 @@ namespace xingyi.job.Models
     [DebuggerDisplay("Job: (Id: {Id}, Title: {Title})")]
     public partial class Job
     {
+        public void PostGet()
+
+        {
+            JobSectionTemplates.Sort((st1, st2) => st1.SectionTemplate.Title.CompareTo(st2.SectionTemplate.Title));
+            Applications.Sort((a1, a2) => a1.Candidate.CompareTo(a2.Candidate));
+            foreach (var a in Applications) a.PostGet();
+        }
+
         [Key]
         public Guid Id { get; set; }
 
@@ -58,37 +66,45 @@ namespace xingyi.job.Models
         [IgnoreDuringToString]
         public Job? Job { get; set; }
 
+
+
         [ForeignKey("SectionTemplateId")]
         [IgnoreDuringToString]
         public SectionTemplate? SectionTemplate { get; set; }
-     
+
 
     }
     [ToString, Equals(DoNotAddEqualityOperators = true)]
-    [DebuggerDisplay("SectionTemplate: (Id: {Id}, owner: {owner}, Title: {Title})")]
+    [DebuggerDisplay("SectionTemplate: (Id: {Id}, Owner: {Owner}, Title: {Title})")]
     public partial class SectionTemplate
     {
+        public void PostGet()
+
+        {
+            Questions.Sort((q1, q2) => q1.Title.CompareTo(q2.Title));
+        }
+
         [Key]
         public Guid Id { get; set; }
 
         public string Owner { get; set; }
         public bool? CanEditWho { get; set; }
 
-        public string Who  { get; set; }
+        public string Who { get; set; }
 
         [Required]
         [StringLength(255)]
         public string Title { get; set; } = null!;
 
         [StringLength(255)]
-        public string? Description { get; set; }
+        public string? HelpText { get; set; }
 
         //Navigation
         [InverseProperty("SectionTemplate")]
         public ICollection<JobSectionTemplate> JobsSectionTemplates { get; set; } = new List<JobSectionTemplate>();
 
         public List<Question> Questions { get; set; } = new List<Question>();
-        public Section asSection(Guid appId,Guid sectionId)
+        public Section asSection(Guid appId, Guid sectionId)
         {
             var answers = SafeHelpers.safeList(Questions).Select(q => q.asAnswer(sectionId)).ToList();
             return new Section
@@ -96,7 +112,7 @@ namespace xingyi.job.Models
                 Id = sectionId,
                 ApplicationId = appId,
                 Title = Title,
-                Description = Description,
+                HelpText = HelpText,
                 Who = Who,
                 Comments = "",
                 Finished = false,
@@ -119,11 +135,14 @@ namespace xingyi.job.Models
         public string Title { get; set; } = null!;
 
         [StringLength(255)]
-        public string? Description { get; set; }
+        public string? HelpText { get; set; }
 
         public bool? ScoreOutOfTen { get; set; }
 
         public bool? Singleline { get; set; }
+        public bool? IsRequired { get; set; } = true;
+        public bool? IsNumber { get; set; }
+
 
         public Answer asAnswer(Guid sectionId)
         {
@@ -131,10 +150,12 @@ namespace xingyi.job.Models
             {
                 SectionId = sectionId,
                 Title = Title,
-                Description = Description,
+                HelpText = HelpText,
+                IsRequired = IsRequired,
+                IsNumber = IsNumber,
                 ScoreOutOfTen = ScoreOutOfTen,
                 Singleline = Singleline,
-                AnswerText=""
+                AnswerText = ""
             };
         }
     }

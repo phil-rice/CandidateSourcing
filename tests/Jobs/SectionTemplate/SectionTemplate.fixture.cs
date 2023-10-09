@@ -38,7 +38,7 @@ namespace xingyi.tests.sectionTemplate
         public SectionTemplate noIdItem1 => new SectionTemplate
         {
             Title = "Title1",
-            Description = "Description1",
+            HelpText = "HelpText1",
         };
         public Guid id1 => IdFixture.stId1;
         public Guid id2 => IdFixture.stId2;
@@ -46,7 +46,7 @@ namespace xingyi.tests.sectionTemplate
         {
             Id = id1,
             Title = "Title1",
-            Description = "Description1",
+            HelpText = "HelpText1",
             Owner="me",
             Who="who"
 
@@ -55,7 +55,7 @@ namespace xingyi.tests.sectionTemplate
         {
             Id = id2,
             Title = "Title2",
-            Description = "Description2",
+            HelpText = "HelpText2",
             Owner = "me",
             Who = "who"
 
@@ -64,7 +64,7 @@ namespace xingyi.tests.sectionTemplate
         {
             Id = id1,
             Title = "Title1",
-            Description = "Description1",
+            HelpText = "HelpText1",
             Owner = "me",
             Who = "who",
             Questions = new List<Question> { questionFixture.item1, questionFixture.item2 }
@@ -74,7 +74,7 @@ namespace xingyi.tests.sectionTemplate
         {
             Id = id2,
             Title = "Title2",
-            Description = "Description2",
+            HelpText = "HelpText2",
             Owner = "me",
             Who = "who"
         };

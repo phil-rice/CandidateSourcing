@@ -6,10 +6,21 @@
 
 <h1> @Model.Item.JobTitle / @Model.Item.InterviewTitle</h1>
 
+
+@* <div class="row">
+    <form asp-controller="Home" asp-action="Save" method="post">
+        Email Address: <input asp-for="Email" /><br />
+        <span asp-validation-for="Email"></span>
+    </form>
+</div>
+
+ <form asp-controller="Home" asp-action="Save" method="post"> *@
+
 <form method="post">
-    
+
     @for (var i = 0; i < Model.Item.Answers.Count(); i++)
     {
+        <input type="hidden" name="@($"Item.Answers[{i}].Title")" value="@Model.Item.Answers[i].Title" />
         var answer = Model.Item.Answers[i];
         var showScore = answer.ScoreOutOfTen == true;
         var score = answer.Score;
@@ -19,16 +30,14 @@
         }
         else
         {
-
             <label-and-textarea asp-for="Item.Answers[i].AnswerText" asp-label="Item.Answers[i].Title" show-score="@showScore" score="Item.Answers[i].Score"></label-and-textarea>
         }
-
     }
     <input type="hidden" name="SaveAction" id="saveAction" value="submit" />
     <button type="submit" class="btn btn-primary">Save</button>
     <button type="submit" class="btn btn-secondary" id="saveDraftButton">Save Draft</button>
 
- 
+
 
 
 </form>

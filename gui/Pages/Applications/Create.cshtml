@@ -6,18 +6,42 @@
 
 <display asp-for="Item">"</display>
 
-<form method="post">
+<form id="form" method="post">
     <input type="hidden" asp-for="Item.JobName" />
     <label-and-input asp-for="Item.Candidate"></label-and-input>
     <h2>Who fills in which section</h2>
-     @for (var i = 0; i< Model.Item.sections.Count(); i++)
+    <p>For each of the these sections please type in the email address of the person who needs to fill in the data</p>
+    @for (var i = 0; i < Model.Item.sections.Count(); i++)
     {
         var st = Model.Item.sections[i];
-        bool rdOnly = st?.CanEditWho==false;
+        bool rdOnly = st?.CanEditWho == false;
         <label-and-input asp-for="Item.sections[i].Who" asp-label="Item.sections[i].Title" readonly="@rdOnly"></label-and-input>
     }
     <button type="submit" class="btn btn-primary">Save</button>
 
 </form>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        document.getElementById("form").addEventListener("submit", function (e) {
+            // Prevent the form from submitting immediately so we can make our changes
+            e.preventDefault();
+
+            // Fetch the value from the candidate input field
+            let candidateValue = document.getElementById("Item.Candidate").value;
+
+            // Fetch all input elements with the name pattern "Item.sections[...].Who"
+            let inputs = this.querySelectorAll('input[name^="Item.sections["][name$=".Who"]');
+
+            // Iterate through the input fields and replace 'The Candidate' with the candidate's value
+            inputs.forEach(input => {
+                input.value = input.value.replace(/The Candidate/g, candidateValue);
+            });
+
+            // Continue form submission after the changes have been made
+            this.submit();
+        });
+    });
+</script>
 
 

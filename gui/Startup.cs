@@ -93,27 +93,23 @@ namespace xingyi.gui
                 app.UseExceptionHandler("/Error");
                 app.UseHsts();
             }
-            app.UseRequestResponseLogging(options => { options.Prefix = "Start: "; options.Enabled = true; });
+            app.UseRequestResponseLogging(options => { options.Enabled = false; });
 
             app.UseHttpsRedirection();
-            app.UseRequestResponseLogging(options => { options.Prefix = "AfterRedirect: "; options.Enabled = false; });
+         
             app.UseStaticFiles();
 
             app.UseRouting();
-            app.UseRequestResponseLogging(options => { options.Prefix = "After routing: "; options.Enabled = false; });
-
+         
             app.UseSession();
-            app.UseRequestResponseLogging(options => { options.Prefix = "After use session: "; options.Enabled = false; });
             app.UseAuthentication();
             app.UseAuthorization();
 
-            app.UseRequestResponseLogging(options => { options.Prefix = "After use auth/auth: "; options.Enabled = false; });
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapRazorPages();
                 endpoints.MapControllers();
             });
-            app.UseRequestResponseLogging(options => { options.Prefix = "After use use endpoints: "; });
 
         }
     }

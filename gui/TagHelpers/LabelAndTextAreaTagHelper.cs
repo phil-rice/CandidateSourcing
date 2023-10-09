@@ -28,6 +28,13 @@ namespace xingyi.TagHelpers
 
         [HtmlAttributeName("score")]
         public ModelExpression? Score { get; set; }
+
+
+        private readonly IHtmlGenerator _htmlGenerator;
+        public LabelAndTextAreaTagHelper(IHtmlGenerator htmlGenerator)
+        {
+            _htmlGenerator = htmlGenerator;
+        }
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
             output.TagName = "div";
@@ -54,10 +61,14 @@ namespace xingyi.TagHelpers
             {
                 textarea.Attributes.Add("readonly", "readonly");
             }
+            var validationSpan = _htmlGenerator.GenerateValidationMessage(
+                        ViewContext,
+                        modelExplorer: For.ModelExplorer,
+                        expression: For.Name,
+                        message: null,
+                        tag: "span",
+                        htmlAttributes: null);
 
-            var validationSpan = new TagBuilder("span");
-            validationSpan.Attributes.Add("class", "text-danger");
-            validationSpan.Attributes.Add("data-valmsg-for", For.Name);
             var scoreSpan = new TagBuilder("span");
             var scoreSlider = new TagBuilder("input");
             if (ShowScoreOutOf10)
@@ -70,7 +81,7 @@ namespace xingyi.TagHelpers
                 scoreSlider.Attributes.Add("type", "range");
                 scoreSlider.Attributes.Add("min", "0");
                 scoreSlider.Attributes.Add("max", "10");
-                scoreSlider.Attributes.Add("name", Score.Name );
+                scoreSlider.Attributes.Add("name", Score.Name);
                 scoreSlider.Attributes.Add("value", Score.Model.ToString());
                 scoreSlider.Attributes.Add("oninput", $"updateSliderValue(this.value, 'sliderValue-{Score.Name}')");
             }

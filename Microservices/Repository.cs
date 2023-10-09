@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
@@ -24,8 +25,10 @@ namespace xingyi.microservices.repository
         protected readonly C _context;
         private readonly Func<DbSet<T>, IQueryable<T>> nonEagerLoadFn;
         private readonly Func<DbSet<T>, IQueryable<T>> eagerLoadFn;
+        private readonly Func<IQueryable<T>, IQueryable<T>> orderFn;
         protected readonly DbSet<T> _dbSet;
         private readonly Func<Id, Expression<Func<T, bool>>> idEquals;
+        private readonly Action<T> postGetMutate;
 
         public void cleanDb()
         {
@@ -48,14 +51,17 @@ namespace xingyi.microservices.repository
 
         protected Repository(C context, Func<C, DbSet<T>> dbSet, Func<Id, Expression<Func<T, bool>>> idEquals,
             Func<DbSet<T>, IQueryable<T>> nonEagerLoadFn,
-            Func<DbSet<T>, IQueryable<T>> eagerLoadFn
-            )
+            Func<DbSet<T>, IQueryable<T>> eagerLoadFn,
+             Func<IQueryable<T>, IQueryable<T>> orderFn,
+             Action<T> postGetMutate)
         {
             _context = context;
             _dbSet = dbSet(context);
             this.idEquals = idEquals;
             this.nonEagerLoadFn = nonEagerLoadFn;
             this.eagerLoadFn = eagerLoadFn;
+            this.orderFn = orderFn;
+            this.postGetMutate = postGetMutate;
         }
 
         public static JsonSerializerSettings settings = new JsonSerializerSettings
@@ -69,17 +75,21 @@ namespace xingyi.microservices.repository
 
         private IQueryable<T> load(Boolean eagerLoad, DbSet<T> set)
         {
-            return eagerLoad ? eagerLoadFn(set) : nonEagerLoadFn(set);
+            return orderFn(eagerLoad ? eagerLoadFn(set) : nonEagerLoadFn(set));
         }
 
         public async Task<List<T>> GetAllAsync(Boolean eagerLoad)
         {
-            return await load(eagerLoad, _dbSet).ToListAsync();
+            var result = await load(eagerLoad, _dbSet).ToListAsync();
+            foreach (var t in result) postGetMutate(t);
+            return result;
         }
 
         public async Task<T> GetByIdAsync(Id id, Boolean eagerLoad)
         {
-            return await load(eagerLoad, _dbSet).FirstOrDefaultAsync(idEquals(id));
+            var result = await load(eagerLoad, _dbSet).FirstOrDefaultAsync(idEquals(id));
+            postGetMutate(result);
+            return result;
         }
 
         public async Task<T> AddAsync(T entity)
@@ -94,6 +104,7 @@ namespace xingyi.microservices.repository
 
             await _dbSet.AddAsync(entity);
             await _context.SaveChangesAsync();
+            postGetMutate(entity);
             return entity;
         }
 
@@ -101,6 +112,7 @@ namespace xingyi.microservices.repository
         public async Task UpdateAsync(T entity)
         {
             var updated = await populateEntityForUpdate(entity);
+            postGetMutate(entity);
             _dbSet.Update(updated);
             await _context.SaveChangesAsync();
         }

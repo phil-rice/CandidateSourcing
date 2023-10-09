@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics;
 using xingyi.job.Models;
+using static System.Collections.Specialized.BitVector32;
 
 namespace xingyi.application
 {
@@ -11,6 +12,11 @@ namespace xingyi.application
     [DebuggerDisplay("Application: (Id: {Id}, JobId: {JobId}, Candidate: {Candidate})")]
     public class Application
     {
+        public void PostGet()
+
+        {
+            Sections.Sort((s1, s2) => s1.Title.CompareTo(s2.Title));
+        }
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }
@@ -46,6 +52,10 @@ namespace xingyi.application
 
     public class Section
     {
+      public  void PostGet()
+        {
+            Answers.Sort((a1, a2) => a1.Title.CompareTo(a2.Title));
+        }
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }
@@ -55,9 +65,8 @@ namespace xingyi.application
         [Required]
         [StringLength(255)]
         public string Title { get; set; }
-        [Required]
         [StringLength(255)]
-        public string Description { get; set; }
+        public string? HelpText { get; set; } = "";
 
         public bool CanEditWho { get; set; }
         [MaxLength(100)]
@@ -91,12 +100,14 @@ namespace xingyi.application
         public string Title { get; set; } = null!;
 
         [MaxLength(255)]
-        public string? Description { get; set; }
+        public string? HelpText { get; set; }
 
         public bool? ScoreOutOfTen { get; set; }
+        public bool? IsRequired { get; set; } = true;
+        public bool? IsNumber { get; set; }
         public bool? Singleline { get; set; }
 
-        [MaxLength(500)]
+        [MaxLength(2048)]
         public string AnswerText { get; set; }
 
         public int Score { get; set; }

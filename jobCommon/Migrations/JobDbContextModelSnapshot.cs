@@ -30,12 +30,18 @@ namespace jobCommon.Migrations
 
                     b.Property<string>("AnswerText")
                         .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
+                        .HasMaxLength(2048)
+                        .HasColumnType("nvarchar(2048)");
 
-                    b.Property<string>("Description")
+                    b.Property<string>("HelpText")
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
+
+                    b.Property<bool?>("IsNumber")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("IsRequired")
+                        .HasColumnType("bit");
 
                     b.Property<int>("Score")
                         .HasColumnType("int");
@@ -110,13 +116,13 @@ namespace jobCommon.Migrations
                         .HasMaxLength(300)
                         .HasColumnType("nvarchar(300)");
 
-                    b.Property<string>("Description")
+                    b.Property<bool>("Finished")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("HelpText")
                         .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
-
-                    b.Property<bool>("Finished")
-                        .HasColumnType("bit");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -159,6 +165,9 @@ namespace jobCommon.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Title")
+                        .IsUnique();
+
                     b.ToTable("Jobs");
                 });
 
@@ -183,9 +192,15 @@ namespace jobCommon.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Description")
+                    b.Property<string>("HelpText")
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
+
+                    b.Property<bool?>("IsNumber")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("IsRequired")
+                        .HasColumnType("bit");
 
                     b.Property<bool?>("ScoreOutOfTen")
                         .HasColumnType("bit");
@@ -217,7 +232,7 @@ namespace jobCommon.Migrations
                     b.Property<bool?>("CanEditWho")
                         .HasColumnType("bit");
 
-                    b.Property<string>("Description")
+                    b.Property<string>("HelpText")
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
@@ -235,6 +250,9 @@ namespace jobCommon.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Title")
+                        .IsUnique();
 
                     b.ToTable("SectionTemplates");
                 });

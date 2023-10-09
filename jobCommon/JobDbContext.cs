@@ -26,6 +26,15 @@ namespace xingyi.job
             modelBuilder.Entity<JobSectionTemplate>()
                 .HasKey(jst => new { jst.JobId, jst.SectionTemplateId });
 
+            modelBuilder.Entity<Job>()
+                    .HasIndex(j => j.Title)
+                    .IsUnique();
+
+            modelBuilder.Entity<SectionTemplate>()
+                 .HasIndex(j => j.Title)
+                 .IsUnique();
+
+
             //modelBuilder.Entity<JobSectionTemplate>()
             //    .HasOne(jst => jst.Job)
             //    .WithMany(job => job.JobSectionTemplates)

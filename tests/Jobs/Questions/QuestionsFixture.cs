@@ -31,7 +31,7 @@ namespace xingyi.tests.questions
         public Question noIdItem1 => new Question
         {
             Title = "Title1",
-            Description = "Description1"
+            HelpText = "Description1"
         };
         public Guid id1 => IdFixture.qId1;
         public Guid id2 => IdFixture.qId2;
@@ -39,7 +39,7 @@ namespace xingyi.tests.questions
         {
             Id = id1,
             Title = "Title1",
-            Description = "Description1",
+            HelpText = "Description1",
             SectionTemplateId = IdFixture.stId1
 
         };
@@ -47,7 +47,7 @@ namespace xingyi.tests.questions
         {
             Id = id2,
             Title = "Title2",
-            Description = "Description2",
+            HelpText = "Description2",
             SectionTemplateId = IdFixture.stId1
 
         };
@@ -55,7 +55,7 @@ namespace xingyi.tests.questions
         {
             Id = id1,
             Title = "Title1",
-            Description = "Description1",
+            HelpText = "Description1",
             SectionTemplateId = IdFixture.stId1
 
 
@@ -64,7 +64,7 @@ namespace xingyi.tests.questions
         {
             Id = id2,
             Title = "Title2",
-            Description = "Description2",
+            HelpText = "Description2",
             SectionTemplateId = IdFixture.stId1
 
         };

@@ -29,7 +29,7 @@ namespace xingyi.TagHelpers
             {
                 string attributeName = definition.Key;
                 string attributeType = definition.Value;
-                return InputGenerator.GenerateInputHtml(attributeName, attributeType,BindTo, "newIndex","");
+                return InputHelper.GenerateInputHtml(attributeName, attributeType,BindTo, "newIndex","");
             });
 
             string joinedTemplates = string.Join("", generatedTemplates);

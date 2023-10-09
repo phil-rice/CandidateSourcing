@@ -11,19 +11,22 @@ using xingyi.application;
 namespace xingyi.job.Repository
 {
 
-    public class JobWhere { }
-    public interface IJobAndAppRepository : IRepository<Job, Guid, JobWhere> { }
-    public class JobAndAppRepository : Repository<JobDbContext, Job, Guid, JobWhere>, IJobAndAppRepository
+    public class JobAndAppWhere { }
+    public interface IJobAndAppRepository : IRepository<Job, Guid, JobAndAppWhere> { }
+    public class JobAndAppRepository : Repository<JobDbContext, Job, Guid, JobAndAppWhere>, IJobAndAppRepository
     {
         public JobAndAppRepository(JobDbContext context) :
             base(context, context => context.Jobs,
                                  id => j => j.Id == id,
                                 set => set,
                                 set => set.Include(j => j.Applications).ThenInclude(a => a.Sections)
-                                .Include(j => j.JobSectionTemplates).ThenInclude(jst => jst.SectionTemplate))
+                                .Include(j => j.JobSectionTemplates).ThenInclude(jst => jst.SectionTemplate),
+                                        orderFn: set => set.OrderBy(j => j.Title),
+                                postGetMutate: s => s.PostGet())
         {
         }
     }
+    public class JobWhere { }
 
     public interface IJobRepository : IRepository<Job, Guid, JobWhere> { }
     public class JobRepository : Repository<JobDbContext, Job, Guid, JobWhere>, IJobRepository
@@ -34,7 +37,9 @@ namespace xingyi.job.Repository
                   set => set,
                   set => set.Include(j => j.JobSectionTemplates)
                             .ThenInclude(jst => jst.SectionTemplate)
-                            .ThenInclude(st => st.Questions))
+                            .ThenInclude(st => st.Questions),
+                  orderFn: set => set.OrderBy(j => j.Title),
+                  postGetMutate: s => s.PostGet())
         {
         }
 
@@ -104,7 +109,9 @@ namespace xingyi.job.Repository
             context => context.Questions,
             id => q => q.Id == id,
             set => set,
-            set => set)
+            set => set,
+            orderFn: set => set.OrderBy(q => q.Title),
+            postGetMutate: s => { })
         {
         }
 
@@ -120,7 +127,8 @@ namespace xingyi.job.Repository
         context => context.SectionTemplates,
         id => st => st.Id == id,
         set => set,
-        set => set.Include(s => s.Questions))
+        set => set.Include(s => s.Questions), orderFn: set => set.OrderBy(st => st.Title),
+        postGetMutate: s => s.PostGet())
         {
         }
 
@@ -136,7 +144,10 @@ namespace xingyi.job.Repository
                   set => set.Include(a => a.Id),
                   set => set.Include(a => a.Job)
                              .Include(a => a.Sections)
-                            .ThenInclude(s => s.Answers))
+                            .ThenInclude(s => s.Answers),
+                  orderFn: set => set.OrderBy(a => a.Candidate),
+                  postGetMutate: s => s.PostGet()
+                  )
         {
 
         }
@@ -152,7 +163,10 @@ namespace xingyi.job.Repository
         s => s.Include(s => s.Application).ThenInclude(a => a.Job),
         set => set
             .Include(s => s.Answers)
-             .Include(s => s.Application).ThenInclude(a => a.Job)) { }
+             .Include(s => s.Application).ThenInclude(a => a.Job),
+        orderFn: s => s.OrderBy(s => s.Title),
+        postGetMutate: s => s.PostGet())
+        { }
 
     }
     public class AnswerWhere { }
@@ -164,7 +178,9 @@ namespace xingyi.job.Repository
         context => context.Answers,
         id => st => st.Id == id,
         s => s,
-        set => set)
+        set => set,
+        orderFn: set => set.OrderBy(s => s.Title),
+          postGetMutate: s => { })
         {
         }
 
