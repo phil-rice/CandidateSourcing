@@ -2,14 +2,27 @@
 
 @model TodoDisplayDto<Section>
 
-@if (Model.Items.Count > 0){
-    <h2>@Model.Title</h2>
+@if (Model.Items.Count > 0)
+{
+    <div class="card">
+        <div class="card-header">@Model.Message</div>
+        <div class="card-body">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Candidate</th>
+                        <th>Type</th>
+                    </tr>
+                </thead>
+                @foreach (var sect in Model.Items)
+                {
+                    <tr>
+                        <td>@sect.Application.Candidate</td>
+                        <td><a href="/FillinDetails/@sect.Id">@sect.Title</a></td>
+                    </tr>
 
-    <p>@Model.Message</p>
-    <ul>
-        @foreach (var sect in Model.Items)
-        {
-            <li>@sect.Title</li>
-        }
-    </ul>
+                }
+            </table>
+        </div>
+    </div>
 }

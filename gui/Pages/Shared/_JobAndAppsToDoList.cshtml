@@ -4,43 +4,53 @@
 
 @if (Model.Items.Count > 0)
 {
-    <h2>@Model.Title</h2>
-
-    <p>@Model.Message</p>
-
-    @foreach (var jobAndApp in Model.Items)
-    {
-        <h2>@jobAndApp.Job.Title</h2>
-        <a href="/Applications/Create/@jobAndApp.Job.Id" class="btn btn-primary">Add Candidate</a>
-
-        <table>
-            <thead>
-                <tr>
-                    <th>Candidate</th>
-                    @foreach (var app in jobAndApp.Job.JobSectionTemplates)
-                    {
-                        <th>@app.SectionTemplate.Title</th>
-                    }
-                </tr>
-            </thead>
-            <tbody>
-                @if (Model.Items.Count == 0)
-                {
-                <tr><td colspan="100">No Candidates</td></tr>
-                }
-
-                @foreach (var ap in jobAndApp.Applications)
-                {
+    <h2> @Model.Message</h2>
+}
+@foreach (var jobAndApp in Model.Items)
+{
+    <div class="card">
+        <div class="card-header">
+            @jobAndApp.Job.Title <a href="/Applications/Create/@jobAndApp.Job.Id">Add Candidate</a>
+        </div>
+        <div class="card-body">
+            <table>
+                <thead>
                     <tr>
-                        <td>@ap.Candidate</td>
-                        @foreach (var sect in ap.Sections)
+                        <th>Candidate</th>
+                        @foreach (var app in jobAndApp.Job.JobSectionTemplates)
                         {
-                            <td>@sect.Who</td>
+                            <th>@app.SectionTemplate.Title</th>
                         }
                     </tr>
-                }
-        </table>
+                </thead>
+                <tbody>
+                    @if (Model.Items.Count == 0)
+                    {
+                        <tr><td colspan="100">No Candidates</td></tr>
+                    }
 
-    }
+                    @foreach (var ap in jobAndApp.Applications)
+                    {
+                        <tr>
+                            <td>@ap.Candidate</td>
+                            @foreach (var sect in ap.Sections)
+                            {
+                                <td>
+                                    @if (sect.Finished)
+                                    {
+                                        <span class="badge badge-success" role="status" aria-label="Complete"> @sect.Who</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge badge-warning" role="status" aria-label="Incomplete"> @sect.Who</span>
+                                    }
+                                </td>
+                            }
+                        </tr>
+                    }
+
+            </table>
+        </div>
+    </div>
 
 }

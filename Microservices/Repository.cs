@@ -69,7 +69,7 @@ namespace xingyi.microservices.repository
 
         private IQueryable<T> load(Boolean eagerLoad, DbSet<T> set)
         {
-            return eagerLoad ? eagerLoadFn(set) : set;
+            return eagerLoad ? eagerLoadFn(set) : nonEagerLoadFn(set);
         }
 
         public async Task<List<T>> GetAllAsync(Boolean eagerLoad)

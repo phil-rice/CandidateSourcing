@@ -1,0 +1,41 @@
+﻿@page "{id}"
+@model gui.Pages.FillInDetailsModel
+@addTagHelper *, gui
+@{
+}
+
+<h1> @Model.Item.JobTitle / @Model.Item.InterviewTitle</h1>
+
+<form method="post">
+    
+    @for (var i = 0; i < Model.Item.Answers.Count(); i++)
+    {
+        var answer = Model.Item.Answers[i];
+        var showScore = answer.ScoreOutOfTen == true;
+        var score = answer.Score;
+        if (answer.Singleline == true)
+        {
+            <label-and-input asp-for="Item.Answers[i].AnswerText" asp-label="Item.Answers[i].Title" show-score="@showScore" score="@score"></label-and-input>
+        }
+        else
+        {
+
+            <label-and-textarea asp-for="Item.Answers[i].AnswerText" asp-label="Item.Answers[i].Title" show-score="@showScore" score="Item.Answers[i].Score"></label-and-textarea>
+        }
+
+    }
+    <input type="hidden" name="SaveAction" id="saveAction" value="submit" />
+    <button type="submit" class="btn btn-primary">Save</button>
+    <button type="submit" class="btn btn-secondary" id="saveDraftButton">Save Draft</button>
+
+ 
+
+
+</form>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        document.getElementById('saveDraftButton').addEventListener('click', function () {
+            document.getElementById('saveAction').value = 'draft';
+        });
+    });
+</script>

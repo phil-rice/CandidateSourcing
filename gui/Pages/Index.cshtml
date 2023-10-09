@@ -10,7 +10,7 @@
 }
 
 <div>
-    <h1 class="display-4">@User.Identity.Name</h1>
+    <h1 class="display-4">Welcome @User.Identity.Name</h1>
 
     @if (Model.Nothing)
     {
@@ -19,7 +19,6 @@
         <p>You are currently not a candidate, or an interviewer. And you currently aren't posting any vacancies'</p>
     }
 
-    <p>Find out more about <a href="/Info/PostingVacancies">Posting Vacancies</a></p>
     <p>Find out more about <a href="/Info/FillingIn">Filling in details</a></p>
 
 
@@ -27,32 +26,31 @@
 
     @Html.Partial("_SectionToDoList", new TodoDisplayDto<Section>
     {
-    Title= "Details you have been asked to provide",
     Message = "This is the list of details you have been asked to fill in",
     Items = Model.MyTodoSections
     })
 
     @Html.Partial("_SectionToDoList", new TodoDisplayDto<Section>
     {
-    Title= "Details you have already provided",
-    Message = "These are now 'closed' as you have completed them",
+    Message= "Details you have already filled in",
     Items = Model.MyDoneSections
     })
 
-    <a href="/Jobs/Create"> Create a new Job (Vacancy)</a>
-
+ 
     @Html.Partial("_JobAndAppsToDoList", new TodoDisplayDto<JobAndApplications>
     {
-    Title= "Jobs (Vacancies) that you have created",
-    Message = "",
+    Message= "Your active jobs",
     Items = Model.MyActiveApps
     })
     @Html.Partial("_JobAndAppsToDoList", new TodoDisplayDto<JobAndApplications>
     {
-    Title= "Jobs (Vacancies) that you have created, and have been filled or cancelled",
-    Message = "",
+    Message= "Your inactive jobs",
     Items = Model.MyCompletedApps
     })
+
+    <a href="/Jobs/Create"> Create a new Job (Vacancy)</a>
+
+    <p>Find out more about <a href="/Info/PostingVacancies">Posting Vacancies</a></p>
 
 
 </div>

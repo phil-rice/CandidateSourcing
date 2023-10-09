@@ -31,9 +31,6 @@
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
-                        </li>
-                        <li class="nav-item">
                             @await Html.PartialAsync("_LoginPartial")
                         </li>
 
@@ -51,7 +48,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2023 - gui - <a asp-area="" asp-page="/Privacy">Privacy</a>
+            &copy; 2023 - Philip Rice - <a asp-area="" asp-page="/Privacy">Privacy</a>
         </div>
     </footer>
 
@@ -91,23 +88,11 @@
 
 
     </script>
-   @*  <script>
-        //Resolves Razor pages generally incompetant handling of checkboxs. By default checkboxes break razor.
-        $(document).ready(function () {
-            // Attach the event handler to every form on the page
-            $('form').on('submit', function () {
-                // Find every checkbox within the current form
-                $(this).find('input[type="checkbox"]').each(function () {
-                    if ($(this).is(':checked')) {
-                        $(this).val('true');
-                    } else {
-                        $(this).val('false');
-                    }
-                });
-            });
-        });
-    </script> *@
-
+    <script>
+        function updateSliderValue(value, targetId) {
+            document.getElementById(targetId).textContent = value;
+        }
+    </script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

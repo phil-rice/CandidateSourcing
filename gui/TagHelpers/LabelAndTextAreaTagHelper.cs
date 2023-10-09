@@ -1,12 +1,12 @@
-﻿namespace xingyi.TagHelpers
-{
-    using Microsoft.AspNetCore.Mvc.Rendering;
-    using Microsoft.AspNetCore.Mvc.ViewFeatures;
-    using Microsoft.AspNetCore.Razor.TagHelpers;
-    using xingyi.common;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using Microsoft.AspNetCore.Razor.TagHelpers;
+using xingyi.common;
 
-    [HtmlTargetElement("label-and-input", Attributes = ForAttributeName)]
-    public class LabelAndInputTagHelper : TagHelper
+namespace xingyi.TagHelpers
+{
+    [HtmlTargetElement("label-and-textarea", Attributes = ForAttributeName)]
+    public class LabelAndTextAreaTagHelper : TagHelper
     {
         private const string ForAttributeName = "asp-for";
 
@@ -22,13 +22,12 @@
         [ViewContext]
         [HtmlAttributeNotBound]
         public ViewContext ViewContext { get; set; }
+
         [HtmlAttributeName("show-score")]
         public bool ShowScoreOutOf10 { get; set; } = false;  // Default value is false
+
         [HtmlAttributeName("score")]
-        public int Score { get; set; } = 0;
-
-
-
+        public ModelExpression? Score { get; set; }
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
             output.TagName = "div";
@@ -42,46 +41,42 @@
             label.Attributes.Add("class", "control-label");
             label.InnerHtml.Append(labelName);
 
-            var input = new TagBuilder("input");
-            input.Attributes.Add("id", For.Name);
-            input.Attributes.Add("name", For.Name);
-            input.Attributes.Add("class", "form-control");
-            input.Attributes.Add("type", "text");
+            var textarea = new TagBuilder("textarea");
+            textarea.Attributes.Add("id", For.Name);
+            textarea.Attributes.Add("name", For.Name);
+            textarea.Attributes.Add("class", "form-control");
+
+            // Get the actual value from the model and set it as the content for the textarea
+            var value = For.ModelExplorer.GetSimpleDisplayText();
+            textarea.InnerHtml.Append(value);
 
             if (IsReadonly)
             {
-                input.Attributes.Add("readonly", "readonly");
+                textarea.Attributes.Add("readonly", "readonly");
             }
-
-            // Get the actual value from the model and set it as the value for the input
-            var value = For.ModelExplorer.GetSimpleDisplayText();
-            input.Attributes.Add("value", value);
 
             var validationSpan = new TagBuilder("span");
             validationSpan.Attributes.Add("class", "text-danger");
             validationSpan.Attributes.Add("data-valmsg-for", For.Name);
-
             var scoreSpan = new TagBuilder("span");
             var scoreSlider = new TagBuilder("input");
             if (ShowScoreOutOf10)
             {
                 // Construct the <span> tag for displaying score
-                scoreSpan.Attributes.Add("id", "sliderValue-" + For.Name);
-                scoreSpan.InnerHtml.Append(Score.ToString());
-            
+                scoreSpan.Attributes.Add("id", "sliderValue-" + Score.Name);
+                scoreSpan.InnerHtml.Append(Score.Model.ToString());
+
                 // Construct the <input> tag for the slider
                 scoreSlider.Attributes.Add("type", "range");
-                scoreSlider.Attributes.Add("min", "1");
+                scoreSlider.Attributes.Add("min", "0");
                 scoreSlider.Attributes.Add("max", "10");
-                scoreSlider.Attributes.Add("name", For.Name + ".score");
-                scoreSlider.Attributes.Add("value", Score.ToString());
-                scoreSlider.Attributes.Add("oninput", $"updateSliderValue(this.value, 'sliderValue-{For.Name}')");
+                scoreSlider.Attributes.Add("name", Score.Name );
+                scoreSlider.Attributes.Add("value", Score.Model.ToString());
+                scoreSlider.Attributes.Add("oninput", $"updateSliderValue(this.value, 'sliderValue-{Score.Name}')");
             }
 
-
-
             output.Content.AppendHtml(label);
-            output.Content.AppendHtml(input);
+            output.Content.AppendHtml(textarea);
             output.Content.AppendHtml(validationSpan);
             if (ShowScoreOutOf10)
             {
@@ -89,7 +84,6 @@
                 output.Content.AppendHtml(scoreSlider);
 
             }
-
         }
     }
 }

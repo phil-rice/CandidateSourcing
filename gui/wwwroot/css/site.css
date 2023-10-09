@@ -16,3 +16,16 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+/* Enhancing the visibility of Bootstrap badges */
+.badge-success {
+    background-color: #28a745; /* Adjust this if needed */
+    border: 2px solid #155724; /* Giving a pronounced border */
+    font-weight: bold; /* Making the text bold */
+}
+
+.badge-warning {
+    background-color: #ffc107; /* Adjust this if needed */
+    border: 2px solid #856404; /* Giving a pronounced border */
+    font-weight: bold; /* Making the text bold */
+}

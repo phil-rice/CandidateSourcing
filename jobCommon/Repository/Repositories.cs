@@ -83,7 +83,7 @@ namespace xingyi.job.Repository
         }
 
 
-        
+
 
         public async Task UpdateJobFields(Job job)
         {
@@ -138,14 +138,13 @@ namespace xingyi.job.Repository
     public interface ISectionRepository : IRepository<Section, Guid> { }
     public class SectionRepository : Repository<JobDbContext, Section, Guid>, ISectionRepository
     {
-        public SectionRepository(JobDbContext context) :
-    base(context,
+        public SectionRepository(JobDbContext context) : base(context,
         context => context.Sections,
         id => st => st.Id == id,
-        s => s,
-        set => set.Include(s => s.Answers))
-        {
-        }
+        s => s.Include(s => s.Application).ThenInclude(a => a.Job),
+        set => set
+            .Include(s => s.Answers)
+             .Include(s => s.Application).ThenInclude(a => a.Job)) { }
 
     }
     public interface IAnswersRepository : IRepository<Answer, Guid> { }

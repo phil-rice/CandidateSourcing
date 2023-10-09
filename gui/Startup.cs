@@ -93,7 +93,7 @@ namespace xingyi.gui
                 app.UseExceptionHandler("/Error");
                 app.UseHsts();
             }
-            app.UseRequestResponseLogging(options => { options.Prefix = "Start: "; options.Enabled = false; });
+            app.UseRequestResponseLogging(options => { options.Prefix = "Start: "; options.Enabled = true; });
 
             app.UseHttpsRedirection();
             app.UseRequestResponseLogging(options => { options.Prefix = "AfterRedirect: "; options.Enabled = false; });
