@@ -5,14 +5,15 @@ using System.Linq.Expressions;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using Microservices;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 
 namespace xingyi.microservices.repository
 {
-    public interface IRepository<T, Id, Where> where T : class
+    public interface IRepository<T, Id, Where> where T : class where Where : IRepositoryWhere<T>
     {
-        Task<List<T>> GetAllAsync(Boolean eagerLoad = false);
+        Task<List<T>> GetAllAsync(Where where, Boolean eagerLoad = false);
         Task<T> GetByIdAsync(Id id, Boolean eagerLoad = true);
         Task<T> AddAsync(T entity);
         Task UpdateAsync(T entity);
@@ -21,6 +22,7 @@ namespace xingyi.microservices.repository
     abstract public class Repository<C, T, Id, Where> : IRepository<T, Id, Where>
         where T : class
         where C : DbContext
+        where Where : IRepositoryWhere<T>
     {
         protected readonly C _context;
         private readonly Func<DbSet<T>, IQueryable<T>> nonEagerLoadFn;
@@ -78,9 +80,9 @@ namespace xingyi.microservices.repository
             return orderFn(eagerLoad ? eagerLoadFn(set) : nonEagerLoadFn(set));
         }
 
-        public async Task<List<T>> GetAllAsync(Boolean eagerLoad)
+        public async Task<List<T>> GetAllAsync(Where where, Boolean eagerLoad)
         {
-            var result = await load(eagerLoad, _dbSet).ToListAsync();
+            var result = await where.Apply(load(eagerLoad, _dbSet)).ToListAsync();
             foreach (var t in result) postGetMutate(t);
             return result;
         }

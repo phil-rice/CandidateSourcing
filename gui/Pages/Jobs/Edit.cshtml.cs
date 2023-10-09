@@ -23,8 +23,10 @@ namespace gui.Pages.Jobs
         {
             System.Diagnostics.Debug.WriteLine($"ID: {Id}");
             Console.WriteLine($"ID {Id}");
+            var email = User.FindFirst(System.Security.Claims.ClaimTypes.Email)?.Value;
+
             var job = await jobRepo.GetByIdAsync(Id);
-            await populateItem(job);
+            await populateItem(job, email);
         }
 
         public async Task<IActionResult> OnPostAsync()

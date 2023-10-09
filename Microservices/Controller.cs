@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microservices;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
@@ -22,22 +23,17 @@ namespace xingyi.microservices.Controllers
     /// <typeparam name="TEntity"></typeparam>
     [Route("api/[controller]")]
     [ApiController]
-    abstract public class GenericController<TEntity, Id, Where> : ControllerBase where TEntity : class
+    abstract public class GenericController<TEntity, Id, Where> : ControllerBase
+        where TEntity : class
+        where Where : IRepositoryWhere<TEntity>
     {
-        private readonly IRepository<TEntity,Id, Where> _repository;
+        protected readonly IRepository<TEntity, Id, Where> _repository;
         private readonly Func<TEntity, Id> idFn;
 
-        public GenericController(IRepository<TEntity,Id, Where> repository, Func<TEntity, Id> idFn)
+        public GenericController(IRepository<TEntity, Id, Where> repository, Func<TEntity, Id> idFn)
         {
             _repository = repository;
             this.idFn = idFn;
-        }
-
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<TEntity>>> GetAll([FromQuery] Boolean eagerLoad)
-        {
-            var entities = await _repository.GetAllAsync(eagerLoad);
-            return entities == null ? NotFound() : Ok(entities);
         }
 
         [HttpGet("{id}")]
@@ -69,4 +65,27 @@ namespace xingyi.microservices.Controllers
             return deleted ? NoContent() : NotFound();
         }
     }
+
+    [Route("api/[controller]")]
+    [ApiController]
+    abstract public class GenericEmptyWhereController<TEntity, Id, Where> : GenericController<TEntity, Id, Where>
+        where TEntity : class
+        where Where : IRepositoryWhere<TEntity>
+    {
+        private readonly Where emptyWhere;
+
+        public GenericEmptyWhereController(IRepository<TEntity, Id, Where> repository, Func<TEntity, Id> idFn, Where emptyWhere)
+            : base(repository, idFn)
+        {
+            this.emptyWhere = emptyWhere;
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<TEntity>>> GetAll([FromQuery] Boolean eagerLoad)
+        {
+            var entities = await _repository.GetAllAsync(emptyWhere, eagerLoad);
+            return entities == null ? NotFound() : Ok(entities);
+        }
+    }
 }
+

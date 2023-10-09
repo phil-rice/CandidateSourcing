@@ -40,9 +40,9 @@ namespace gui.Pages.Jobs
             this.stRepo = stRepo;
         }
 
-        async protected Task populateItem(Job job)
+        async protected Task populateItem(Job job, string email)
         {
-            var sts = await stRepo.GetAllAsync();
+            var sts = await stRepo.GetAllAsync(new SectionTemplateWhere { Owner = email});
             var stAndChecked = sts
                 .Select(s => new SectionTemplateAndChecked
                 {

@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microservices;
+using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
 using NUnit.Framework.Interfaces;
 using System;
@@ -17,8 +18,12 @@ using xingyi.tests.section;
 
 namespace xingyi.test.generic
 {
-   
-    abstract public class GenericRepoTest<T, Id, R, C, Where> where T : class where C : DbContext where R : IRepository<T, Id, Where>
+
+    abstract public class GenericRepoTest<T, Id, R, C, Where>
+        where T : class
+        where C : DbContext
+        where R : IRepository<T, Id, Where>
+        where Where : IRepositoryWhere<T>
     {
         private IGenericFixture<T, Id, R, C, Where> fixture;
         private C _context;
@@ -45,7 +50,7 @@ namespace xingyi.test.generic
         async public Task Ensure_Can_Get_All_NotEager()
         {
             await fixture.populate(_repository);
-            var all = await _repository.GetAllAsync();
+            var all = await _repository.GetAllAsync(fixture.emptyWhere);
             Assertions.ListsEqual(new List<T> { fixture.item1, fixture.item2 }, all);
 
         }
@@ -53,7 +58,7 @@ namespace xingyi.test.generic
         async public Task Ensure_Can_Get_All_Eager()
         {
             await fixture.populate(_repository);
-            var all = await _repository.GetAllAsync(true);
+            var all = await _repository.GetAllAsync(fixture.emptyWhere, true);
             Assertions.ListsEqual(new List<T> { fixture.eagerItem1, fixture.eagerItem2 }, all);
 
         }

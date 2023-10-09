@@ -3,12 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microservices;
 using Newtonsoft.Json;
 using xingyi.microservices.repository;
 
 namespace xingyi.microservices.Client
 {
-    public interface IApiClient<T,Id, Where> : IRepository<T,Id, Where> where T : class
+    public interface IApiClient<T, Id, Where> : IRepository<T, Id, Where>
+        where T : class
+        where Where : IRepositoryWhere<T>
+
     {
     }
 
@@ -18,7 +22,9 @@ namespace xingyi.microservices.Client
     }
 
 
-    public class GenericClient<T,Id, Where> : IApiClient<T,Id, Where> where T : class
+    public class GenericClient<T, Id, Where> : IApiClient<T, Id, Where>
+        where T : class
+        where Where : IRepositoryWhere<T>
     {
         private readonly HttpClient _httpClient;
         private readonly string _baseUrl; // Base URL should be provided during instantiation.
@@ -29,13 +35,19 @@ namespace xingyi.microservices.Client
             _baseUrl = BaseUrl;
         }
 
-        private String addEagerLoad( string url, bool eagerLoad)
+        private String addEagerLoad(string url, bool eagerLoad)
         {
             return $"{url}?eagerLoad={eagerLoad}";
         }
-        public async Task<List<T>> GetAllAsync(Boolean eagerLoad = false)
+        private String addEagerLoadAndWhere(string url, bool eagerLoad, Where where)
         {
-            var url = addEagerLoad(_baseUrl, eagerLoad);
+            var l = addEagerLoad(url, eagerLoad);
+            var q = where.queryString();
+            return q == "" ? l : $"{l}&{q}";
+        }
+        public async Task<List<T>> GetAllAsync(Where where, Boolean eagerLoad = false)
+        {
+            var url = addEagerLoadAndWhere(_baseUrl, eagerLoad, where);
 
             var response = await _httpClient.GetAsync(url);
             Console.WriteLine(response);

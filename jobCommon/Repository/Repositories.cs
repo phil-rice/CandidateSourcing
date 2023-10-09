@@ -7,11 +7,28 @@ using System.Linq;
 using System.Threading.Tasks;
 using xingyi.microservices.repository;
 using xingyi.application;
+using Microservices;
+using System.Net;
 
 namespace xingyi.job.Repository
 {
 
-    public class JobAndAppWhere { }
+    public class JobAndAppWhere : IRepositoryWhere<Job>
+    {
+        public string? Owner;
+        public IQueryable<Job> Apply(IQueryable<Job> queryable)
+        {
+            if (Owner != null)
+                return queryable.Where(j => j.Owner == Owner);
+            else
+                return queryable;
+        }
+
+        public string queryString()
+        {
+            return $"Owner={WebUtility.UrlEncode(Owner)}";
+        }
+    }
     public interface IJobAndAppRepository : IRepository<Job, Guid, JobAndAppWhere> { }
     public class JobAndAppRepository : Repository<JobDbContext, Job, Guid, JobAndAppWhere>, IJobAndAppRepository
     {
@@ -26,7 +43,22 @@ namespace xingyi.job.Repository
         {
         }
     }
-    public class JobWhere { }
+    public class JobWhere : IRepositoryWhere<Job>
+    {
+        public string? Owner;
+        public IQueryable<Job> Apply(IQueryable<Job> queryable)
+        {
+            if (Owner != null)
+                return queryable.Where(j => j.Owner == Owner);
+            else
+                return queryable;
+        }
+        public string queryString()
+        {
+            return $"Owner={WebUtility.UrlEncode(Owner)}";
+        }
+
+    }
 
     public interface IJobRepository : IRepository<Job, Guid, JobWhere> { }
     public class JobRepository : Repository<JobDbContext, Job, Guid, JobWhere>, IJobRepository
@@ -100,7 +132,9 @@ namespace xingyi.job.Repository
 
     }
 
-    public class QuestionWhere { }
+    public class QuestionWhere : EmptyRepositoryWhere<Question>
+    {
+    }
     public interface IQuestionRepository : IRepository<Question, Guid, QuestionWhere> { }
     public class QuestionRepository : Repository<JobDbContext, Question, Guid, QuestionWhere>, IQuestionRepository
     {
@@ -117,7 +151,10 @@ namespace xingyi.job.Repository
 
     }
 
-    public class SectionTemplateWhere { }
+    public class SectionTemplateWhere : EmptyRepositoryWhere<SectionTemplate>
+    {
+        public string Owner { get; set; } 
+    }
 
     public interface ISectionTemplateRepository : IRepository<SectionTemplate, Guid, SectionTemplateWhere> { }
     public class SectionTemplateRepository : Repository<JobDbContext, SectionTemplate, Guid, SectionTemplateWhere>, ISectionTemplateRepository
@@ -134,7 +171,9 @@ namespace xingyi.job.Repository
 
     }
 
-    public class ApplicationWhere { }
+    public class ApplicationWhere : EmptyRepositoryWhere<Application>
+    {
+    }
     public interface IApplicationRepository : IRepository<Application, Guid, ApplicationWhere> { }
     public class ApplicationRepository : Repository<JobDbContext, Application, Guid, ApplicationWhere>, IApplicationRepository
     {
@@ -153,7 +192,23 @@ namespace xingyi.job.Repository
         }
     }
 
-    public class SectionWhere { }
+    public class SectionWhere : IRepositoryWhere<Section>
+    {
+        public string? Email;
+
+        public IQueryable<Section> Apply(IQueryable<Section> queryable)
+        {
+            if (Email != null)
+                return queryable.Where(s => s.Who == Email);
+            else
+                return queryable;
+        }
+        public string queryString()
+        {
+            return $"Email={WebUtility.UrlEncode(Email)}";
+        }
+
+    }
     public interface ISectionRepository : IRepository<Section, Guid, SectionWhere> { }
     public class SectionRepository : Repository<JobDbContext, Section, Guid, SectionWhere>, ISectionRepository
     {
@@ -169,7 +224,9 @@ namespace xingyi.job.Repository
         { }
 
     }
-    public class AnswerWhere { }
+    public class AnswerWhere : EmptyRepositoryWhere<Answer>
+    {
+    }
     public interface IAnswersRepository : IRepository<Answer, Guid, AnswerWhere> { }
     public class AnswersRepository : Repository<JobDbContext, Answer, Guid, AnswerWhere>, IAnswersRepository
     {

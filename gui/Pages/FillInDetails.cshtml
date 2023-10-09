@@ -20,18 +20,24 @@
 
     @for (var i = 0; i < Model.Item.Answers.Count(); i++)
     {
-        <input type="hidden" name="@($"Item.Answers[{i}].Title")" value="@Model.Item.Answers[i].Title" />
-        var answer = Model.Item.Answers[i];
-        var showScore = answer.ScoreOutOfTen == true;
-        var score = answer.Score;
-        if (answer.Singleline == true)
-        {
-            <label-and-input asp-for="Item.Answers[i].AnswerText" asp-label="Item.Answers[i].Title" show-score="@showScore" score="@score"></label-and-input>
-        }
-        else
-        {
-            <label-and-textarea asp-for="Item.Answers[i].AnswerText" asp-label="Item.Answers[i].Title" show-score="@showScore" score="Item.Answers[i].Score"></label-and-textarea>
-        }
+        <div class="card">
+            <div class="card-body">
+                <input type="hidden" name="@($"Item.Answers[{i}].Title")" value="@Model.Item.Answers[i].Title" />
+                @{
+                    var answer = Model.Item.Answers[i];
+                    var showScore = answer.ScoreOutOfTen == true;
+                    var score = answer.Score;
+                    if (answer.Singleline == true)
+                    {
+                        <label-and-input asp-for="Item.Answers[i].AnswerText" asp-label="Item.Answers[i].Title" show-score="@showScore" score="@score"></label-and-input>
+                    }
+                    else
+                    {
+                        <label-and-textarea asp-for="Item.Answers[i].AnswerText" asp-label="Item.Answers[i].Title" show-score="@showScore" score="Item.Answers[i].Score"></label-and-textarea>
+                    }
+                }
+            </div>
+        </div>
     }
     <input type="hidden" name="SaveAction" id="saveAction" value="submit" />
     <button type="submit" class="btn btn-primary">Save</button>

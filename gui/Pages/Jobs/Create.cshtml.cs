@@ -22,7 +22,7 @@ namespace gui.Pages.Jobs
         {
             var email = User.FindFirst(System.Security.Claims.ClaimTypes.Email)?.Value;
             var Job = new Job { Owner = email == null ? "No email" : email };
-            await populateItem(Job);
+            await populateItem(Job, email);
         }
         public async Task<IActionResult> OnPostAsync()
         {

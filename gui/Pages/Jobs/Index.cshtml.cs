@@ -15,5 +15,11 @@ namespace gui.Pages.Jobs
         {
 
         }
+
+        protected override JobWhere where()
+        {
+            var Owner = User.FindFirst(System.Security.Claims.ClaimTypes.Email)?.Value;
+            return new JobWhere { Owner = Owner };
+        }
     }
 }

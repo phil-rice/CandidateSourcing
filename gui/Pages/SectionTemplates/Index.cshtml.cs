@@ -13,5 +13,12 @@ namespace gui.Pages.SectionTemplates
         {
 
         }
+
+        protected override SectionTemplateWhere where()
+        {
+            var Owner = User.FindFirst(System.Security.Claims.ClaimTypes.Email)?.Value;
+
+            return new SectionTemplateWhere { Owner = Owner };
+        }
     }
 }

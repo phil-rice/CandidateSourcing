@@ -16,6 +16,7 @@ using Microsoft.EntityFrameworkCore;
 using xingyi.microservices.repository;
 using xingyi.microservices.Client;
 using xingyi.test.generic;
+using Microservices;
 
 namespace xingyi.tests.generic
 {
@@ -24,6 +25,7 @@ namespace xingyi.tests.generic
         where C : DbContext
         where R : IRepository<T, Id, Where>
         where Cl : GenericClient<T, Id, Where>
+        where Where : IRepositoryWhere<T>
     {
 
         private Func<int, Cl> clientFn ;
@@ -64,7 +66,7 @@ namespace xingyi.tests.generic
             await pact.VerifyAsync(async ctx =>
             {
                 var client = clientFn(ctx.MockServerUri.Port);
-                var result = await client.GetAllAsync();
+                var result = await client.GetAllAsync(fixture.emptyWhere);
                 Assert.AreEqual(0, result.Count());
 
             });
@@ -86,7 +88,7 @@ namespace xingyi.tests.generic
             await pact.VerifyAsync(async ctx =>
             {
                 var client = clientFn(ctx.MockServerUri.Port);
-                var result = await client.GetAllAsync();
+                var result = await client.GetAllAsync(fixture.emptyWhere);
                 Assertions.ListsEqual(expected, result);
 
             });

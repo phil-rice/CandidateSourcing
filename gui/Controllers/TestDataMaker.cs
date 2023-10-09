@@ -175,7 +175,7 @@ namespace gui.Controllers
             {
                 Id = testGuid,
                 Title = "An example Vacancy",
-                Owner = "testOwner",
+                Owner = owner,
 
 
             };

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Microservices;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -10,7 +11,10 @@ using xingyi.microservices.repository;
 namespace gui.GenericPages
 {
     [Authorize]
-    public class GenericCreateModel<T, ID, C, Where> : PageModel where T : class, new() where C : IRepository<T, ID, Where>
+    public class GenericCreateModel<T, ID, C, Where> : PageModel 
+        where T : class, new() 
+        where C : IRepository<T, ID, Where>
+        where Where : IRepositoryWhere<T>
     {
         private readonly C repo;
 

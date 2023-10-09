@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microservices;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,9 +25,14 @@ namespace xingyi.tests.generic
         public static Guid aId1 = Guids.from("a1");
         public static Guid aId2 = Guids.from("a2");
     }
-    public interface IGenericFixture<T, Id, R, C, Where> where T : class where C : DbContext where R : IRepository<T, Id, Where>
+    public interface IGenericFixture<T, Id, R, C, Where> 
+        where T : class 
+        where C : DbContext 
+        where R : IRepository<T, Id, Where>
+        where Where : IRepositoryWhere<T>
     {
 
+        public Where emptyWhere { get; }
 
         public C dbContext { get; }
         public Func<C, R> repoFn { get; }

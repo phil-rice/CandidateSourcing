@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Microservices;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using xingyi.gui;
@@ -9,7 +10,10 @@ using xingyi.microservices.repository;
 namespace gui.GenericPages
 {
     [Authorize]
-    public class GenericEditModel<T, ID, C, Where> : PageModel where T : class where C : IRepository<T, ID, Where>
+    public class GenericEditModel<T, ID, C, Where> : PageModel 
+        where T : class 
+        where C : IRepository<T, ID, Where>
+        where Where : IRepositoryWhere<T>
     {
         private readonly IRepository<T,ID, Where> repo;
         [FromRoute]

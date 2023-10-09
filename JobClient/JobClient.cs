@@ -22,7 +22,7 @@ namespace xingyi.job.Client
     }
     public class JobAndAppSettings : HttpClientSettings { }
 
-    public class JobAndAppClient : GenericClient<Job, Guid, JobWhere>, IJobAndAppClient
+    public class JobAndAppClient : GenericClient<Job, Guid, JobAndAppWhere>, IJobAndAppClient
     {
         public JobAndAppClient(HttpClient httpClient, IOptions<JobAndAppSettings> jobSettings)
             : base(httpClient, jobSettings.Value.BaseUrl + "JobAndApp")

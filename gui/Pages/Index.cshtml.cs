@@ -59,8 +59,8 @@ namespace gui.Pages
         {
             if (!User.Identity.IsAuthenticated) return RedirectToPage("/Identity/Login");
             var email = User.FindFirst(System.Security.Claims.ClaimTypes.Email)?.Value;
-            var jobAndApps = await jobAndAppRepo.GetAllAsync(true);//will have where
-            var sects = await sectionRepo.GetAllAsync();
+            var jobAndApps = await jobAndAppRepo.GetAllAsync(new JobAndAppWhere { Owner = email} ,true);//will have where
+            var sects = await sectionRepo.GetAllAsync(new SectionWhere { Email = email});
             MyActiveApps = JobAndApplications.make(jobAndApps.Where(j => !j.Finished).ToList());
             MyCompletedApps = JobAndApplications.make(jobAndApps.Where(j => j.Finished).ToList());
             MyTodoSections = sects.Where(s => !s.Finished).ToList();
