@@ -1,20 +1,20 @@
 html {
-  font-size: 14px;
+    font-size: 14px;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
 }
 
 /* Enhancing the visibility of Bootstrap badges */
@@ -28,4 +28,29 @@ body {
     background-color: #ffc107; /* Adjust this if needed */
     border: 2px solid #856404; /* Giving a pronounced border */
     font-weight: bold; /* Making the text bold */
+}
+/* To ensure borders collapse into a single border */
+table {
+    border-collapse: collapse;
+}
+
+/* Add border to table header cells */
+table th {
+    border-right: 1px solid #dee2e6;
+    border-left: 1px solid #dee2e6;
+}
+
+/* Add border to table data cells */
+table td {
+    border-right: 1px solid #dee2e6;
+    border-left: 1px solid #dee2e6;
+}
+
+/* Remove border from the last table header and data cells */
+table th:last-child, table td:last-child {
+    border-right: none;
+}
+/* Remove border from the first table header and data cells */
+table th:first-child, table td:first-child {
+    border-left: none;
 }

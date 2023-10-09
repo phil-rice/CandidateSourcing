@@ -39,6 +39,13 @@ namespace gui.Pages
                 return MyActiveApps.Count == 0 && MyCompletedApps.Count == 0 && MyTodoSections.Count == 0 && MyDoneSections.Count == 0;
             }
         }
+        public bool NoApps
+        {
+            get
+            {
+                return MyActiveApps.Count == 0 && MyCompletedApps.Count == 0;
+            }
+        }
 
 
         public IndexModel(ILogger<IndexModel> logger, IJobAndAppRepository jobAndAppRepo, ISectionRepository sectionRepo)

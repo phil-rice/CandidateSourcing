@@ -2,4 +2,23 @@
 @model gui.Pages.Identity.ProfileModel
 @{
 }
-My profile
+
+<p>You profile is managed by google, and cannot be edited on this site</p>
+
+<div class="card">
+    <div class="card-header">Your Profile </div>
+    <div class="card-body">
+        <table>
+            <tbody>
+                <tr>
+                    <td>Name</td>
+                    <td>@Model.Name</td>
+                </tr>
+                <tr>
+                    <td>Email</td>
+                    <td>@Model.Email</td>
+                </tr>
+
+        </table>
+    </div>
+</div>

@@ -23,22 +23,10 @@ namespace xingyi.test.generic
         private IGenericFixture<T, Id, R, C, Where> fixture;
         private C _context;
         private R _repository;
-        private SectionFixture sectionFixture;
-        private ApplicationFixture applicationFixture;
 
         protected GenericRepoTest(IGenericFixture<T, Id, R, C, Where> fixture)
         {
             this.fixture = fixture;
-        }
-
-        protected GenericRepoTest(SectionFixture sectionFixture)
-        {
-            this.sectionFixture = sectionFixture;
-        }
-
-        protected GenericRepoTest(ApplicationFixture applicationFixture)
-        {
-            this.applicationFixture = applicationFixture;
         }
 
         [SetUp]

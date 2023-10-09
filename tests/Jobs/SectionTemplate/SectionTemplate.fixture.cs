@@ -47,6 +47,8 @@ namespace xingyi.tests.sectionTemplate
             Id = id1,
             Title = "Title1",
             Description = "Description1",
+            Owner="me",
+            Who="who"
 
         };
         public SectionTemplate item2 => new SectionTemplate
@@ -54,6 +56,8 @@ namespace xingyi.tests.sectionTemplate
             Id = id2,
             Title = "Title2",
             Description = "Description2",
+            Owner = "me",
+            Who = "who"
 
         };
         public SectionTemplate eagerItem1 => new SectionTemplate
@@ -61,6 +65,8 @@ namespace xingyi.tests.sectionTemplate
             Id = id1,
             Title = "Title1",
             Description = "Description1",
+            Owner = "me",
+            Who = "who",
             Questions = new List<Question> { questionFixture.item1, questionFixture.item2 }
 
         };
@@ -68,7 +74,9 @@ namespace xingyi.tests.sectionTemplate
         {
             Id = id2,
             Title = "Title2",
-            Description = "Description2"
+            Description = "Description2",
+            Owner = "me",
+            Who = "who"
         };
 
         async public Task populate(SectionTemplateRepository repo)

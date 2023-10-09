@@ -67,9 +67,6 @@ namespace gui.Pages.Applications
             ModelStateHelper.DumpModelState(ModelState);
             if (ModelState.IsValid)
             {
-
-
-
                 var id = Guid.NewGuid();
                 var job = await jobRepo.GetByIdAsync(JobId);
                 var sections = job.JobSectionTemplates.Select(jst =>
@@ -93,7 +90,6 @@ namespace gui.Pages.Applications
             };
 
             return Page();
-
         }
 
     }

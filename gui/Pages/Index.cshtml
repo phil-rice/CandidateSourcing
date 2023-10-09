@@ -16,13 +16,10 @@
     {
         <p>Welcome to the site.</p>
 
-        <p>You are currently not a candidate, or an interviewer. And you currently aren't posting any vacancies'</p>
+        <p>You are currently not a candidate, or an interviewer. And you currently aren't posting any vacancies</p>
     }
 
     <p>Find out more about <a href="/Info/FillingIn">Filling in details</a></p>
-
-
-
 
     @Html.Partial("_SectionToDoList", new TodoDisplayDto<Section>
     {
@@ -48,9 +45,13 @@
     Items = Model.MyCompletedApps
     })
 
+    @if (Model.NoApps)
+    {
+        <p>If you want to find candidates for a Vacancy:</p>
+    }   
+    <p>Find out more about <a href="/Info/PostingVacancies">Posting Vacancies</a></p>
     <a href="/Jobs/Create"> Create a new Job (Vacancy)</a>
 
-    <p>Find out more about <a href="/Info/PostingVacancies">Posting Vacancies</a></p>
 
 
 </div>

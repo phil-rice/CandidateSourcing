@@ -13,7 +13,14 @@
     <label-and-input asp-for="Item.Job.Owner" readonly="true"></label-and-input>
 
     <h2>Section Templates</h2>
-    @for (int i = 0; i < SafeHelpers.safeList(Model.Item.SectionTemplates).Count(); i++)
+    @{
+        var count = SafeHelpers.safeList(Model.Item.SectionTemplates).Count();
+    }
+    @if(count == 0)
+    {
+        <p>You need to create a Section Template <a href="/Info/SectionTemplates">(Find out more)</a> before you can post a job. <a href="/SectionTemplates/Create">Create one</a></p>
+    }
+    @for (int i = 0; i < count; i++)
     {
         <div class="form-check">
             <label-and-boolean asp-for="Item.SectionTemplates[i].IsChecked" asp-label="Item.SectionTemplates[i].Title"></label-and-boolean>
