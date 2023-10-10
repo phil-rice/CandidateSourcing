@@ -47,9 +47,9 @@ namespace xingyi.application
 
         public int SumOfWeightings { get; set; }
 
-        [MaxLength(500)]
+        [MaxLength(1000)]
         public string DetailedComments { get; set; } = "";
-
+        
         // Navigation Properties
         [ForeignKey("JobId")]
         public Job? Job { get; set; } = null;
@@ -90,9 +90,11 @@ namespace xingyi.application
         [MaxLength(100)]
         public string Who { get; set; }
 
-        [MaxLength(300)]
+        [MaxLength(1000)]
         public string Comments { get; set; }
 
+        public bool RequireComments { get; set;}
+        public string CommentsMessage { get; set; } 
         public bool Finished { get; set; }
 
         // Navigation Properties

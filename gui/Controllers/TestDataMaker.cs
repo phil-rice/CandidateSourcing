@@ -17,6 +17,8 @@ namespace gui.Controllers
                 Owner = owner,
                 Who = "The Candidate",
                 CanEditWho = false,
+                CommentsMessage = "Are there any comments you would like to make (Not Required)?",
+                RequireComments = false,
                 Questions = new List<Question>
                 {
                     new Question
@@ -62,6 +64,8 @@ namespace gui.Controllers
                 CanEditWho = true,
                 Who = "alyson.rice@googlemail.com",
                 Weighting = 40,
+                RequireComments = false,
+                CommentsMessage = "Please summarise how the Candidate performed in this interview",
                 Questions = new List<Question>
                 {
                     new Question
@@ -108,6 +112,8 @@ namespace gui.Controllers
                 Owner = owner,
                 Who = "stave.escura@gmail.com",
                 CanEditWho = true,
+                CommentsMessage = "Please summarise how the Candidate performed in this interview",
+                RequireComments = true,
                 Weighting = 50,
 
                 Questions = new List<Question>
@@ -147,7 +153,10 @@ namespace gui.Controllers
                 Owner = owner,
                 Who = "phil.rice@validoc.org",
                 CanEditWho = true,
-                Weighting=10,
+                Weighting = 10,
+                CommentsMessage = "Please summarise how the Candidate performed in this interview",
+                RequireComments = true,
+
                 Questions = new List<Question>
                 {
                     new Question

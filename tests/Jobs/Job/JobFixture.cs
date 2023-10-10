@@ -69,5 +69,7 @@ namespace xingyi.tests.job
             await repo.AddAsync(eagerItem2);
             repo.cleanDb();
         }
+        public JobWhere emptyWhere => new JobWhere();
     }
+
 }

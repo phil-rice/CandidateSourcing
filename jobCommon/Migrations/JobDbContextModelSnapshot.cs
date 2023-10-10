@@ -80,8 +80,8 @@ namespace jobCommon.Migrations
 
                     b.Property<string>("DetailedComments")
                         .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
 
                     b.Property<bool>("Failed")
                         .HasColumnType("bit");
@@ -116,8 +116,12 @@ namespace jobCommon.Migrations
 
                     b.Property<string>("Comments")
                         .IsRequired()
-                        .HasMaxLength(300)
-                        .HasColumnType("nvarchar(300)");
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.Property<string>("CommentsMessage")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("Finished")
                         .HasColumnType("bit");
@@ -125,6 +129,9 @@ namespace jobCommon.Migrations
                     b.Property<string>("HelpText")
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
+
+                    b.Property<bool>("RequireComments")
+                        .HasColumnType("bit");
 
                     b.Property<int>("Score")
                         .HasColumnType("int");
@@ -240,6 +247,10 @@ namespace jobCommon.Migrations
                     b.Property<bool?>("CanEditWho")
                         .HasColumnType("bit");
 
+                    b.Property<string>("CommentsMessage")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("HelpText")
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
@@ -247,6 +258,9 @@ namespace jobCommon.Migrations
                     b.Property<string>("Owner")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("RequireComments")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Title")
                         .IsRequired()

@@ -101,6 +101,7 @@ namespace xingyi.tests.section
             await repo.AddAsync(e2);
             repo.cleanDb();
         }
+       public  SectionWhere emptyWhere => new SectionWhere();
     }
 
 

@@ -68,6 +68,7 @@ namespace xingyi.tests.answers
 
         };
 
+        public AnswerWhere emptyWhere => new AnswerWhere();
 
         async public Task populate(AnswersRepository repo)
         {

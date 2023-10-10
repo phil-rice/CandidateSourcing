@@ -85,6 +85,7 @@ namespace xingyi.tests.sectionTemplate
             await repo.AddAsync(eagerItem2);
             repo.cleanDb();
         }
+        public SectionTemplateWhere emptyWhere => new SectionTemplateWhere();
     }
 
 

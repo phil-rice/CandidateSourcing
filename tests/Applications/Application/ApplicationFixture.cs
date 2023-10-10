@@ -83,5 +83,7 @@ namespace xingyi.tests.application
             await repo.AddAsync(eagerItem2);
             repo.cleanDb();
         }
+
+        public ApplicationWhere emptyWhere => new ApplicationWhere();
     }
 }

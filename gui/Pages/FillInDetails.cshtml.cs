@@ -13,17 +13,27 @@ namespace gui.Pages
 
 
     [ToString, Equals(DoNotAddEqualityOperators = true)]
-    public class FillInDetails
+    public class FillInDetails: IValidatableObject
     {
         public string? Candidate { get; set; }
         public string? JobTitle { get; set; }
-
+        public bool RequireComments { get; set; }
+        public string? CommentsMessage { get; set;}
         public string? InterviewTitle { get; set; }
         [MaxLength(1000)]
-        public string Comments { get; set; }
+        public string? Comments { get; set; }
 
         public List<FillInAnswer> Answers { get; set; }
 
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            if (RequireComments && string.IsNullOrWhiteSpace(Comments))
+            {
+                yield return new ValidationResult(
+                    "Please give your comments",
+                    new[] { nameof(Comments) });
+            }
+        }
     }
     [ToString, Equals(DoNotAddEqualityOperators = true)]
     public class FillInAnswer : IValidatableObject
@@ -82,7 +92,9 @@ namespace gui.Pages
                 JobTitle = job.Title,
                 Candidate = app.Candidate,
                 InterviewTitle = sect.Title,
-                Comments = sect.Comments,
+                Comments = sect.Comments??"",
+                RequireComments = sect.RequireComments,
+                CommentsMessage= sect.CommentsMessage,
                 Answers = sect.Answers.Select(a => new FillInAnswer
                 {
                     Title = a.Title,
@@ -114,7 +126,7 @@ namespace gui.Pages
                     sect.Answers[i].Score = Item.Answers[i].Score;
 
                 }
-                sect.Comments = Item.Comments;
+                sect.Comments = Item.Comments ??"";
                 sect.Score = sect.calcScore();
                 await repo.UpdateAsync(sect);
                 return RedirectToPage("/Index");
@@ -125,6 +137,9 @@ namespace gui.Pages
                 Item.InterviewTitle = sect.Title;
                 Item.JobTitle = sect.Application.Job.Title;
                 Item.Candidate = sect.Application.Candidate;
+                Item.RequireComments = sect.RequireComments;
+                Item.CommentsMessage = sect.CommentsMessage;
+
                 for (var i = 0; i < sect.Answers.Count; i++)
                 {
                     Item.Answers[i].Title = sect.Answers[i].Title;

@@ -90,7 +90,8 @@ namespace xingyi.job.Models
         public string Owner { get; set; }
         public bool? CanEditWho { get; set; }
         public int Weighting { get; set; }
-
+        public bool RequireComments { get; set; } = true;
+        public string CommentsMessage { get; set; }
         public string Who { get; set; }
 
         [Required]
@@ -115,6 +116,8 @@ namespace xingyi.job.Models
                 Title = Title,
                 HelpText = HelpText,
                 Who = Who,
+                RequireComments=RequireComments,
+                CommentsMessage= CommentsMessage,
                 Weighting = Weighting,
                 Comments = "",
                 Finished = false,

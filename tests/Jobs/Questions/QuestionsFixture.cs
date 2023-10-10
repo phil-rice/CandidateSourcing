@@ -76,5 +76,7 @@ namespace xingyi.tests.questions
             repo.cleanDb();
 
         }
+        public QuestionWhere emptyWhere => new QuestionWhere();
+
     }
 }
