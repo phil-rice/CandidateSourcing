@@ -34,8 +34,7 @@
         var score = answer.Score;
         if (answer.IsDate == true)
         {
-            <p>Birthdate</p>
-            <input type="date" name="@($"Item.Answers[{i}].AnswerText")" value="@Model.Item.Answers[i].AnswerText" />
+            <label-and-date asp-for="Item.Answers[i].AnswerText" asp-label="Item.Answers[i].Title" show-score="@showScore" score="@score"></label-and-date>
         }
         else if (answer.Singleline == true)
         {
@@ -43,7 +42,7 @@
         }
         else
         {
-            <label-and-textarea asp-for="Item.Answers[i].AnswerText" asp-label="Item.Answers[i].Title" show-score="@showScore" score="Item.Answers[i].Score"></label-and-textarea>
+            <label-and-textarea asp-for="Item.Answers[i].AnswerText" asp-label="Item.Answers[i].Title" show-score="@showScore" score="@score"></label-and-textarea>
         }
 
     }
