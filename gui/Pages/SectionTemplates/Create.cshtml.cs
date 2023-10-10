@@ -18,7 +18,16 @@ namespace gui.Pages.SectionTemplates
             var email = User.FindFirst(System.Security.Claims.ClaimTypes.Email)?.Value;
 
             Item.Owner = email;
+            Item.CommentsMessage = "";
         }
+
+
+        //override async public Task modifyItemOnPost(SectionTemplate item)
+
+        //{
+        //    if (item.CommentsMessage == null) item.CommentsMessage = "";
+        //}
     }
+
 
 }

@@ -90,7 +90,8 @@ namespace xingyi.microservices.repository
         public async Task<T> GetByIdAsync(Id id, Boolean eagerLoad)
         {
             var result = await load(eagerLoad, _dbSet).FirstOrDefaultAsync(idEquals(id));
-            postGetMutate(result);
+            if (result != null)
+                postGetMutate(result);
             return result;
         }
 

@@ -15,6 +15,7 @@ namespace gui.Pages.SectionTemplates
         {
         }
 
-   
+
+
     }
 }

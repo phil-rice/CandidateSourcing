@@ -4,7 +4,8 @@
 
 <h1>Edit SectionTemplate</h1>
 
-<display asp-for="Item">"</display>
+@* <display asp-for="Item">"</display> *@
+<p>Please be aware that any edits to this <b>will NOT</b> affect existing applications</p>
 
 <form method="post">
     <input type="hidden" asp-for="Item.Id" />
@@ -13,6 +14,9 @@
     <label-and-input asp-for="Item.HelpText"></label-and-input>
     <label-and-boolean asp-for="Item.CanEditWho"></label-and-boolean>
     <label-and-input asp-for="Item.Who"></label-and-input>   <h4>Questions</h4>
+    <label-and-boolean asp-for="Item.RequireComments"></label-and-boolean>
+    <label-and-textarea asp-for="Item.CommentsMessage" messageText="Any prefix you want to appear when sections are being filled in to explain the purpose of the comments"></label-and-textarea>
+
     <child-list bind-to="Item.Questions" attributes="@Model.QuestionFields"></child-list>
     <child-list-add-button bind-to="Item.Questions">Add Questions</child-list-add-button>
     <button type="submit" class="btn btn-primary">Save</button>

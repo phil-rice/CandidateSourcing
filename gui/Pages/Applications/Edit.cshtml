@@ -1,0 +1,26 @@
+﻿@page "{Id}"
+@model gui.Pages.Applications.ApplicationEditModel
+@addTagHelper *, gui
+
+<h1>Editing details of @Model.Item.JobName Candidate for @Model.Item.Candidate</h1>
+
+<p>Here we can change who will be filling in the details for each section</p>
+
+
+<form id="form" method="post">
+    <input type="hidden" asp-for="Item.JobName" />
+    <label-and-input asp-for="Item.Candidate" readonly="true"></label-and-input>
+    <h2>Who fills in which section</h2>
+    <p>For each of the these sections please type in the email address of the person who needs to fill in the data</p>
+    @for (var i = 0; i < Model.Item.sections.Count(); i++)
+    {
+        var st = Model.Item.sections[i];
+        bool rdOnly = st?.CanEditWho == false;
+        <label-and-input asp-for="Item.sections[i].Who" asp-label="Item.sections[i].Title" readonly="@rdOnly"></label-and-input>
+    }
+    <button type="submit" class="btn btn-primary">Save</button>
+
+</form>
+
+
+

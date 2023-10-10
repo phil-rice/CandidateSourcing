@@ -5,7 +5,7 @@
 @if (Model.Items.Count > 0)
 {
     <div class="card">
-        <div class="card-header">@Model.Message</div>
+        <div class="card-header">@Model.Title</div>
         <div class="card-body">
             <table>
                 <thead>
@@ -18,7 +18,7 @@
                 {
                     <tr>
                         <td>@sect.Application.Candidate</td>
-                        <td><a href="/FillinDetails/@sect.Id">@sect.Title</a></td>
+                        <td><a href="/Sections/FillinDetails/@sect.Id">@sect.Title</a></td>
                     </tr>
 
                 }

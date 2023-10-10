@@ -94,7 +94,7 @@ namespace xingyi.application
         public string Comments { get; set; }
 
         public bool RequireComments { get; set;}
-        public string CommentsMessage { get; set; } 
+        public string? CommentsMessage { get; set; } = "";
         public bool Finished { get; set; }
 
         // Navigation Properties

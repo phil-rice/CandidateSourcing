@@ -91,7 +91,7 @@ namespace xingyi.job.Models
         public bool? CanEditWho { get; set; }
         public int Weighting { get; set; }
         public bool RequireComments { get; set; } = true;
-        public string CommentsMessage { get; set; }
+        public string? CommentsMessage { get; set; } = "";
         public string Who { get; set; }
 
         [Required]
@@ -116,6 +116,7 @@ namespace xingyi.job.Models
                 Title = Title,
                 HelpText = HelpText,
                 Who = Who,
+                CanEditWho = CanEditWho != false,
                 RequireComments=RequireComments,
                 CommentsMessage= CommentsMessage,
                 Weighting = Weighting,
@@ -145,7 +146,7 @@ namespace xingyi.job.Models
         public bool? ScoreOutOfTen { get; set; }
 
         public bool? Singleline { get; set; }
-        public bool? IsRequired { get; set; } 
+        public bool? IsRequired { get; set; } = true;
         public bool? IsNumber { get; set; }
 
 

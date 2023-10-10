@@ -23,25 +23,26 @@
 
     @Html.Partial("_SectionToDoList", new ToDoAndAppsDto<Section>
     {
-    Message = "This is the list of details you have been asked to fill in",
+    Title = "This is the list of details you have been asked to fill in",
     Items = Model.MyTodoSections
     })
 
     @Html.Partial("_SectionToDoList", new ToDoAndAppsDto<Section>
     {
-    Message= "Details you have already filled in",
+    Title= "Details you have already filled in",
     Items = Model.MyDoneSections
     })
 
  
     @Html.Partial("_JobAndAppsToDoList", new ToDoAndAppsDto<JobAndApplications>
     {
-    Message= "Your active jobs",
+    Title= "Your active jobs",
+    Message ="The email addresses in the 'section columns' are the people who need to fill in the sections.",
     Items = Model.MyActiveApps
     })
     @Html.Partial("_JobAndAppsToDoList", new ToDoAndAppsDto<JobAndApplications>
     {
-    Message= "Your inactive jobs",
+    Title= "Your inactive jobs",
     Items = Model.MyCompletedApps
     })
 

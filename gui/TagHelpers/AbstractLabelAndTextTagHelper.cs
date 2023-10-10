@@ -29,6 +29,10 @@ namespace gui.TagHelpers
 
         [HtmlAttributeName("message")]
         public ModelExpression? Message { get; set; }
+        [HtmlAttributeName("messageText")]
+        public string MessageText { get; set; } = "";
+
+
         private readonly IHtmlGenerator _htmlGenerator;
         public AbstractLabelAndTextTagHelper(IHtmlGenerator htmlGenerator)
         {
@@ -61,7 +65,7 @@ namespace gui.TagHelpers
             var cardBody = new TagBuilder("div");
             cardBody.AddCssClass("card-body score-card");
 
-            var messageValue = Message?.Model?.ToString();
+            var messageValue = MessageText.Length > 0 ? MessageText : Message?.Model?.ToString();
             if (!string.IsNullOrEmpty(messageValue))
                 cardBody.InnerHtml.AppendHtml(CreateMessageSpan(messageValue));
 

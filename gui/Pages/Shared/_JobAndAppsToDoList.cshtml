@@ -4,7 +4,7 @@
 
 @if (Model.Items.Count > 0)
 {
-    <h2> @Model.Message</h2>
+    <h2> @Model.Title</h2>
 }
 @foreach (var jobAndApp in Model.Items)
 {
@@ -12,7 +12,9 @@
 
     <div class="card">
         <div class="card-header">
-            @jobAndApp.Job.Title <a href="/Applications/Create/@jobAndApp.Job.Id">Add Candidate</a>
+            <div>@jobAndApp.Job.Title <a href="/Applications/Create/@jobAndApp.Job.Id">Add Candidate</a></div>
+            @Model.Message
+       
         </div>
         <div class="card-body">
             <table>
@@ -37,12 +39,12 @@
                         var allDone = ap.Sections.All(s => s.Finished);
                         var score = ap.calcScore();
                         <tr>
-                            <td>@ap.Candidate</td>
-                            <td><score-badge score="@score" Finished="@allDone"></score-badge></td>
+                            <td><a href="/Applications/View/@ap.Id">@ap.Candidate</a></td>
+                            <td><score-badge score="@score" Finished="@allDone" Weighting="ap.SumOfWeightings" ></score-badge></td>
                             @foreach (var sect in ap.Sections)
                             {
                                 <td>
-                                    @sect.Who<score-badge score="@sect.Score" Weighting="@sect.Weighting" Finished="@sect.Finished" ShowText="false"></score-badge>
+                                    <a href="/Sections/View/@sect.Id">@sect.Who</a><score-badge score="@sect.Score" Weighting="@sect.Weighting" Finished="@sect.Finished" ShowText="false"></score-badge>
                                 </td>
                             }
                         </tr>

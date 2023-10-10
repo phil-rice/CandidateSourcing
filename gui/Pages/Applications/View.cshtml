@@ -1,0 +1,45 @@
+﻿@page "{id}"
+@model gui.Pages.Applications.ViewModel
+@addTagHelper *, gui
+
+<a href="/Applications/Edit/@Model.Id">Click here to edit who fills in each section</a>
+
+@{
+    var ap = Model.Item;
+    var allDone = ap.Sections.All(s => s.Finished);
+    var score = ap.calcScore();
+}
+<table>
+    <tbody>
+        <tr>
+            <th>Candidate</th>
+            <td>@ap.Candidate</td>
+        </tr>
+        <tr>
+            <th>Score</th>
+            <td>
+                <score-badge score="@score" Finished="@allDone" Weighting="ap.SumOfWeightings"></score-badge>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<h2>Sections</h2>
+<table>
+    <thead>
+        <tr><th>Section</th><th>Who</th><th>Score</th></tr>
+    </thead>
+    <tbody>
+        @for (var i = 0; i < Model.Item.Sections.Count(); i++)
+        {
+            var sect = Model.Item.Sections[i];
+            bool rdOnly = sect?.CanEditWho == false;
+            <tr>
+                <td><a href="/Sections/View/@sect.Id">@sect.Title</a></td>
+                <td>@sect.Who </td>
+                <td><score-badge score="@sect.Score" Weighting="@sect.Weighting" Finished="@sect.Finished" ShowText="false"></score-badge></td>
+            </tr>
+        }
+
+    </tbody>
+</table>
+

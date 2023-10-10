@@ -64,35 +64,42 @@ namespace gui.Controllers
                 CanEditWho = true,
                 Who = "alyson.rice@googlemail.com",
                 Weighting = 40,
-                RequireComments = false,
+                RequireComments = true,
                 CommentsMessage = "Please summarise how the Candidate performed in this interview",
                 Questions = new List<Question>
                 {
                     new Question
                     {
                         Title = "Verbal Communication skills",
-                        ScoreOutOfTen = true
+                        ScoreOutOfTen = true,
+                        IsRequired = false
 
                     },
                     new Question
                     {
                         Title = "Understanding of the basics of C#",
-                        ScoreOutOfTen = true
+                        ScoreOutOfTen = true,
+                        IsRequired = false
+
                     },
                     new Question
                     {
                         Title = "Understanding of the basics of Javascript",
-                        ScoreOutOfTen = true
+                        ScoreOutOfTen = true,
+                        IsRequired = false
                     },
                     new Question
                     {
                         Title = "Understanding of the basics of MVC",
-                        ScoreOutOfTen = true
+                        ScoreOutOfTen = true,
+                        IsRequired = false
+
                     },
                     new Question
                     {
                         Title = "Can explain the difference between Code first and Database first",
-                        ScoreOutOfTen = true
+                        ScoreOutOfTen = true,
+                        IsRequired = false
                     }
                 }
 
@@ -121,23 +128,27 @@ namespace gui.Controllers
                     new Question
                     {
                         Title = "Verbal Communication skills",
-                        ScoreOutOfTen = true
+                        ScoreOutOfTen = true,
+                        IsRequired = false
 
                     },
                     new Question
                     {
                         Title = "Can explain the benefits of stateless servers",
-                        ScoreOutOfTen = true
+                        ScoreOutOfTen = true,
+                        IsRequired = false
                     },
                     new Question
                     {
                         Title = "Understands the basics of deployment",
-                        ScoreOutOfTen = true
+                        ScoreOutOfTen = true,
+                        IsRequired = false
                     },
                     new Question
                     {
                         Title = "Have they any experience with Amazon, Azure or Google cloud",
-                        ScoreOutOfTen = true
+                        ScoreOutOfTen = true,
+                        IsRequired = false
                     }
                 }
             };
@@ -162,22 +173,26 @@ namespace gui.Controllers
                     new Question
                     {
                         Title = "Verbal Communication skills",
-                        ScoreOutOfTen = true
+                        ScoreOutOfTen = true,
+                        IsRequired = false
 
                     },
                     new Question
                     {
                         Title = "Is the candidate willing to relocate",
+                        IsRequired = false
 
                     },
                     new Question
                     {
-                        Title = "What are the candidates expectations"
+                        Title = "What are the candidates expectations",
+                        IsRequired = false
                     },
                     new Question
                     {
                         Title = "Would you be happy with the Candidate representing HCL on customer premises",
-                        ScoreOutOfTen = true
+                        ScoreOutOfTen = true,
+                        IsRequired = false
                     }
                 }
             };
