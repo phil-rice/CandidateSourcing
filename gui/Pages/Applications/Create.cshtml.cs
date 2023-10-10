@@ -75,9 +75,11 @@ namespace gui.Pages.Applications
 
                 var sections = new List<Section>();
 
+                var sumOfWeightings = 0;
                 for (var i = 0; i < job.JobSectionTemplates.Count(); i++)
                 {
                     var st = job.JobSectionTemplates.ToList()[i].SectionTemplate;
+                    sumOfWeightings += st.Weighting;
                     var sect = st.asSection(id, Guid.NewGuid());
                     if (sect.Who == "The Candidate")
                         sect.Who = Item.Candidate;
@@ -91,6 +93,7 @@ namespace gui.Pages.Applications
                     Id = id,
                     JobId = JobId,
                     Sections = sections,
+                    SumOfWeightings = sumOfWeightings,
                     Candidate = Item.Candidate
                 };
                 Console.WriteLine(app);

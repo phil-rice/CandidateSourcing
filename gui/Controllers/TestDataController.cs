@@ -41,9 +41,11 @@ namespace gui.Controllers
                 await jobRepo.AddAsync(job);
                 job.JobSectionTemplates = jsts;
                 await jobRepo.UpdateAsync(job);
-            }catch (Exception ex)
+            }
+            catch (Exception ex)
             {
-                   System.Diagnostics.Debug.WriteLine(ex.Message);
+                System.Diagnostics.Debug.WriteLine(ex.Message);
+                throw ex;
             }
             return RedirectToPage("/Index");
         }

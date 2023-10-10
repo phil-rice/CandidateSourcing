@@ -33,6 +33,7 @@ namespace jobCommon.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Owner = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CanEditWho = table.Column<bool>(type: "bit", nullable: true),
+                    Weighting = table.Column<int>(type: "int", nullable: false),
                     Who = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Title = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
                     HelpText = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true)
@@ -51,6 +52,7 @@ namespace jobCommon.Migrations
                     Candidate = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Failed = table.Column<bool>(type: "bit", nullable: false),
                     Suceeded = table.Column<bool>(type: "bit", nullable: false),
+                    SumOfWeightings = table.Column<int>(type: "int", nullable: false),
                     DetailedComments = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false)
                 },
                 constraints: table =>
@@ -119,7 +121,10 @@ namespace jobCommon.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ApplicationId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Title = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
-                    HelpText = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
+                    HelpText = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
+                    Weighting = table.Column<int>(type: "int", nullable: false),
+                    Score = table.Column<int>(type: "int", nullable: false),
+                    MaxScore = table.Column<int>(type: "int", nullable: false),
                     CanEditWho = table.Column<bool>(type: "bit", nullable: false),
                     Who = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Comments = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: false),

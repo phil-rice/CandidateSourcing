@@ -17,9 +17,10 @@
                 <thead>
                     <tr>
                         <th>Candidate</th>
+                        <th>Score</th>
                         @foreach (var app in jobAndApp.Job.JobSectionTemplates)
                         {
-                            <th>@app.SectionTemplate.Title</th>
+                            <th>@app.SectionTemplate.Title <span class="score">(@app.SectionTemplate.Weighting)</span></th>
                         }
                     </tr>
                 </thead>
@@ -33,16 +34,18 @@
                     {
                         <tr>
                             <td>@ap.Candidate</td>
+                            <td>@ap.calcScore()</td>
                             @foreach (var sect in ap.Sections)
                             {
                                 <td>
+                                    @sect.Who <span class="score">(@sect.displayScore(ap.SumOfWeightings))</span>
                                     @if (sect.Finished)
                                     {
-                                        <span class="badge badge-success" role="status" aria-label="Complete"> @sect.Who</span>
+                                        <span class="badge badge-success" role="status" aria-label="Finished" title="Finished">F</span>
                                     }
                                     else
                                     {
-                                        <span class="badge badge-warning" role="status" aria-label="Incomplete"> @sect.Who</span>
+                                        <span class="badge badge-warning" role="status" aria-label="Waiting" title="Waiting">W</span>
                                     }
                                 </td>
                             }

@@ -89,6 +89,7 @@ namespace xingyi.job.Models
 
         public string Owner { get; set; }
         public bool? CanEditWho { get; set; }
+        public int Weighting { get; set; }
 
         public string Who { get; set; }
 
@@ -114,6 +115,8 @@ namespace xingyi.job.Models
                 Title = Title,
                 HelpText = HelpText,
                 Who = Who,
+                Weighting = Weighting,
+                MaxScore = Questions.Where(q => q.ScoreOutOfTen == true).Count() * 10,
                 Comments = "",
                 Finished = false,
                 Answers = answers

@@ -79,6 +79,7 @@ namespace gui.Pages
                     Title = a.Title,
                     HelpText = a.HelpText,
                     ScoreOutOfTen = a.ScoreOutOfTen,
+                    Score = a.Score,
                     Singleline = a.Singleline,
                     IsNumber = a.IsNumber,
                     IsRequired = a.IsRequired,
@@ -104,6 +105,7 @@ namespace gui.Pages
                     sect.Answers[i].Score = Item.Answers[i].Score;
 
                 }
+                sect.Score = sect.calcScore();
                 await repo.UpdateAsync(sect);
                 return RedirectToPage("/Index");
             }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics;
+using xingyi.common;
 using xingyi.job.Models;
 using static System.Collections.Specialized.BitVector32;
 
@@ -16,6 +17,13 @@ namespace xingyi.application
 
         {
             Sections.Sort((s1, s2) => s1.Title.CompareTo(s2.Title));
+        }
+        public int calcScore()
+        {
+            var max = Sections.Sum(s => s.Weighting * 10);
+            var value = Sections.Sum(s => s.Score * s.Weighting);
+            var percent = 100 * value / max;
+            return percent;
         }
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -37,6 +45,7 @@ namespace xingyi.application
             return !Failed && !Suceeded;
         }
 
+        public int SumOfWeightings { get; set;}
 
         [MaxLength(500)]
         public string DetailedComments { get; set; } = "";
@@ -52,9 +61,18 @@ namespace xingyi.application
 
     public class Section
     {
-      public  void PostGet()
+        public void PostGet()
         {
             Answers.Sort((a1, a2) => a1.Title.CompareTo(a2.Title));
+        }
+        public int calcScore()
+        {
+            return Answers.Sum(a => a.Score);
+        }
+        public int displayScore(int full)
+        {
+            return Ints.safeDiv( Score*MaxScore, Weighting* full);
+                
         }
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -67,7 +85,9 @@ namespace xingyi.application
         public string Title { get; set; }
         [StringLength(255)]
         public string? HelpText { get; set; } = "";
-
+        public int Weighting { get; set; }
+        public int Score { get; set; }
+        public int MaxScore { get; set; }
         public bool CanEditWho { get; set; }
         [MaxLength(100)]
         public string Who { get; set; }

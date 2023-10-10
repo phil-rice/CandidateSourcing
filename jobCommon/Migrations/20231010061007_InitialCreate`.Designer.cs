@@ -12,7 +12,7 @@ using xingyi.job;
 namespace jobCommon.Migrations
 {
     [DbContext(typeof(JobDbContext))]
-    [Migration("20231009164050_InitialCreate")]
+    [Migration("20231010061007_InitialCreate`")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -95,6 +95,9 @@ namespace jobCommon.Migrations
                     b.Property<bool>("Suceeded")
                         .HasColumnType("bit");
 
+                    b.Property<int>("SumOfWeightings")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("JobId");
@@ -123,14 +126,22 @@ namespace jobCommon.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("HelpText")
-                        .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
+
+                    b.Property<int>("MaxScore")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Score")
+                        .HasColumnType("int");
 
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
+
+                    b.Property<int>("Weighting")
+                        .HasColumnType("int");
 
                     b.Property<string>("Who")
                         .IsRequired()
@@ -247,6 +258,9 @@ namespace jobCommon.Migrations
                         .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
+
+                    b.Property<int>("Weighting")
+                        .HasColumnType("int");
 
                     b.Property<string>("Who")
                         .IsRequired()

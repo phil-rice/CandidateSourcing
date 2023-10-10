@@ -54,10 +54,11 @@ namespace gui.Controllers
             SectionTemplate result = new SectionTemplate
             {
                 Id = testGuid,
-                Title = "Dotnet full stack - Interview 1",
+                Title = "Interview 1",
                 Owner = owner,
                 CanEditWho = true,
-                Who = "Please Specify",
+                Who = "alyson.rice@googlemail.com",
+                Weighting = 40,
                 Questions = new List<Question>
                 {
                     new Question
@@ -100,10 +101,12 @@ namespace gui.Controllers
             SectionTemplate result = new SectionTemplate
             {
                 Id = testGuid,
-                Title = "Dotnet full stack - Interview 2",
+                Title = "Interview 2",
                 Owner = owner,
-                Who = "Please Specify",
+                Who = "stave.escura@gmail.com",
                 CanEditWho = true,
+                Weighting = 50,
+
                 Questions = new List<Question>
                 {
                     new Question
@@ -139,8 +142,9 @@ namespace gui.Controllers
                 Id = testGuid,
                 Title = "HR interview",
                 Owner = owner,
-                Who = "Please Specify",
+                Who = "phil.rice@validoc.org",
                 CanEditWho = true,
+                Weighting=10,
                 Questions = new List<Question>
                 {
                     new Question
