@@ -9,10 +9,11 @@ using xingyi.job.Repository;
 
 namespace gui.Pages.Applications
 {
-  
+
     public class ApplicationCreateModel : PageModel
     {
         private readonly IJobRepository jobRepo;
+        private readonly IJobAndAppRepository jobAndAppRepo;
         private readonly IApplicationRepository appRepo;
 
 
@@ -21,10 +22,11 @@ namespace gui.Pages.Applications
 
         [BindProperty]
         public ApplicationDetails Item { get; set; }
-        public ApplicationCreateModel(IApplicationRepository appRepo, IJobRepository jobRepo) : base()
+        public ApplicationCreateModel(IApplicationRepository appRepo, IJobRepository jobRepo, IJobAndAppRepository jobAndAppRepo) : base()
         {
             this.appRepo = appRepo;
             this.jobRepo = jobRepo;
+            this.jobAndAppRepo = jobAndAppRepo;
         }
 
         public async Task OnGetAsync()
@@ -51,6 +53,16 @@ namespace gui.Pages.Applications
         public async Task<IActionResult> OnPostAsync()
         {
             var job = await jobRepo.GetByIdAsync(JobId);
+            var jobAndApp = await jobAndAppRepo.GetByIdAsync(JobId);
+            var oneYearAgo = DateTime.Now.AddYears(-1);
+            var existing = jobAndApp.Applications.Where(a => a.Candidate == Item.Candidate && a.DateCreated >= oneYearAgo);
+
+            if (existing.Count() > 0)
+            {
+                ModelState.AddModelError("Item.Candidate", "This Candidate has already applied for this Job within the last year");
+                return Page();
+            }
+
             ModelStateHelper.DumpModelState(ModelState);
             if (ModelState.IsValid)
             {

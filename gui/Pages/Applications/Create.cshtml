@@ -3,9 +3,9 @@
 @addTagHelper *, gui
 
 <h1>Add Candidate for @Model.Item.JobName</h1>
-
+@* 
 <display asp-for="Item">"</display>
-
+ *@
 <form id="form" method="post">
     <input type="hidden" asp-for="Item.JobName" />
     <label-and-input asp-for="Item.Candidate"></label-and-input>

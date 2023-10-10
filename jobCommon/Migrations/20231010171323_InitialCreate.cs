@@ -35,7 +35,7 @@ namespace jobCommon.Migrations
                     CanEditWho = table.Column<bool>(type: "bit", nullable: true),
                     Weighting = table.Column<int>(type: "int", nullable: false),
                     RequireComments = table.Column<bool>(type: "bit", nullable: false),
-                    CommentsMessage = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CommentsMessage = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Who = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Title = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
                     HelpText = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true)
@@ -52,6 +52,7 @@ namespace jobCommon.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     JobId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Candidate = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    DateCreated = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Failed = table.Column<bool>(type: "bit", nullable: false),
                     Suceeded = table.Column<bool>(type: "bit", nullable: false),
                     SumOfWeightings = table.Column<int>(type: "int", nullable: false),
@@ -130,7 +131,7 @@ namespace jobCommon.Migrations
                     Who = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Comments = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: false),
                     RequireComments = table.Column<bool>(type: "bit", nullable: false),
-                    CommentsMessage = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CommentsMessage = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Finished = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>

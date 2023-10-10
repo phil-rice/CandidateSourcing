@@ -2,7 +2,8 @@
 @model gui.Pages.Applications.ViewModel
 @addTagHelper *, gui
 
-<a href="/Applications/Edit/@Model.Id">Click here to edit who fills in each section</a>
+<p><a href="/Index">Click here to go 'home'</a></p>
+<p><a href="/Applications/Edit/@Model.Id">Click here to edit who fills in each section</a></p>
 
 @{
     var ap = Model.Item;
@@ -20,6 +21,10 @@
             <td>
                 <score-badge score="@score" Finished="@allDone" Weighting="ap.SumOfWeightings"></score-badge>
             </td>
+        </tr>
+        <tr>
+            <th>Date Applied</th>
+            <td>@ap.DateCreated</td>
         </tr>
     </tbody>
 </table>

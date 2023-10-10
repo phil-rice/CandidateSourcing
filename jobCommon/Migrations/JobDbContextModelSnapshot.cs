@@ -78,6 +78,9 @@ namespace jobCommon.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<DateTime?>("DateCreated")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("DetailedComments")
                         .IsRequired()
                         .HasMaxLength(1000)
@@ -120,7 +123,6 @@ namespace jobCommon.Migrations
                         .HasColumnType("nvarchar(1000)");
 
                     b.Property<string>("CommentsMessage")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("Finished")
@@ -248,7 +250,6 @@ namespace jobCommon.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("CommentsMessage")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("HelpText")

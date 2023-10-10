@@ -22,7 +22,7 @@ namespace xingyi.application
         public int calcScore()
         {
             var allWeightings = Sections.Sum(s => s.Weighting);
-            var score = Sections.Sum(s =>s.Score*s.Weighting);
+            var score = Sections.Sum(s => s.Score * s.Weighting);
             return Ints.safeDiv(score, allWeightings);
         }
         [Key]
@@ -37,6 +37,7 @@ namespace xingyi.application
         [MaxLength(100)]
         public string Candidate { get; set; }
 
+        public DateTime? DateCreated { get; set; } = DateTime.Now;
         public bool Failed { get; set; } = false;
         public bool Suceeded { get; set; } = false;
 
@@ -49,7 +50,7 @@ namespace xingyi.application
 
         [MaxLength(1000)]
         public string DetailedComments { get; set; } = "";
-        
+
         // Navigation Properties
         [ForeignKey("JobId")]
         public Job? Job { get; set; } = null;
@@ -72,7 +73,7 @@ namespace xingyi.application
             var div = ans.Count();
             return Ints.safeDiv(total, div);
         }
-     
+
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }
@@ -93,7 +94,7 @@ namespace xingyi.application
         [MaxLength(1000)]
         public string Comments { get; set; }
 
-        public bool RequireComments { get; set;}
+        public bool RequireComments { get; set; }
         public string? CommentsMessage { get; set; } = "";
         public bool Finished { get; set; }
 
