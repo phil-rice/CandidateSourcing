@@ -124,7 +124,6 @@ namespace jobCommon.Migrations
                     HelpText = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
                     Weighting = table.Column<int>(type: "int", nullable: false),
                     Score = table.Column<int>(type: "int", nullable: false),
-                    MaxScore = table.Column<int>(type: "int", nullable: false),
                     CanEditWho = table.Column<bool>(type: "bit", nullable: false),
                     Who = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Comments = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: false),

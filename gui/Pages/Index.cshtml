@@ -21,25 +21,25 @@
 
     <p>Find out more about <a href="/Info/FillingIn">Filling in details</a></p>
 
-    @Html.Partial("_SectionToDoList", new TodoDisplayDto<Section>
+    @Html.Partial("_SectionToDoList", new ToDoAndAppsDto<Section>
     {
     Message = "This is the list of details you have been asked to fill in",
     Items = Model.MyTodoSections
     })
 
-    @Html.Partial("_SectionToDoList", new TodoDisplayDto<Section>
+    @Html.Partial("_SectionToDoList", new ToDoAndAppsDto<Section>
     {
     Message= "Details you have already filled in",
     Items = Model.MyDoneSections
     })
 
  
-    @Html.Partial("_JobAndAppsToDoList", new TodoDisplayDto<JobAndApplications>
+    @Html.Partial("_JobAndAppsToDoList", new ToDoAndAppsDto<JobAndApplications>
     {
     Message= "Your active jobs",
     Items = Model.MyActiveApps
     })
-    @Html.Partial("_JobAndAppsToDoList", new TodoDisplayDto<JobAndApplications>
+    @Html.Partial("_JobAndAppsToDoList", new ToDoAndAppsDto<JobAndApplications>
     {
     Message= "Your inactive jobs",
     Items = Model.MyCompletedApps
@@ -49,6 +49,7 @@
     {
         <p>If you want to find candidates for a Vacancy:</p>
     }   
+
     <p>Find out more about <a href="/Info/PostingVacancies">Posting Vacancies</a></p>
     <a href="/Jobs/Create"> Create a new Job (Vacancy)</a>
 

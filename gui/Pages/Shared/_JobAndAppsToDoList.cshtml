@@ -1,6 +1,6 @@
 ﻿@using xingyi.application;
-
-@model TodoDisplayDto<JobAndApplications>
+@model ToDoAndAppsDto<JobAndApplications>
+@addTagHelper *, gui
 
 @if (Model.Items.Count > 0)
 {
@@ -8,6 +8,8 @@
 }
 @foreach (var jobAndApp in Model.Items)
 {
+
+
     <div class="card">
         <div class="card-header">
             @jobAndApp.Job.Title <a href="/Applications/Create/@jobAndApp.Job.Id">Add Candidate</a>
@@ -32,21 +34,15 @@
 
                     @foreach (var ap in jobAndApp.Applications)
                     {
+                        var allDone = ap.Sections.All(s => s.Finished);
+                        var score = ap.calcScore();
                         <tr>
                             <td>@ap.Candidate</td>
-                            <td>@ap.calcScore()</td>
+                            <td><score-badge score="@score" Finished="@allDone"></score-badge></td>
                             @foreach (var sect in ap.Sections)
                             {
                                 <td>
-                                    @sect.Who <span class="score">(@sect.displayScore(ap.SumOfWeightings))</span>
-                                    @if (sect.Finished)
-                                    {
-                                        <span class="badge badge-success" role="status" aria-label="Finished" title="Finished">F</span>
-                                    }
-                                    else
-                                    {
-                                        <span class="badge badge-warning" role="status" aria-label="Waiting" title="Waiting">W</span>
-                                    }
+                                    @sect.Who<score-badge score="@sect.Score" Finished="@sect.Finished" ShowText="false"></score-badge>
                                 </td>
                             }
                         </tr>

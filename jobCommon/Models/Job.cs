@@ -116,7 +116,6 @@ namespace xingyi.job.Models
                 HelpText = HelpText,
                 Who = Who,
                 Weighting = Weighting,
-                MaxScore = Questions.Where(q => q.ScoreOutOfTen == true).Count() * 10,
                 Comments = "",
                 Finished = false,
                 Answers = answers
@@ -143,7 +142,7 @@ namespace xingyi.job.Models
         public bool? ScoreOutOfTen { get; set; }
 
         public bool? Singleline { get; set; }
-        public bool? IsRequired { get; set; } = true;
+        public bool? IsRequired { get; set; } 
         public bool? IsNumber { get; set; }
 
 

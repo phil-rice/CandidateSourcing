@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -20,10 +21,9 @@ namespace xingyi.application
         }
         public int calcScore()
         {
-            var max = Sections.Sum(s => s.Weighting * 10);
-            var value = Sections.Sum(s => s.Score * s.Weighting);
-            var percent = 100 * value / max;
-            return percent;
+            var allWeightings = Sections.Sum(s => s.Weighting);
+            var score = Sections.Sum(s =>s.Score*s.Weighting);
+            return Ints.safeDiv(score, allWeightings);
         }
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -45,7 +45,7 @@ namespace xingyi.application
             return !Failed && !Suceeded;
         }
 
-        public int SumOfWeightings { get; set;}
+        public int SumOfWeightings { get; set; }
 
         [MaxLength(500)]
         public string DetailedComments { get; set; } = "";
@@ -67,13 +67,12 @@ namespace xingyi.application
         }
         public int calcScore()
         {
-            return Answers.Sum(a => a.Score);
+            var ans = Answers.Where(a => a.ScoreOutOfTen == true).ToList();
+            var total = ans.Sum(a => a.Score);
+            var div = ans.Count();
+            return Ints.safeDiv(total, div);
         }
-        public int displayScore(int full)
-        {
-            return Ints.safeDiv( Score*MaxScore, Weighting* full);
-                
-        }
+     
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }
@@ -87,7 +86,6 @@ namespace xingyi.application
         public string? HelpText { get; set; } = "";
         public int Weighting { get; set; }
         public int Score { get; set; }
-        public int MaxScore { get; set; }
         public bool CanEditWho { get; set; }
         [MaxLength(100)]
         public string Who { get; set; }
@@ -123,7 +121,7 @@ namespace xingyi.application
         public string? HelpText { get; set; }
 
         public bool? ScoreOutOfTen { get; set; }
-        public bool? IsRequired { get; set; } = true;
+        public bool? IsRequired { get; set; } = false;
         public bool? IsNumber { get; set; }
         public bool? Singleline { get; set; }
 

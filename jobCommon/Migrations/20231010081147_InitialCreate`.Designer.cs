@@ -12,7 +12,7 @@ using xingyi.job;
 namespace jobCommon.Migrations
 {
     [DbContext(typeof(JobDbContext))]
-    [Migration("20231010061007_InitialCreate`")]
+    [Migration("20231010081147_InitialCreate`")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -128,9 +128,6 @@ namespace jobCommon.Migrations
                     b.Property<string>("HelpText")
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
-
-                    b.Property<int>("MaxScore")
-                        .HasColumnType("int");
 
                     b.Property<int>("Score")
                         .HasColumnType("int");

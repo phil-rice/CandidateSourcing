@@ -22,17 +22,20 @@ namespace gui.Controllers
                     new Question
                     {
                         Title = "Name",
+                        IsRequired = true,
                         Singleline= true
                     },
                     new Question
                     {
                         Title = "Passport issuing country",
+                        IsRequired = true,
                         Singleline= true
                     },
                     new Question
                     {
                         Title = "Passport number",
                         IsNumber= true,
+                        IsRequired = true,
                         Singleline= true
                     },
                     new Question

@@ -61,13 +61,16 @@ namespace xingyi.TagHelpers
             {
                 textarea.Attributes.Add("readonly", "readonly");
             }
+            var validationAttributes = new Dictionary<string, object> { { "class", "text-danger" } };
+
             var validationSpan = _htmlGenerator.GenerateValidationMessage(
-                        ViewContext,
-                        modelExplorer: For.ModelExplorer,
-                        expression: For.Name,
-                        message: null,
-                        tag: "span",
-                        htmlAttributes: null);
+                                            ViewContext,
+                                            modelExplorer: For.ModelExplorer,
+                                            expression: For.Name,
+                                            message: null,
+                                            tag: "div",
+                                            htmlAttributes: validationAttributes);
+
 
             var scoreSpan = new TagBuilder("span");
             var scoreSlider = new TagBuilder("input");

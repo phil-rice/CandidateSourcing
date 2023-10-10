@@ -59,14 +59,15 @@
             // Get the actual value from the model and set it as the value for the input
             var value = For.ModelExplorer.GetSimpleDisplayText();
             input.Attributes.Add("value", value);
+            var validationAttributes = new Dictionary<string, object> { { "class", "text-danger" } };
 
             var validationSpan = _htmlGenerator.GenerateValidationMessage(
-                                    ViewContext,
-                                    modelExplorer: For.ModelExplorer,
-                                    expression: For.Name,
-                                    message: null,
-                                    tag: "span",
-                                    htmlAttributes: null);
+                                            ViewContext,
+                                            modelExplorer: For.ModelExplorer,
+                                            expression: For.Name,
+                                            message: null,
+                                            tag: "div",
+                                            htmlAttributes: validationAttributes);
 
             var scoreSpan = new TagBuilder("span");
             var scoreSlider = new TagBuilder("input");

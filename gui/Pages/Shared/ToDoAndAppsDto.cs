@@ -2,7 +2,7 @@
 
 namespace gui.Pages.Shared
 {
-    public class TodoDisplayDto<T>
+    public class ToDoAndAppsDto<T>
     {
         public List<T> Items { get; set; }
         public string Message { get; set; }

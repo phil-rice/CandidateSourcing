@@ -76,6 +76,7 @@ namespace gui.Pages.Applications
                 var sections = new List<Section>();
 
                 var sumOfWeightings = 0;
+                var maxScore = 0;
                 for (var i = 0; i < job.JobSectionTemplates.Count(); i++)
                 {
                     var st = job.JobSectionTemplates.ToList()[i].SectionTemplate;

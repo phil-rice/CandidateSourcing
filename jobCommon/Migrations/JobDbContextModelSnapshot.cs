@@ -126,9 +126,6 @@ namespace jobCommon.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
-                    b.Property<int>("MaxScore")
-                        .HasColumnType("int");
-
                     b.Property<int>("Score")
                         .HasColumnType("int");
 

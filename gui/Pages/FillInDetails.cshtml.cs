@@ -11,20 +11,22 @@ using xingyi.job.Repository;
 namespace gui.Pages
 {
 
-      
 
-    public class FillInDetails 
+    [ToString, Equals(DoNotAddEqualityOperators = true)]
+    public class FillInDetails
     {
         public string? Candidate { get; set; }
         public string? JobTitle { get; set; }
 
         public string? InterviewTitle { get; set; }
+        [MaxLength(1000)]
+        public string Comments { get; set; }
 
         public List<FillInAnswer> Answers { get; set; }
 
     }
-
-    public class FillInAnswer: IValidatableObject
+    [ToString, Equals(DoNotAddEqualityOperators = true)]
+    public class FillInAnswer : IValidatableObject
     {
         public string? Title { get; set; } = null!;
         public string? HelpText { get; set; }
@@ -33,14 +35,20 @@ namespace gui.Pages
         public bool? IsRequired { get; set; }
         public bool? IsNumber { get; set; }
         public int Score { get; set; }
-    
+
         public string? AnswerText { get; set; }
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
-            if (string.IsNullOrEmpty(AnswerText))
+            if (IsRequired == true && string.IsNullOrEmpty(AnswerText))
             {
                 yield return new ValidationResult($"Please provide an value for [{Title}].", new[] { "AnswerText" });
+            }
+            bool number = int.TryParse(AnswerText, out _);
+            if (IsNumber == true && !number)
+            {
+                yield return new ValidationResult($"[{Title}] must be a number", new[] { "AnswerText" });
+
             }
         }
     }
@@ -74,6 +82,7 @@ namespace gui.Pages
                 JobTitle = job.Title,
                 Candidate = app.Candidate,
                 InterviewTitle = sect.Title,
+                Comments = sect.Comments,
                 Answers = sect.Answers.Select(a => new FillInAnswer
                 {
                     Title = a.Title,
@@ -105,12 +114,15 @@ namespace gui.Pages
                     sect.Answers[i].Score = Item.Answers[i].Score;
 
                 }
+                sect.Comments = Item.Comments;
                 sect.Score = sect.calcScore();
                 await repo.UpdateAsync(sect);
                 return RedirectToPage("/Index");
             }
             else
             {
+                Item.Comments = sect.Comments;
+                Item.InterviewTitle = sect.Title;
                 Item.JobTitle = sect.Application.Job.Title;
                 Item.Candidate = sect.Application.Candidate;
                 for (var i = 0; i < sect.Answers.Count; i++)
