@@ -24,6 +24,7 @@
     @for (var i = 0; i < Model.Item.Answers.Count(); i++)
     {
         <input type="hidden" name="@($"Item.Answers[{i}].ScoreOutOfTen")" value="@Model.Item.Answers[i].ScoreOutOfTen.ToString()" />
+        <input type="hidden" name="@($"Item.Answers[{i}].IsDate")" value="@Model.Item.Answers[i].IsDate.ToString()" />
         <input type="hidden" name="@($"Item.Answers[{i}].Title")" value="@Model.Item.Answers[i].Title" />
         <input type="hidden" name="@($"Item.Answers[{i}].IsNumber")" value="@Model.Item.Answers[i].IsNumber.ToString()" />
         <input type="hidden" name="@($"Item.Answers[{i}].IsRequired")" value="@Model.Item.Answers[i].IsRequired.ToString()" />
@@ -31,7 +32,12 @@
         var answer = Model.Item.Answers[i];
         var showScore = answer.ScoreOutOfTen == true;
         var score = answer.Score;
-        if (answer.Singleline == true)
+        if (answer.IsDate == true)
+        {
+            <p>Birthdate</p>
+            <input type="date" name="@($"Item.Answers[{i}].AnswerText")" value="@Model.Item.Answers[i].AnswerText" />
+        }
+        else if (answer.Singleline == true)
         {
             <label-and-input asp-for="Item.Answers[i].AnswerText" asp-label="Item.Answers[i].Title" show-score="@showScore" score="@score"></label-and-input>
         }

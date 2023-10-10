@@ -37,6 +37,9 @@ namespace jobCommon.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
+                    b.Property<bool?>("IsDate")
+                        .HasColumnType("bit");
+
                     b.Property<bool?>("IsNumber")
                         .HasColumnType("bit");
 
@@ -212,6 +215,9 @@ namespace jobCommon.Migrations
                     b.Property<string>("HelpText")
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
+
+                    b.Property<bool?>("IsDate")
+                        .HasColumnType("bit");
 
                     b.Property<bool?>("IsNumber")
                         .HasColumnType("bit");

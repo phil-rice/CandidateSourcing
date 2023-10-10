@@ -44,6 +44,7 @@ namespace gui.Pages
         public bool? Singleline { get; set; }
         public bool? IsRequired { get; set; }
         public bool? IsNumber { get; set; }
+        public bool? IsDate { get; set; }
               public int Score { get; set; }
 
         public string? AnswerText { get; set; }
@@ -107,6 +108,7 @@ namespace gui.Pages
                     Score = a.Score,
                     Singleline = a.Singleline,
                     IsNumber = a.IsNumber,
+                    IsDate = a.IsDate,
                     IsRequired = a.IsRequired,
                     AnswerText = a.AnswerText ?? ""
                 }).ToList()
@@ -148,6 +150,7 @@ namespace gui.Pages
                     Item.Answers[i].HelpText = sect.Answers[i].HelpText;
                     Item.Answers[i].IsNumber = sect.Answers[i].IsNumber;
                     Item.Answers[i].IsRequired = sect.Answers[i].IsRequired;
+                    Item.Answers[i].IsDate = sect.Answers[i].IsDate;
                     Item.Answers[i].ScoreOutOfTen = sect.Answers[i].ScoreOutOfTen;
                     Item.Answers[i].Singleline = sect.Answers[i].Singleline;
                 }

@@ -12,7 +12,7 @@ using xingyi.job;
 namespace jobCommon.Migrations
 {
     [DbContext(typeof(JobDbContext))]
-    [Migration("20231010171323_InitialCreate")]
+    [Migration("20231010183703_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -39,6 +39,9 @@ namespace jobCommon.Migrations
                     b.Property<string>("HelpText")
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
+
+                    b.Property<bool?>("IsDate")
+                        .HasColumnType("bit");
 
                     b.Property<bool?>("IsNumber")
                         .HasColumnType("bit");
@@ -215,6 +218,9 @@ namespace jobCommon.Migrations
                     b.Property<string>("HelpText")
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
+
+                    b.Property<bool?>("IsDate")
+                        .HasColumnType("bit");
 
                     b.Property<bool?>("IsNumber")
                         .HasColumnType("bit");

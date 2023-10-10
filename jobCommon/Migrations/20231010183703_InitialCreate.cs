@@ -104,7 +104,8 @@ namespace jobCommon.Migrations
                     ScoreOutOfTen = table.Column<bool>(type: "bit", nullable: true),
                     Singleline = table.Column<bool>(type: "bit", nullable: true),
                     IsRequired = table.Column<bool>(type: "bit", nullable: true),
-                    IsNumber = table.Column<bool>(type: "bit", nullable: true)
+                    IsNumber = table.Column<bool>(type: "bit", nullable: true),
+                    IsDate = table.Column<bool>(type: "bit", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -156,6 +157,7 @@ namespace jobCommon.Migrations
                     ScoreOutOfTen = table.Column<bool>(type: "bit", nullable: true),
                     IsRequired = table.Column<bool>(type: "bit", nullable: true),
                     IsNumber = table.Column<bool>(type: "bit", nullable: true),
+                    IsDate = table.Column<bool>(type: "bit", nullable: true),
                     Singleline = table.Column<bool>(type: "bit", nullable: true),
                     AnswerText = table.Column<string>(type: "nvarchar(2048)", maxLength: 2048, nullable: false),
                     Score = table.Column<int>(type: "int", nullable: false)

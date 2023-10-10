@@ -143,12 +143,12 @@ namespace xingyi.job.Models
         [StringLength(255)]
         public string? HelpText { get; set; }
 
-        public bool? ScoreOutOfTen { get; set; }
+        public bool? ScoreOutOfTen { get; set; } = false;
 
-        public bool? Singleline { get; set; }
+        public bool? Singleline { get; set; } = false;
         public bool? IsRequired { get; set; } = true;
-        public bool? IsNumber { get; set; }
-
+        public bool? IsNumber { get; set; } = false;
+        public bool? IsDate { get; set; } = false;
 
         public Answer asAnswer(Guid sectionId)
         {
@@ -159,6 +159,7 @@ namespace xingyi.job.Models
                 HelpText = HelpText,
                 IsRequired = IsRequired,
                 IsNumber = IsNumber,
+                IsDate = IsDate,
                 ScoreOutOfTen = ScoreOutOfTen,
                 Singleline = Singleline,
                 AnswerText = ""

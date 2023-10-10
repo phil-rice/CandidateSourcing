@@ -27,6 +27,12 @@ namespace gui.Controllers
                         IsRequired = true,
                         Singleline= true
                     },
+                      new Question
+                    {
+                        Title = "DateOfBirth",
+                        IsRequired = true,
+                        IsDate= true
+                    },
                     new Question
                     {
                         Title = "Passport issuing country",

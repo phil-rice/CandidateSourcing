@@ -126,6 +126,7 @@ namespace xingyi.application
         public bool? ScoreOutOfTen { get; set; }
         public bool? IsRequired { get; set; } = false;
         public bool? IsNumber { get; set; }
+        public bool? IsDate { get; set; }
         public bool? Singleline { get; set; }
 
         [MaxLength(2048)]
