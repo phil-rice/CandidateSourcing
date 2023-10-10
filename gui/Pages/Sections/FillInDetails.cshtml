@@ -23,6 +23,7 @@
 
     @for (var i = 0; i < Model.Item.Answers.Count(); i++)
     {
+        <input type="hidden" name="@($"Item.Answers[{i}].ScoreOutOfTen")" value="@Model.Item.Answers[i].ScoreOutOfTen.ToString()" />
         <input type="hidden" name="@($"Item.Answers[{i}].Title")" value="@Model.Item.Answers[i].Title" />
         <input type="hidden" name="@($"Item.Answers[{i}].IsNumber")" value="@Model.Item.Answers[i].IsNumber.ToString()" />
         <input type="hidden" name="@($"Item.Answers[{i}].IsRequired")" value="@Model.Item.Answers[i].IsRequired.ToString()" />

@@ -13,17 +13,17 @@ namespace gui.Pages
 
 
     [ToString, Equals(DoNotAddEqualityOperators = true)]
-    public class FillInDetails: IValidatableObject
+    public class FillInDetails : IValidatableObject
     {
         public string? Candidate { get; set; }
         public string? JobTitle { get; set; }
         public bool RequireComments { get; set; }
-        public string? CommentsMessage { get; set;}
+        public string? CommentsMessage { get; set; }
         public string? InterviewTitle { get; set; }
         [MaxLength(1000)]
         public string? Comments { get; set; }
 
-        public List<FillInAnswer> Answers { get; set; } = new List<FillInAnswer>(); 
+        public List<FillInAnswer> Answers { get; set; } = new List<FillInAnswer>();
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
@@ -44,12 +44,15 @@ namespace gui.Pages
         public bool? Singleline { get; set; }
         public bool? IsRequired { get; set; }
         public bool? IsNumber { get; set; }
-        public int Score { get; set; }
+              public int Score { get; set; }
 
         public string? AnswerText { get; set; }
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
+            if (ScoreOutOfTen == true && (Score < 1 || Score > 10))
+                yield return new ValidationResult("Please set the score", new[] { "AnswerText" });
+
             if (IsRequired == true && string.IsNullOrEmpty(AnswerText))
             {
                 yield return new ValidationResult($"Please provide an value for [{Title}].", new[] { "AnswerText" });
@@ -60,6 +63,7 @@ namespace gui.Pages
                 yield return new ValidationResult($"[{Title}] must be a number", new[] { "AnswerText" });
 
             }
+          
         }
     }
 
@@ -92,9 +96,9 @@ namespace gui.Pages
                 JobTitle = job.Title,
                 Candidate = app.Candidate,
                 InterviewTitle = sect.Title,
-                Comments = sect.Comments??"",
+                Comments = sect.Comments ?? "",
                 RequireComments = sect.RequireComments,
-                CommentsMessage= sect.CommentsMessage,
+                CommentsMessage = sect.CommentsMessage,
                 Answers = sect.Answers.Select(a => new FillInAnswer
                 {
                     Title = a.Title,
@@ -126,7 +130,7 @@ namespace gui.Pages
                     sect.Answers[i].Score = Item.Answers[i].Score;
 
                 }
-                sect.Comments = Item.Comments ??"";
+                sect.Comments = Item.Comments ?? "";
                 sect.Score = sect.calcScore();
                 await repo.UpdateAsync(sect);
                 return RedirectToPage("/Index");
