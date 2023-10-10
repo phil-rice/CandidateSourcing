@@ -26,9 +26,8 @@ namespace xingyi.microservices.Client
         where T : class
         where Where : IRepositoryWhere<T>
     {
-        private readonly HttpClient _httpClient;
-        private readonly string _baseUrl; // Base URL should be provided during instantiation.
-
+        public readonly HttpClient _httpClient;
+        public readonly string _baseUrl; 
         public GenericClient(HttpClient httpClient, string BaseUrl)
         {
             _httpClient = httpClient;

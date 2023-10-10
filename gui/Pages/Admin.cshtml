@@ -1,0 +1,15 @@
+﻿@page
+@model gui.Pages.AdminModel
+
+<h1>Admin pages</h1>
+
+<p>This is for miscellaneous tasks</p>
+
+<ul>
+    <li>
+        <form method="post">
+            <button name="handler" value="PurgeDatabase" type="submit">Purge the Database</button>
+        </form> 
+        <p>Note: This removes applications more than six months old. </p><p>It's OK for anyone to do this: it would be done by a batch job 'in the real'</p>
+    </li>
+</ul>

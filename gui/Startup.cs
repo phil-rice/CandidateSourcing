@@ -10,6 +10,8 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.Extensions.Logging;
 using gui.Middleware;
+using gui.Pages;
+using xingyi.jobClient.admin;
 
 namespace xingyi.gui
 {
@@ -36,6 +38,10 @@ namespace xingyi.gui
             services.AddLogging();
             services.AddDistributedMemoryCache();
             services.AddSession();
+
+
+            services.Configure<AdminClientSettings>(Configuration.GetSection("ApiSettings"));
+            services.AddHttpClient<AdminHttpClient, AdminHttpClient>();
 
             services.Configure<JobAndAppSettings>(Configuration.GetSection("ApiSettings"));
             services.AddHttpClient<IJobAndAppRepository, JobAndAppClient>();
