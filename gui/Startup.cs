@@ -84,7 +84,16 @@ namespace xingyi.gui
                 options.ClientSecret = Configuration["Authentication:Google:ClientSecret"];
                 options.CallbackPath = "/signin-google";
             });
-
+            services.AddCors(options =>
+            {
+                options.AddPolicy("MyPolicy", builder =>
+                {
+                    builder.WithOrigins(Configuration["AllowedHosts"])
+                           .AllowAnyHeader()
+                           .AllowAnyMethod()
+                           .AllowCredentials();
+                });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -108,9 +117,9 @@ namespace xingyi.gui
             app.UseRouting();
          
             app.UseSession();
+            app.UseCors("MyPolicy");
             app.UseAuthentication();
             app.UseAuthorization();
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapRazorPages();
