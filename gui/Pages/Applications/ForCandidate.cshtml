@@ -1,29 +1,81 @@
 ﻿@page
 @model gui.Pages.Applications.ForCandidateModel
 @addTagHelper *, gui
-<h1>@Model.Candidate</h1>
 
-<table>
-    <thead>
-        <tr><th>Job</th><th>Applied</th><th>Score</th></tr>
 
-    </thead>
-    <tbody>
+<p>Please note that this only returns Candidates that you have permissions to see. If you are the Owner or Manager of a Job then you can see candidates for that Job</p>
+@if (Model.Items.Count() == 0)
+{
+    if (string.IsNullOrEmpty(Model.Candidate))
+    {
+        <p>Enter a candidate email address to search for applications</p>
+    }
+    else
+    {
+        <p>No applications found for Candidate [@Model.Candidate]</p>
+    }
+}
+else
+{
+    <h2>Applications for [@Model.Candidate] in Jobs that you own</h2>
 
-        @{
-            var apps = Model.Items;
-            foreach (var app in apps)
-            {
-                var allDone = app.Sections.All(s => s.Finished);
-                var score = app.calcScore();
-                <tr>
-                    <td><a href="/Applications/View/@app.Id">@app.Job.Title</td>
-                    <td>@app.DateCreated</td>
+    <table>
+        <thead>
+            <tr><th>Job</th><th>Applied</th><th>Score</th></tr>
 
-                    <td><score-badge score="@score" Finished="@allDone" Weighting="app.SumOfWeightings"></score-badge></td>
-                </tr>
+        </thead>
+        <tbody>
+
+            @{
+                var apps = Model.Items;
+                foreach (var app in apps)
+                {
+                    var allDone = app.Sections.All(s => s.Finished);
+                    var score = app.calcScore();
+                    <tr>
+                        <td><a href="/Applications/View/@app.Id">@app.Job.Title</td>
+                        <td>@app.DateCreated</td>
+
+                        <td><score-badge score="@score" Finished="@allDone" Weighting="app.SumOfWeightings"></score-badge></td>
+                    </tr>
+                }
+
             }
+        </tbody>
+    </table>
+}
 
-        }
-    </tbody>
-</table>
+@if (Model.ManagedByItems.Count() > 0)
+{
+    <h2>Applications for [@Model.Candidate] in Jobs that you are a manager for</h2>
+
+    <table>
+        <thead>
+            <tr><th>Job</th><th>Owner</th><th>Applied</th><th>Score</th></tr>
+
+        </thead>
+        <tbody>
+
+            @{
+                foreach (var mb in Model.ManagedByItems)
+                {
+                    var job = mb.Job;
+                    var apps = job.Applications;
+                    foreach (var app in apps)
+                    {
+                        var allDone = app.Sections.All(s => s.Finished);
+                        var score = app.calcScore();
+                        <tr>
+                            <td><a href="/Applications/ManagedView/@app.Id">@job.Title</td>
+                            <td>@job.Owner</td>
+                            <td>@app.DateCreated</td>
+
+                            <td><score-badge score="@score" Finished="@allDone" Weighting="app.SumOfWeightings"></score-badge></td>
+                        </tr>
+                    }
+                }
+
+            }
+        </tbody>
+    </table>
+}

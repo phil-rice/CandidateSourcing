@@ -5,7 +5,7 @@ using xingyi.job.Repository;
 
 namespace gui.Pages.Applications
 {
-    public class ViewModel : PageModel
+    public class ManagedViewModel : PageModel
     {
         private readonly IApplicationRepository appRepo;
 
@@ -14,18 +14,14 @@ namespace gui.Pages.Applications
         [BindProperty]
         public Application Item { get; set; }
 
-        public bool CanEdit { get; set; }
-        public ViewModel(IApplicationRepository appRepo)
+        public ManagedViewModel(IApplicationRepository appRepo)
         {
             this.appRepo = appRepo;
         }
 
         public async Task OnGetAsync()
         {
-            var email = User.FindFirst(System.Security.Claims.ClaimTypes.Email)?.Value;
-
             Item = await appRepo.GetByIdAsync(Id, true);
-            CanEdit = Item.Job.Owner == email;
         }
     }
 }

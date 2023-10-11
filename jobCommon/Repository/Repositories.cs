@@ -134,8 +134,38 @@ namespace xingyi.job.Repository
 
     }
 
-    public class ManagedByWhere : EmptyRepositoryWhere<ManagedBy>
+    public class ManagedByWhere : IRepositoryWhere<ManagedBy>
     {
+        public string ManagedBy { get; set; }
+        public string Candidate { get; set; }
+        public IQueryable<ManagedBy> Apply(IQueryable<ManagedBy> queryable)
+        {
+            if (ManagedBy == null)
+                return queryable.Where(a => false);
+            else
+                if (Candidate == null)
+                return queryable.Where(mb => mb.Email == ManagedBy)
+                    .Include(mb => mb.Job)
+                    .ThenInclude(j => j.Applications).ThenInclude(j=>j.Sections);
+            else return queryable.Where(mb => mb.Email == ManagedBy)
+                                .Include(mb => mb.Job)
+                                .ThenInclude(j => j.Applications.Where(a => a.Candidate == Candidate));
+
+        }
+
+        public string queryString()
+        {
+            var managedBy = ManagedBy == null ? "" : $"ManagedBy={WebUtility.UrlEncode(ManagedBy)}";
+            var candidate = Candidate == null ? "" : $"Candidate={WebUtility.UrlEncode(Candidate)}";
+            if (managedBy == "" && candidate == "")
+                return "";
+            else if (managedBy == "")
+                return candidate;
+            else if (candidate == "")
+                return managedBy;
+            else
+                return $"{managedBy}&{candidate}";
+        }
     }
 
     public interface IManagedByRepository : IRepository<ManagedBy, GuidAndEmail, ManagedByWhere> { }

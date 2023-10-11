@@ -31,6 +31,7 @@ namespace xingyi.microservices.repository
         protected readonly DbSet<T> _dbSet;
         private readonly Func<Id, Expression<Func<T, bool>>> idEquals;
         private readonly Action<T> postGetMutate;
+        private readonly bool whereDoesEverything;
 
         public void cleanDb()
         {
@@ -55,7 +56,8 @@ namespace xingyi.microservices.repository
             Func<DbSet<T>, IQueryable<T>> nonEagerLoadFn,
             Func<DbSet<T>, IQueryable<T>> eagerLoadFn,
              Func<IQueryable<T>, IQueryable<T>> orderFn,
-             Action<T> postGetMutate)
+             Action<T> postGetMutate,
+             bool whereDoesEverything = false)
         {
             _context = context;
             _dbSet = dbSet(context);
@@ -64,6 +66,7 @@ namespace xingyi.microservices.repository
             this.eagerLoadFn = eagerLoadFn;
             this.orderFn = orderFn;
             this.postGetMutate = postGetMutate;
+            this.whereDoesEverything = whereDoesEverything;
         }
 
         public static JsonSerializerSettings settings = new JsonSerializerSettings
@@ -80,10 +83,18 @@ namespace xingyi.microservices.repository
             return orderFn(eagerLoad ? eagerLoadFn(set) : nonEagerLoadFn(set));
         }
 
+        private IQueryable<T> getRoot(bool eagerLoad)
+        {
+            if (whereDoesEverything)
+                return orderFn(_dbSet);
+            else
+                return load(eagerLoad, _dbSet);
+        }
         public async Task<List<T>> GetAllAsync(Where where, Boolean eagerLoad)
         {
-            var result = await where.Apply(load(eagerLoad, _dbSet)).ToListAsync();
-            foreach (var t in result) postGetMutate(t);
+            var result = await where.Apply(getRoot(eagerLoad)).ToListAsync();
+            if (result != null)
+                foreach (var t in result) postGetMutate(t);
             return result;
         }
 
@@ -122,7 +133,7 @@ namespace xingyi.microservices.repository
 
         public async Task<bool> DeleteAsync(Id id)
         {
-            var entity = await GetByIdAsync(id,false);
+            var entity = await GetByIdAsync(id, false);
             if (entity == null) return false;
 
             _dbSet.Remove(entity);

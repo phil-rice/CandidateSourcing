@@ -13,6 +13,8 @@ namespace Microservices
     }
     public class EmptyRepositoryWhere<T> : IRepositoryWhere<T>
     {
+        public bool whereDoesEverything => false;
+
         public IQueryable<T> Apply(IQueryable<T> queryable)
         {
             return queryable;

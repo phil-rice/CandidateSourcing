@@ -1,0 +1,23 @@
+﻿@page
+@using gui.Pages.Shared;
+@model gui.Pages.Manager.IndexModel
+@addTagHelper *, gui
+
+
+@if (Model.Items.Count() == 0)
+{
+    <p> You are not the Manager of any jobs</p>
+
+    <p><a href="/Info/Managing">Click here for info</a></p>
+}
+else
+{
+
+    @Html.Partial("_JobAndAppsToDoList", new ToDoAndAppsDto<JobAndApplications>
+                {
+                Title= "Jobs you manage",
+                Message ="The email addresses in the 'section columns' are the people who need to fill in the sections.",
+                Items = Model.Items,
+                AllowEdits= false
+                })
+}

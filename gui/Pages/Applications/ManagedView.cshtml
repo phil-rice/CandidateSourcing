@@ -1,12 +1,9 @@
 ﻿@page "{id}"
-@model gui.Pages.Applications.ViewModel
+@model gui.Pages.Applications.ManagedViewModel
 @addTagHelper *, gui
 
 <p><a href="/Index">Click here to go 'home'</a></p>
-@if (Model.CanEdit)
-{
-    <p><a href="/Applications/Edit/@Model.Id">Click here to edit who fills in each section</a></p>
-}
+<p>Please note you are viewing this as a manager. You can only look</p>
 
 @{
     var ap = Model.Item;
@@ -16,10 +13,6 @@
 <h1>Application for @ap.Job.Title</h1>
 <table>
     <tbody>
-        <tr>
-            <th>Job Owner</th>
-            <td>@ap.Job.Owner</td>
-        </tr>
         <tr>
             <th>Candidate</th>
             <td>@ap.Candidate</td>

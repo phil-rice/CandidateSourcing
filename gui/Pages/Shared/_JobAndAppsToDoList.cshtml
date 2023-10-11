@@ -12,7 +12,10 @@
 
     <div class="card">
         <div class="card-header">
-            <div>@jobAndApp.Job.Title <a href="/Applications/Create/@jobAndApp.Job.Id">Add Candidate</a></div>
+            @if (Model.AllowEdits)
+            {
+                <div>@jobAndApp.Job.Title <a href="/Applications/Create/@jobAndApp.Job.Id">Add Candidate</a></div>
+            }
             @Model.Message
 
         </div>

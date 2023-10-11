@@ -27,6 +27,9 @@ namespace gui.Pages.Applications
         {
             var app = await appRepo.GetByIdAsync(Id);
             var job = app.Job;
+            var email = User.FindFirst(System.Security.Claims.ClaimTypes.Email)?.Value;
+            if (job.Owner != email)
+                throw new Exception("You are not the owner of this job");
             var sections = app.Sections.Select(sect => new SectionDetail
             {
                 Title = sect.Title,

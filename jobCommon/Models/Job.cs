@@ -20,9 +20,13 @@ namespace xingyi.job.Models
         public void PostGet()
 
         {
-            JobSectionTemplates.Sort((st1, st2) => st1.SectionTemplate.Title.CompareTo(st2.SectionTemplate.Title));
-            Applications.Sort((a1, a2) => a1.Candidate.CompareTo(a2.Candidate));
-            foreach (var a in Applications) a.PostGet();
+            if (JobSectionTemplates != null)
+                JobSectionTemplates.Sort((st1, st2) => st1.SectionTemplate.Title.CompareTo(st2.SectionTemplate.Title));
+            if (Applications != null)
+            {
+                Applications.Sort((a1, a2) => a1.Candidate.CompareTo(a2.Candidate));
+                foreach (var a in Applications) a.PostGet();
+            }
         }
 
         [Key]
@@ -72,7 +76,7 @@ namespace xingyi.job.Models
 
         public void PostGet()
         {
-            if (Job != null)Job.PostGet();
+            if (Job != null) Job.PostGet();
         }
     }
 

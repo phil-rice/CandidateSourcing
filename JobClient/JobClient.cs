@@ -55,7 +55,7 @@ namespace xingyi.job.Client
     public class ManagedByClient : GenericClient<ManagedBy, GuidAndEmail, ManagedByWhere>, IManagedByClient
     {
         public ManagedByClient(HttpClient httpClient, IOptions<ManagedBySettings> settings) :
-            base(httpClient, settings.Value.BaseUrl + "ManagedBy", id => $"{id.Id}/{WebUtility.UrlEncode(id.Email)}")
+            base(httpClient, settings.Value.BaseUrl + "ManagedBy", id => $"{id.Id}/{WebUtility.UrlEncode(id.Email??"")}")
         {
         }
 

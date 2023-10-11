@@ -50,9 +50,9 @@ namespace xingyi.job.Controllers
     {
         public ManagedByController(IManagedByRepository repository) : base(repository, mb => new GuidAndEmail(mb.JobId, mb.Email)) { }
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ManagedBy>>> GetAll([FromQuery] Boolean eagerLoad)
+        public async Task<ActionResult<IEnumerable<ManagedBy>>> GetAll([FromQuery] Boolean eagerLoad, [FromQuery] string? Candidate, [FromQuery] string ManagedBy)
         {
-            var entities = await _repository.GetAllAsync(new ManagedByWhere { }, eagerLoad);
+            var entities = await _repository.GetAllAsync(new ManagedByWhere { Candidate = Candidate , ManagedBy= ManagedBy}, eagerLoad);
             return entities == null ? NotFound() : Ok(entities);
         }
 
