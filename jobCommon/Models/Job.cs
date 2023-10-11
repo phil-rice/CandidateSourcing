@@ -21,7 +21,9 @@ namespace xingyi.job.Models
 
         {
             if (JobSectionTemplates != null)
-                JobSectionTemplates.Sort((st1, st2) => st1.SectionTemplate.Title.CompareTo(st2.SectionTemplate.Title));
+                JobSectionTemplates.Sort((st1, st2) =>
+                    (st1.SectionTemplate?.Title ?? string.Empty).CompareTo(st2.SectionTemplate?.Title ?? string.Empty));
+
             if (Applications != null)
             {
                 Applications.Sort((a1, a2) => a1.Candidate.CompareTo(a2.Candidate));

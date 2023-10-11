@@ -242,6 +242,7 @@ The same process as the candidate:
   * and see the work has been completed 
   * and the averaged score is given with a 'badge'
   * They can go and edit their answers if they want to
+* The comments field for 'detailed feedback' is limited to 1000 characters
 
 ### Second Round 
 >  Panellist 2 would login to the portal and provide feedback in various sections on a score with scale of 1 to 10 (10 being highest). Detail feedback section should allow a maximum of 1000 characters.
@@ -262,6 +263,8 @@ The sample test project has
 * Interview 1 40%
 * Interview 2 50%
 * Hr Interview 10%
+These numbers can be seen on the gui above each section
+
 
 ## Manager
 > Manager logs in and checks the candidate rating which is weighted average of the interviews’ score from the three rounds of the candidate   

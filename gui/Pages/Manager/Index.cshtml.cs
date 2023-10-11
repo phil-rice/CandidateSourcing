@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using xingyi.gui;
 using xingyi.job.Models;
 using xingyi.job.Repository;
 
