@@ -87,7 +87,8 @@ We can have as many different jobs as we like, each with their own process
 I am not sure if I have the workflow perfect here. It meets the requirements, but for
 example I might want to let the manager add candidates instead of just the owner
 
-This is the kind of thing that I would 'ask the product owner' about.
+This is the kind of thing that I would 'ask the product owner' about. I just made a decision and can 
+review and change it later
 
 
 
