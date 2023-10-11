@@ -112,7 +112,7 @@ They also have a test fixture what is populated with data of various types
 
 It made it trivialy easy to test the repository pattern. All the major entities are tested, and I know the code works and will keep working
 
-## Contract testing
+# Contract testing
 This is for testing between the client and controller
 
 There is a defect in the DotNet Pact tests that means only the first contract test run passes. I 
@@ -124,7 +124,7 @@ controller. It is a very good way of testing that the client and controller
 are working together correctly. It ensures that urls / encoding / decoding 
 / headers/status codes etc are as expected.
 
-## Why no Gui testing
+# Why no Gui testing
 Actually I made a mistake. I thought I didn't have time. But I think it 
 would have been quicker if I had some reliable selenium tests. As ever it
 was a false economy to skip testing...
