@@ -82,7 +82,12 @@ made the process and the questions fully customisable.
 
 We can have as many different jobs as we like, each with their own process
 
+# I differentiate between Owner and Manager
 
+I am not sure if I have the workflow perfect here. It meets the requirements, but for
+example I might want to let the manager add candidates instead of just the owner
+
+This is the kind of thing that I would 'ask the product owner' about.
 
 
 
