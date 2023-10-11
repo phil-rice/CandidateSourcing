@@ -34,15 +34,15 @@
         var score = answer.Score;
         if (answer.IsDate == true)
         {
-            <label-and-date asp-for="Item.Answers[i].AnswerText" asp-label="Item.Answers[i].Title" show-score="@showScore" score="@score"></label-and-date>
+            <label-and-date asp-for="Item.Answers[i].AnswerText" asp-label="Item.Answers[i].Title" show-score="@showScore" score="Item.Answers[i].Score"></label-and-date>
         }
         else if (answer.Singleline == true)
         {
-            <label-and-input asp-for="Item.Answers[i].AnswerText" asp-label="Item.Answers[i].Title" show-score="@showScore" score="@score"></label-and-input>
+            <label-and-input asp-for="Item.Answers[i].AnswerText" asp-label="Item.Answers[i].Title" show-score="@showScore" score="Item.Answers[i].Score"></label-and-input>
         }
         else
         {
-            <label-and-textarea asp-for="Item.Answers[i].AnswerText" asp-label="Item.Answers[i].Title" show-score="@showScore" score="@score"></label-and-textarea>
+            <label-and-textarea asp-for="Item.Answers[i].AnswerText" asp-label="Item.Answers[i].Title" show-score="@showScore" score="Item.Answers[i].Score"></label-and-textarea>
         }
 
     }

@@ -50,6 +50,7 @@ thead th {
 }
 /* Add border to table data cells */
 table td {
+    border-top: 1px solid #dee2e6;
     border-right: 1px solid #dee2e6;
     border-left: 1px solid #dee2e6;
     padding-left: 4px;

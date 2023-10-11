@@ -14,7 +14,7 @@
         <div class="card-header">
             <div>@jobAndApp.Job.Title <a href="/Applications/Create/@jobAndApp.Job.Id">Add Candidate</a></div>
             @Model.Message
-       
+
         </div>
         <div class="card-body">
             <table>
@@ -40,11 +40,12 @@
                         var score = ap.calcScore();
                         <tr>
                             <td><a href="/Applications/View/@ap.Id">@ap.Candidate</a></td>
-                            <td><score-badge score="@score" Finished="@allDone" Weighting="ap.SumOfWeightings" ></score-badge></td>
+                            <td><score-badge score="@score" Finished="@allDone" Weighting="ap.SumOfWeightings"></score-badge></td>
                             @foreach (var sect in ap.Sections)
                             {
                                 <td>
-                                    <a href="/Sections/View/@sect.Id">@sect.Who</a><score-badge score="@sect.Score" Weighting="@sect.Weighting" Finished="@sect.Finished" ShowText="false"></score-badge>
+                                    <score-badge score="@sect.Score" Weighting="@sect.Weighting" Finished="@sect.Finished" ShowText="false"></score-badge>
+                                    <a href="/Sections/View/@sect.Id"><div>@sect.Who</div></a>
                                 </td>
                             }
                         </tr>

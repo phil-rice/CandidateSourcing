@@ -185,7 +185,7 @@ namespace jobCommon.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Title")
+                    b.HasIndex("Title", "Owner")
                         .IsUnique();
 
                     b.ToTable("Jobs");
@@ -264,7 +264,7 @@ namespace jobCommon.Migrations
 
                     b.Property<string>("Owner")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<bool>("RequireComments")
                         .HasColumnType("bit");
@@ -283,7 +283,7 @@ namespace jobCommon.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Title")
+                    b.HasIndex("Title", "Owner")
                         .IsUnique();
 
                     b.ToTable("SectionTemplates");

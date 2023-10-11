@@ -153,7 +153,7 @@ namespace xingyi.job.Repository
 
     public class SectionTemplateWhere : EmptyRepositoryWhere<SectionTemplate>
     {
-        public string Owner { get; set; } 
+        public string Owner { get; set; }
     }
 
     public interface ISectionTemplateRepository : IRepository<SectionTemplate, Guid, SectionTemplateWhere> { }
@@ -171,8 +171,35 @@ namespace xingyi.job.Repository
 
     }
 
-    public class ApplicationWhere : EmptyRepositoryWhere<Application>
+    public class ApplicationWhere : IRepositoryWhere<Application>
     {
+        public string Owner { get; set; }
+        public string Candidate { get; set; }
+
+        public IQueryable<Application> Apply(IQueryable<Application> queryable)
+        {
+            if (Owner == null)
+                return queryable;
+            if (Candidate == null)
+                return queryable.Where(a => a.Job.Owner == Owner);
+            else
+                return queryable.Where(a => a.Job.Owner == Owner && a.Candidate == Candidate);
+
+        }
+
+        public string queryString()
+        {
+            var owner = Owner == null ? "" : $"Owner={WebUtility.UrlEncode(Owner)}";
+            var candidate = Candidate == null ? "" : $"Candidate={WebUtility.UrlEncode(Candidate)}";
+            if (owner == "" && candidate == "")
+                return "";
+            else if (owner == "")
+                return candidate;
+            else if (candidate == "")
+                return owner;
+            else
+                return $"{owner}&{candidate}";
+        }
     }
     public interface IApplicationRepository : IRepository<Application, Guid, ApplicationWhere> { }
     public class ApplicationRepository : Repository<JobDbContext, Application, Guid, ApplicationWhere>, IApplicationRepository
@@ -180,7 +207,7 @@ namespace xingyi.job.Repository
         public ApplicationRepository(JobDbContext context) :
             base(context, context => context.Applications,
                   id => j => j.Id == id,
-                  set => set.Include(a => a.Id),
+                  set => set.Include(a => a.Job),
                   set => set.Include(a => a.Job)
                              .Include(a => a.Sections)
                             .ThenInclude(s => s.Answers),

@@ -39,9 +39,13 @@
                                 <li><a class="dropdown-item" asp-page="/Info/SectionTemplates">Section Templates</a></li>
                             </ul>
                         </li>
+                      
 
                         <li class="nav-item">
                             @await Html.PartialAsync("_LoginPartial")
+                        </li>
+                        <li class="nav-item">
+                            <partial name="_SearchPartial" />
                         </li>
                     </ul>
                 </div>

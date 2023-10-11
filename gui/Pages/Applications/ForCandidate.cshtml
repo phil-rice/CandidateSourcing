@@ -1,0 +1,29 @@
+﻿@page
+@model gui.Pages.Applications.ForCandidateModel
+@addTagHelper *, gui
+<h1>@Model.Candidate</h1>
+
+<table>
+    <thead>
+        <tr><th>Job</th><th>Applied</th><th>Score</th></tr>
+
+    </thead>
+    <tbody>
+
+        @{
+            var apps = Model.Items;
+            foreach (var app in apps)
+            {
+                var allDone = app.Sections.All(s => s.Finished);
+                var score = app.calcScore();
+                <tr>
+                    <td><a href="/Applications/View/@app.Id">@app.Job.Title</td>
+                    <td>@app.DateCreated</td>
+
+                    <td><score-badge score="@score" Finished="@allDone" Weighting="app.SumOfWeightings"></score-badge></td>
+                </tr>
+            }
+
+        }
+    </tbody>
+</table>

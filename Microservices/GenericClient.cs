@@ -42,7 +42,8 @@ namespace xingyi.microservices.Client
         {
             var l = addEagerLoad(url, eagerLoad);
             var q = where.queryString();
-            return q == "" ? l : $"{l}&{q}";
+            var result = q == "" ? l : $"{l}&{q}";
+            return result;
         }
         public async Task<List<T>> GetAllAsync(Where where, Boolean eagerLoad = false)
         {

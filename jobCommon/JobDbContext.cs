@@ -27,11 +27,11 @@ namespace xingyi.job
                 .HasKey(jst => new { jst.JobId, jst.SectionTemplateId });
 
             modelBuilder.Entity<Job>()
-                    .HasIndex(j => j.Title)
+                    .HasIndex(j => new { j.Title, j.Owner })
                     .IsUnique();
 
             modelBuilder.Entity<SectionTemplate>()
-                 .HasIndex(j => j.Title)
+                  .HasIndex(j => new { j.Title, j.Owner })
                  .IsUnique();
 
 

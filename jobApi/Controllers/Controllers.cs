@@ -61,10 +61,15 @@ namespace xingyi.job.Controllers
 
     }
 
-    public class ApplicationController : GenericEmptyWhereController<Application, Guid, ApplicationWhere>
+    public class ApplicationController : GenericController<Application, Guid, ApplicationWhere>
     {
-        public ApplicationController(IApplicationRepository repository) : base(repository, j => j.Id, new ApplicationWhere()) { }
-        
+        public ApplicationController(IApplicationRepository repository) : base(repository, j => j.Id) { }
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<SectionTemplate>>> GetAll([FromQuery] string? candidate, [FromQuery] string? owner, [FromQuery] Boolean eagerLoad)
+        {
+            var entities = await _repository.GetAllAsync(new ApplicationWhere { Candidate = candidate, Owner=owner }, eagerLoad);
+            return entities == null ? NotFound() : Ok(entities);
+        }
     }
     public class SectionController : GenericController<Section, Guid, SectionWhere>
     {
