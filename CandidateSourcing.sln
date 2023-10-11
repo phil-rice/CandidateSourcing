@@ -10,6 +10,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{3815EFF2-2D74-4D06-9A2A-15B9A5B1CA45}"
 	ProjectSection(SolutionItems) = preProject
 		ARCHITECTURAL_DECISION_LOG.md = ARCHITECTURAL_DECISION_LOG.md
+		LICENSE.md = LICENSE.md
+		REQUIREMENTS_AUDIT.md = REQUIREMENTS_AUDIT.md
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microservices", "Microservices\Microservices.csproj", "{F8EE8AB4-18B7-4C72-8B4D-FACE7B552528}"

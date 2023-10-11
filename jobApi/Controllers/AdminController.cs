@@ -19,7 +19,7 @@ namespace jobApi.Controllers
         [HttpPost("purge")]
         async public Task<IActionResult> Purge()
         {
-            var date = DateTime.Now.AddMonths(-6);
+            var date = DateTime.Now.AddYears(-1);
             context.Database.ExecuteSqlInterpolated(
                 $"DELETE FROM Applications  WHERE DateCreated < {date}");
             return NoContent();

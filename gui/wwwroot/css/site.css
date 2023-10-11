@@ -34,7 +34,7 @@ table {
     border-collapse: collapse;
 }
 
-/* Add border to table header cells */
+    /* Add border to table header cells */
     table th {
         border-right: 1px solid #dee2e6;
         border-left: 1px solid #dee2e6;
@@ -45,7 +45,8 @@ table {
 thead th {
     border-bottom: 1px solid black;
 }
- th {
+
+th {
     vertical-align: top;
 }
 /* Add border to table data cells */
@@ -58,14 +59,14 @@ table td {
     vertical-align: top;
 }
 
-/* Remove border from the last table header and data cells */
-table th:last-child, table td:last-child {
-    border-right: none;
-}
-/* Remove border from the first table header and data cells */
-table th:first-child, table td:first-child {
-    border-left: none;
-}
+    /* Remove border from the last table header and data cells */
+    table th:last-child, table td:last-child {
+        border-right: none;
+    }
+    /* Remove border from the first table header and data cells */
+    table th:first-child, table td:first-child {
+        border-left: none;
+    }
 
 .score-card {
     display: flex;
@@ -73,11 +74,24 @@ table th:first-child, table td:first-child {
     flex-wrap: wrap;
 }
 
-.score-card .score {
-    padding: 5px 10px 5px 0;
-}
+    .score-card .score {
+        padding: 5px 10px 5px 0;
+    }
 
 .card {
     margin-top: 5px;
     margin-bottom: 5px;
+}
+
+.navbar-nav .nav-item {
+    transition: background-color 0.3s; /* This makes the hover effect smooth */
+}
+
+.navbar-nav .nav-item:hover {
+    background-color: rgba(0, 123, 255, 0.1); /* This is the hover effect */
+}
+
+.navbar-nav .nav-link {
+    padding-left: 20px;
+    padding-right: 20px;
 }

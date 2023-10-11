@@ -3,14 +3,7 @@
 
 @if (User.Identity.IsAuthenticated)
 {
-    <span class="navbar-text">
-
-        <a class="nav-link text-dark d-inline-block" href="/Identity/Profile">Profile: @User.Identity.Name</a>
-        <form method="post" action="/Identity/Logout" class="d-inline-block">
-            <button type="submit" class="btn btn-link nav-link text-dark">Logout</button>
-        </form>
-    </span>
-
+    <span class="navbar-text"><a class="nav-link text-dark d-inline-block" href="/Identity/Profile">Profile: @User.Identity.Name</a></span>
 }
 else
 {
