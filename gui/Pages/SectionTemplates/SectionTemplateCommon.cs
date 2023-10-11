@@ -2,7 +2,7 @@
 {
     public static class SectionTemplateCommon
     {
-        public static string QuestionFields  = "Id:hidden,Title:text,Description:text,ScoreOutOfTen:checkbox,Singleline:checkbox,Required:checkbox,Number:checkbox";
+        public static string QuestionFields  = "Id:hidden,Title:text,Description:text,ScoreOutOfTen:checkbox,Singleline:checkbox,IsRequired:checkbox,IsNumber:checkbox,IsDate:checkbox";
 
     }
 }

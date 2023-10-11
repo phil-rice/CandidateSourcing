@@ -4,6 +4,15 @@ namespace xingyi.TagHelpers
 {
     public static class InputHelper
     {
+        public static object getValue(string attributeName, string attributeType, object value)
+        {
+            if (attributeName=="Id" && attributeType=="hidden" && (value==null||value == "") )
+            {
+                return Guid.Empty;
+            }
+            return value;
+        }
+
         public static string GenerateInputHtml(string attributeName, string attributeType, ModelExpression BindTo, object index, object value)
         {
             string thisId = (index is int)?
@@ -11,11 +20,11 @@ namespace xingyi.TagHelpers
                 $"{BindTo.Name}['+{index}+'].{attributeName}";
 
             string parentClass = attributeType == "checkbox" ? "form-check" : "form-group";
-            string labelString = attributeType == "hidden" ? "" : $"<label for=\"{value}\">{attributeName}</label>";
+            string labelString = attributeType == "hidden" ? "" : $"<label for=\"{thisId}\">{attributeName}</label>";
             string templateStart = $"<div class=\"{parentClass}\">{labelString}";
             string templateBody = string.Empty;
 
-            string valueAttribute = $"value=\"{value}\"";
+            string valueAttribute = $"value=\"{getValue(attributeName, attributeType, value)}\"";
 
             switch (attributeType)
             {

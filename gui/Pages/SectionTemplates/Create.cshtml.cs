@@ -22,11 +22,6 @@ namespace gui.Pages.SectionTemplates
         }
 
 
-        //override async public Task modifyItemOnPost(SectionTemplate item)
-
-        //{
-        //    if (item.CommentsMessage == null) item.CommentsMessage = "";
-        //}
     }
 
 
