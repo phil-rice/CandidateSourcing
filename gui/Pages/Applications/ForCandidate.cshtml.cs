@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using xingyi.application;
@@ -7,6 +8,7 @@ using xingyi.job.Repository;
 
 namespace gui.Pages.Applications
 {
+    [Authorize]
     public class ForCandidateModel : PageModel
     {
         private readonly IApplicationRepository appRepo;
