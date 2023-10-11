@@ -13,10 +13,17 @@
 
     <div class="card">
         <div class="card-header">
-            @if (Model.AllowEdits)
-            {
-                <div>@jobAndApp.Job.Title <a href="/Applications/Create/@jobAndApp.Job.Id">Add Candidate</a></div>
-            }
+
+            <div>
+                @jobAndApp.Job.Title@if (Model.ShowOwner)
+                {
+                    <span>owned by @jobAndApp.Job.Owner</span>
+                }  @if (Model.AllowEdits)
+                {
+                    <a href="/Applications/Create/@jobAndApp.Job.Id">Add Candidate</a> <a href="/Jobs/EditManagedBy/@jobAndApp.Job.Id">Edit Managed Bys</a>
+                }
+            </div>
+
             @Model.Message
 
         </div>
@@ -25,6 +32,7 @@
                 <thead>
                     <tr>
                         <th>Candidate</th>
+                   
                         <th>Score</th>
                         @foreach (var app in jobAndApp.Job.JobSectionTemplates)
                         {
@@ -33,7 +41,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @if (Model.Items.Count == 0)
+                    @if (jobAndApp.Applications.Count == 0)
                     {
                         <tr><td colspan="100">No Candidates</td></tr>
                     }
@@ -44,6 +52,7 @@
                         var score = ap.calcScore();
                         <tr>
                             <td><a href="/Applications/View/@ap.Id">@ap.Candidate</a></td>
+                       
                             <td><score-badge score="@score" Finished="@allDone" Weighting="ap.SumOfWeightings"></score-badge></td>
                             @foreach (var sect in ap.Sections)
                             {

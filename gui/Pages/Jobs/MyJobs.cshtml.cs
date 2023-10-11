@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using xingyi.gui;
@@ -5,6 +6,7 @@ using xingyi.job.Repository;
 
 namespace gui.Pages.Jobs
 {
+    [Authorize]
     public class MyJobsModel : PageModel
     {
         public List<JobAndApplications> MyActiveApps { get; set; }

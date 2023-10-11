@@ -16,5 +16,15 @@ namespace xingyi.gui
         {
             return jobs.Select(j => new JobAndApplications { Job = j, Applications = j.Applications.ToList() }).ToList();
         }
+
+        public static List<JobAndApplications> make(List<ManagedBy> mbs)
+        {
+            return mbs.Select(mb => new JobAndApplications
+            {
+                Job = mb.Job,
+                Applications = mb.Job.Applications
+            })            .ToList();
+        }
+
     }
 }

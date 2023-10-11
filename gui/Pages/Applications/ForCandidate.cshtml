@@ -1,4 +1,6 @@
 ﻿@page
+@using gui.Pages.Shared;
+@using xingyi.gui;
 @model gui.Pages.Applications.ForCandidateModel
 @addTagHelper *, gui
 
@@ -17,65 +19,29 @@
 }
 else
 {
-    <h2>Applications for [@Model.Candidate] in Jobs that you own</h2>
 
-    <table>
-        <thead>
-            <tr><th>Job</th><th>Applied</th><th>Score</th></tr>
-
-        </thead>
-        <tbody>
-
-            @{
-                var apps = Model.Items;
-                foreach (var app in apps)
+    @Html.Partial("_JobAndAppsToDoList", new ToDoAndAppsDto<JobAndApplications>
                 {
-                    var allDone = app.Sections.All(s => s.Finished);
-                    var score = app.calcScore();
-                    <tr>
-                        <td><a href="/Applications/View/@app.Id">@app.Job.Title</td>
-                        <td>@app.DateCreated</td>
+                Title= "Applications for [@Model.Candidate] in Jobs that you own",
+                Message ="The email addresses in the 'section columns' are the people who need to fill in the sections.",
+                Items = Model.Items,
+                AllowEdits= false,
+                ShowOwner= false
+                })
 
-                        <td><score-badge score="@score" Finished="@allDone" Weighting="app.SumOfWeightings"></score-badge></td>
-                    </tr>
-                }
-
-            }
-        </tbody>
-    </table>
 }
-
-@if (Model.ManagedByItems.Count() > 0)
+@if (Model.ManagedByItems.Count > 0)
 {
-    <h2>Applications for [@Model.Candidate] in Jobs that you are a manager for</h2>
+    <br />
+    <br />
+    <br />
 
-    <table>
-        <thead>
-            <tr><th>Job</th><th>Owner</th><th>Applied</th><th>Score</th></tr>
-
-        </thead>
-        <tbody>
-
-            @{
-                foreach (var mb in Model.ManagedByItems)
+    @Html.Partial("_JobAndAppsToDoList", new ToDoAndAppsDto<JobAndApplications>
                 {
-                    var job = mb.Job;
-                    var apps = job.Applications;
-                    foreach (var app in apps)
-                    {
-                        var allDone = app.Sections.All(s => s.Finished);
-                        var score = app.calcScore();
-                        <tr>
-                            <td><a href="/Applications/ManagedView/@app.Id">@job.Title</td>
-                            <td>@job.Owner</td>
-                            <td>@app.DateCreated</td>
-
-                            <td><score-badge score="@score" Finished="@allDone" Weighting="app.SumOfWeightings"></score-badge></td>
-                        </tr>
-                    }
-                }
-
-            }
-        </tbody>
-    </table>
+                Title= "In the Jobs I Manage",
+                Message ="The email addresses in the 'section columns' are the people who need to fill in the sections.",
+                Items = Model.ManagedByItems,
+                AllowEdits= false,
+                ShowOwner= true
+                })
 }

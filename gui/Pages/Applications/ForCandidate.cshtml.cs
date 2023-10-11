@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using xingyi.application;
+using xingyi.gui;
 using xingyi.job.Models;
 using xingyi.job.Repository;
 
@@ -15,10 +16,10 @@ namespace gui.Pages.Applications
         public string Candidate { get; set; }
 
         [BindProperty]
-        public List<Application> Items { get; set; } = new List<Application>();
+        public List<JobAndApplications> Items { get; set; } = new List<JobAndApplications>();
 
         [BindProperty]
-        public List<ManagedBy> ManagedByItems { get; set; } = new List<ManagedBy>();
+        public List<JobAndApplications> ManagedByItems { get; set; } = new List<JobAndApplications>();
         public ForCandidateModel(IApplicationRepository appRepo, IManagedByRepository manRepo)
         {
             this.appRepo = appRepo;
@@ -30,8 +31,8 @@ namespace gui.Pages.Applications
             var email = User.FindFirst(System.Security.Claims.ClaimTypes.Email)?.Value;
             if (Candidate != null)
             {
-                Items = await appRepo.GetAllAsync(new ApplicationWhere { Candidate = Candidate, Owner = email }, true);
-                ManagedByItems= await manRepo.GetAllAsync(new ManagedByWhere { Candidate = Candidate, ManagedBy = email }, true);
+                Items = JobAndApplications.make(await appRepo.GetAllAsync(new ApplicationWhere { Candidate = Candidate, Owner = email }, true));
+                ManagedByItems = JobAndApplications.make(await manRepo.GetAllAsync(new ManagedByWhere { Candidate = Candidate, ManagedBy = email }, true));
             }
             return Page();
         }

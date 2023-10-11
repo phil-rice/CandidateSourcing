@@ -34,4 +34,7 @@
 <br />
 <h2>Comments</h2>
 <p>@Model.Item.Comments</p>
-
+@if(string.IsNullOrEmpty(Model.Item.Comments))
+{
+    <p>No comments have been added</p>
+}

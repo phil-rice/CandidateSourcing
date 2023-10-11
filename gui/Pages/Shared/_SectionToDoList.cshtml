@@ -11,6 +11,8 @@
                 <thead>
                     <tr>
                         <th>Candidate</th>
+                        <th>Job</th>
+                        <th>Job Owner</th>
                         <th>Type</th>
                     </tr>
                 </thead>
@@ -18,6 +20,8 @@
                 {
                     <tr>
                         <td>@sect.Application.Candidate</td>
+                        <td>@sect.Application.Job.Title</td>
+                        <td>@sect.Application.Job.Owner</td>
                         <td><a href="/Sections/FillinDetails/@sect.Id">@sect.Title</a></td>
                     </tr>
 

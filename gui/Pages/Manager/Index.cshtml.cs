@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using xingyi.gui;
@@ -6,6 +7,7 @@ using xingyi.job.Repository;
 
 namespace gui.Pages.Manager
 {
+    [Authorize]
     public class IndexModel : PageModel
     {
         private readonly IManagedByRepository manRepo;

@@ -11,17 +11,17 @@
 
     <p>Currently you have no Jobs that you are the owner of</p>
 }
+<p>Find out more about <a href="/Info/PostingVacancies">Posting Vacancies</a></p>
 
 @Html.Partial("_JobAndAppsToDoList", new ToDoAndAppsDto<JobAndApplications>
     {
-    Title= "Your active jobs",
+    Title= "My Active Jobs",
     // Message ="The email addresses in the 'section columns' are the people who need to fill in the sections.",
     Items = Model.MyActiveApps
     })
 @Html.Partial("_JobAndAppsToDoList", new ToDoAndAppsDto<JobAndApplications>
     {
-    Title= "Your inactive jobs",
+    Title= "My inactive jobs",
     Items = Model.MyCompletedApps
     })
-<p>Find out more about <a href="/Info/PostingVacancies">Posting Vacancies</a></p>
 <a href="/Jobs/Create"> Create a new Job (Vacancy)</a>

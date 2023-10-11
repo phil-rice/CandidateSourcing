@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Options;
@@ -9,7 +10,7 @@ using xingyi.microservices.Client;
 namespace gui.Pages
 {
 
-   
+    [Authorize]
     public class AdminModel : PageModel
     {
 

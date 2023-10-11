@@ -146,10 +146,18 @@ namespace xingyi.job.Repository
                 if (Candidate == null)
                 return queryable.Where(mb => mb.Email == ManagedBy)
                     .Include(mb => mb.Job)
-                    .ThenInclude(j => j.Applications).ThenInclude(j=>j.Sections);
+                    .ThenInclude(j => j.Applications)
+                    .ThenInclude(a => a.Sections)
+                    .Include(mb => mb.Job)
+                    .ThenInclude(j => j.JobSectionTemplates)
+                    .ThenInclude(jst => jst.SectionTemplate);
             else return queryable.Where(mb => mb.Email == ManagedBy)
                                 .Include(mb => mb.Job)
-                                .ThenInclude(j => j.Applications.Where(a => a.Candidate == Candidate));
+                                .ThenInclude(j => j.Applications.Where(a => a.Candidate == Candidate))
+                                .ThenInclude(a => a.Sections)
+                                .Include(mb => mb.Job)
+                                .ThenInclude(j => j.JobSectionTemplates)
+                                .ThenInclude(jst => jst.SectionTemplate);
 
         }
 
