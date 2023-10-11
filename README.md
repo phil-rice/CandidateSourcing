@@ -2,9 +2,9 @@
 
 This is the capstone project for a 'Full Stack Dotnet developer' course. 
 
-[The projext is licensed under the license](LICENSE.md)
-[This document describes how the requirements have been met](REQUIREMENTS_AUDIT.md)
-[Here are some musings in the Architectural decision Log](ARCHITECTURAL_DECISION_LOG.md)
+- [The project is licensed under the license](LICENSE.md)
+- [This document describes how the requirements have been met](REQUIREMENTS_AUDIT.md)
+- [Here are some musings in the Architectural decision Log](ARCHITECTURAL_DECISION_LOG.md)
 
 ## Project description
 
