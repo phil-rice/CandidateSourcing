@@ -92,5 +92,67 @@ review and change it later
 
 # Project Overview
 
+## Common
+This is the bottom level project. It holds the utilities that 
+just about every other project needs. It is a class library that
+only deals with strings / ints / Guids etc
+
+## jobCommon
+This is the domain model for the job. It is a class library that
+declares 
+- The domains model
+- How they map to the database
+- The database context for EntityFramework
+- The migrations for EntityFramework
+
+## Microservices
+The heavy lifting class library
+- How to do controllers
+- How to do repositories
+- How to do Http Clients that work with the controllers
+
+There is no domain in this class library. It knows nothing about 
+jobs or applications
+
+This allows us to dramatically reduce the 'boilerplate' code in the
+other projects. It reduces 'cut and paste abuse' and makes the code
+more repeatable, maintainable, easier to test, easier to extend and 
+so on
+
+## jobApi
+This is the actual API that is the backend. It is a web application
+
+This project is tiny as all the heavy lifting is done by Microservices, 
+and this just customizes GenericControllers
+
+##jobClient
+
+A class library that declares HttpClients that talk to the API
+
+This could be merged in with jobCommon, but I wanted all the heavy 
+HTTP libraries not to be part of jobCommon. Part of the 'single responsibility'
+principle
+
+## gui
+This is the web gui
+
+As this is my first dotnet web gui it's more disorganised that 
+I would like
+
+It really needs splitting up into 'single responsibility' projects, but
+I have ran out of time to do that.
+
+## Test
+
+All the tests go here.
+
+
+
+
+
+
+
+
+
 
 
