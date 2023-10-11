@@ -11,6 +11,7 @@ namespace xingyi.job
         public JobDbContext(DbContextOptions<JobDbContext> options) : base(options) { }
 
         public DbSet<Job> Jobs { get; set; }
+        public DbSet<ManagedBy> ManagedBy { get; set; }
         public DbSet<JobSectionTemplate> JobSectionTemplates { get; set; }
         public DbSet<SectionTemplate> SectionTemplates { get; set; }
         public DbSet<Question> Questions { get; set; }
@@ -25,6 +26,8 @@ namespace xingyi.job
             // Configuring the many-to-many relationship between Job and SectionTemplate
             modelBuilder.Entity<JobSectionTemplate>()
                 .HasKey(jst => new { jst.JobId, jst.SectionTemplateId });
+            modelBuilder.Entity<ManagedBy>()
+                .HasKey(mb => new { mb.JobId, mb.Email });
 
             modelBuilder.Entity<Job>()
                     .HasIndex(j => new { j.Title, j.Owner })

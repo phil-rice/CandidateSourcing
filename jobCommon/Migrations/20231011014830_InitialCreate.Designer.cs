@@ -12,7 +12,7 @@ using xingyi.job;
 namespace jobCommon.Migrations
 {
     [DbContext(typeof(JobDbContext))]
-    [Migration("20231010202554_InitialCreate")]
+    [Migration("20231011014830_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -209,6 +209,19 @@ namespace jobCommon.Migrations
                     b.ToTable("JobSectionTemplates");
                 });
 
+            modelBuilder.Entity("xingyi.job.Models.ManagedBy", b =>
+                {
+                    b.Property<Guid>("JobId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("JobId", "Email");
+
+                    b.ToTable("ManagedBy");
+                });
+
             modelBuilder.Entity("xingyi.job.Models.Question", b =>
                 {
                     b.Property<Guid>("Id")
@@ -342,6 +355,17 @@ namespace jobCommon.Migrations
                     b.Navigation("SectionTemplate");
                 });
 
+            modelBuilder.Entity("xingyi.job.Models.ManagedBy", b =>
+                {
+                    b.HasOne("xingyi.job.Models.Job", "Job")
+                        .WithMany("ManagedBy")
+                        .HasForeignKey("JobId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Job");
+                });
+
             modelBuilder.Entity("xingyi.job.Models.Question", b =>
                 {
                     b.HasOne("xingyi.job.Models.SectionTemplate", null)
@@ -366,6 +390,8 @@ namespace jobCommon.Migrations
                     b.Navigation("Applications");
 
                     b.Navigation("JobSectionTemplates");
+
+                    b.Navigation("ManagedBy");
                 });
 
             modelBuilder.Entity("xingyi.job.Models.SectionTemplate", b =>

@@ -1,9 +1,12 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics;
+using System.Diagnostics.Metrics;
+using System.Drawing;
 using xingyi.application;
 using xingyi.common;
 
@@ -31,6 +34,7 @@ namespace xingyi.job.Models
 
         public string? Description { get; set; }
 
+
         [Required]
         [StringLength(255)]
         public string Owner { get; set; } = null!;
@@ -41,6 +45,13 @@ namespace xingyi.job.Models
         [InverseProperty("Job")]
         public virtual List<JobSectionTemplate> JobSectionTemplates { get; set; } = new List<JobSectionTemplate>();
 
+        public string GetManagedByEmails()
+        {
+            return string.Join(", ", ManagedBy.Select(mb => mb.Email));
+        }
+        [InverseProperty("Job")]
+        public List<ManagedBy> ManagedBy { get; set; } = new List<ManagedBy>();
+
         [InverseProperty("Job")]
         public List<Application> Applications { get; set; } = new List<Application>();
         public bool contains(SectionTemplate st)
@@ -49,8 +60,26 @@ namespace xingyi.job.Models
         }
     }
     [ToString, Equals(DoNotAddEqualityOperators = true)]
-    [DebuggerDisplay("JobSectionTemplate: (Job: {JobId}, SectionTemplateId: {SectionTemplateId})")]
+    [DebuggerDisplay("ManagedBy: (Job: {JobId}, Email: {Email})")]
+    public class ManagedBy
+    {
+        public Guid JobId { get; set; }
+        public string Email { get; set; }
 
+        [ForeignKey("JobId")]
+        public Job? Job { get; set; }  // Added this navigation property
+
+
+        public void PostGet()
+        {
+            if (Job != null)Job.PostGet();
+        }
+    }
+
+
+
+    [ToString, Equals(DoNotAddEqualityOperators = true)]
+    [DebuggerDisplay("JobSectionTemplate: (Job: {JobId}, SectionTemplateId: {SectionTemplateId})")]
     public class JobSectionTemplate
     {
         [Required]
@@ -117,8 +146,8 @@ namespace xingyi.job.Models
                 HelpText = HelpText,
                 Who = Who,
                 CanEditWho = CanEditWho != false,
-                RequireComments=RequireComments,
-                CommentsMessage= CommentsMessage,
+                RequireComments = RequireComments,
+                CommentsMessage = CommentsMessage,
                 Weighting = Weighting,
                 Comments = "",
                 Finished = false,

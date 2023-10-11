@@ -37,7 +37,8 @@ namespace xingyi.job.Repository
                                  id => j => j.Id == id,
                                 set => set,
                                 set => set.Include(j => j.Applications).ThenInclude(a => a.Sections)
-                                .Include(j => j.JobSectionTemplates).ThenInclude(jst => jst.SectionTemplate),
+                                            .Include(j => j.JobSectionTemplates).ThenInclude(jst => jst.SectionTemplate)
+                                            .Include(j => j.ManagedBy),
                                         orderFn: set => set.OrderBy(j => j.Title),
                                 postGetMutate: s => s.PostGet())
         {
@@ -69,7 +70,8 @@ namespace xingyi.job.Repository
                   set => set,
                   set => set.Include(j => j.JobSectionTemplates)
                             .ThenInclude(jst => jst.SectionTemplate)
-                            .ThenInclude(st => st.Questions),
+                            .ThenInclude(st => st.Questions)
+                            .Include(j => j.ManagedBy),
                   orderFn: set => set.OrderBy(j => j.Title),
                   postGetMutate: s => s.PostGet())
         {
@@ -132,6 +134,23 @@ namespace xingyi.job.Repository
 
     }
 
+    public class ManagedByWhere : EmptyRepositoryWhere<ManagedBy>
+    {
+    }
+
+    public interface IManagedByRepository : IRepository<ManagedBy, GuidAndEmail, ManagedByWhere> { }
+    public class ManagedByRepository : Repository<JobDbContext, ManagedBy, GuidAndEmail, ManagedByWhere>, IManagedByRepository
+    {
+        public ManagedByRepository(JobDbContext context) : base(
+            context,
+            context => context.ManagedBy,
+            id => mb => (mb.JobId == id.Id && mb.Email == id.Email),
+            set => set,
+            set => set.Include(mb => mb.Job).ThenInclude(j => j.Applications),
+            orderFn: set => set.OrderBy(mb => mb.Email),
+            postGetMutate: mb => { mb.PostGet(); })
+        { }
+    }
     public class QuestionWhere : EmptyRepositoryWhere<Question>
     {
     }

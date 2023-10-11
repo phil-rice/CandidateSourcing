@@ -14,6 +14,9 @@ using Microsoft.Extensions.Options;
 using xingyi.microservices.Client;
 using static xingyi.job.Repository.ApplicationRepository;
 using xingyi.application;
+using Microservices;
+using System.Net;
+using Microsoft.CodeAnalysis.CodeFixes;
 
 namespace xingyi.job.Client
 {
@@ -43,6 +46,21 @@ namespace xingyi.job.Client
         }
 
     }
+
+    public interface IManagedByClient : IManagedByRepository
+    {
+    }
+    public class ManagedBySettings : HttpClientSettings { }
+
+    public class ManagedByClient : GenericClient<ManagedBy, GuidAndEmail, ManagedByWhere>, IManagedByClient
+    {
+        public ManagedByClient(HttpClient httpClient, IOptions<ManagedBySettings> settings) :
+            base(httpClient, settings.Value.BaseUrl + "ManagedBy", id => $"{id.Id}/{WebUtility.UrlEncode(id.Email)}")
+        {
+        }
+
+        
+    }
     public interface ISectionTemplateClient : ISectionTemplateRepository
     {
     }
@@ -70,7 +88,7 @@ namespace xingyi.job.Client
     }
     public class ApplicationSettings : HttpClientSettings { }
 
-    public class ApplicationClient : GenericClient<Application, Guid,ApplicationWhere>, IApplicationClient
+    public class ApplicationClient : GenericClient<Application, Guid, ApplicationWhere>, IApplicationClient
     {
         public ApplicationClient(HttpClient httpClient, IOptions<ApplicationSettings> settings)
             : base(httpClient, settings.Value.BaseUrl + "Application")

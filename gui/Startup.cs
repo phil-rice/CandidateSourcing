@@ -45,10 +45,13 @@ namespace xingyi.gui
 
             services.Configure<JobAndAppSettings>(Configuration.GetSection("ApiSettings"));
             services.AddHttpClient<IJobAndAppRepository, JobAndAppClient>();
-            
+
             services.Configure<JobSettings>(Configuration.GetSection("ApiSettings"));
             services.AddHttpClient<IJobRepository, JobClient>();
-            
+
+            services.Configure<ManagedBySettings>(Configuration.GetSection("ApiSettings"));
+            services.AddHttpClient<IManagedByRepository, ManagedByClient>();
+
             services.Configure<SectionTemplateSettings>(Configuration.GetSection("ApiSettings"));
             services.AddHttpClient<ISectionTemplateRepository, SectionTemplateClient>();
 
@@ -111,11 +114,11 @@ namespace xingyi.gui
             app.UseRequestResponseLogging(options => { options.Enabled = false; });
 
             app.UseHttpsRedirection();
-         
+
             app.UseStaticFiles();
 
             app.UseRouting();
-         
+
             app.UseSession();
             app.UseCors("MyPolicy");
             app.UseAuthentication();

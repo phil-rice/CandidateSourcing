@@ -38,6 +38,7 @@
 
             services.AddScoped<IJobAndAppRepository, JobAndAppRepository>();
             services.AddScoped<IJobRepository, JobRepository>();
+            services.AddScoped<IManagedByRepository, ManagedByRepository>();
             services.AddScoped<IQuestionRepository, QuestionRepository>();
             services.AddScoped<ISectionTemplateRepository, SectionTemplateRepository>();
             services.AddScoped<IApplicationRepository, ApplicationRepository>();

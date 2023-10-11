@@ -70,6 +70,24 @@ namespace jobCommon.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ManagedBy",
+                columns: table => new
+                {
+                    JobId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ManagedBy", x => new { x.JobId, x.Email });
+                    table.ForeignKey(
+                        name: "FK_ManagedBy_Jobs_JobId",
+                        column: x => x.JobId,
+                        principalTable: "Jobs",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "JobSectionTemplates",
                 columns: table => new
                 {
@@ -219,6 +237,9 @@ namespace jobCommon.Migrations
 
             migrationBuilder.DropTable(
                 name: "JobSectionTemplates");
+
+            migrationBuilder.DropTable(
+                name: "ManagedBy");
 
             migrationBuilder.DropTable(
                 name: "Questions");

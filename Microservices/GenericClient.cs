@@ -27,11 +27,14 @@ namespace xingyi.microservices.Client
         where Where : IRepositoryWhere<T>
     {
         public readonly HttpClient _httpClient;
-        public readonly string _baseUrl; 
-        public GenericClient(HttpClient httpClient, string BaseUrl)
+        public readonly string _baseUrl;
+        private Func<Id, string> idToPathFn;
+
+        public GenericClient(HttpClient httpClient, string BaseUrl, Func<Id, string> idToPathFn = null)
         {
             _httpClient = httpClient;
             _baseUrl = BaseUrl;
+            this.idToPathFn = idToPathFn == null ? (id => id.ToString()) : idToPathFn;
         }
 
         private String addEagerLoad(string url, bool eagerLoad)
@@ -59,7 +62,8 @@ namespace xingyi.microservices.Client
 
         public async Task<T> GetByIdAsync(Id id, Boolean eagerLoad = true)
         {
-            var response = await _httpClient.GetAsync(addEagerLoad($"{_baseUrl}/{id}", eagerLoad));
+            var idPath = idToPathFn(id);
+            var response = await _httpClient.GetAsync(addEagerLoad($"{_baseUrl}/{idPath}", eagerLoad));
             response.EnsureSuccessStatusCode();
 
             var content = await response.Content.ReadAsStringAsync();
@@ -83,9 +87,10 @@ namespace xingyi.microservices.Client
             response.EnsureSuccessStatusCode();
         }
 
-        public async Task<bool> DeleteAsync(Id id)
+        virtual public async Task<bool> DeleteAsync(Id id)
         {
-            var response = await _httpClient.DeleteAsync($"{_baseUrl}/{id}");
+            var idPath = idToPathFn(id);
+            var response = await _httpClient.DeleteAsync($"{_baseUrl}/{idPath}");
             return response.IsSuccessStatusCode;
         }
     }

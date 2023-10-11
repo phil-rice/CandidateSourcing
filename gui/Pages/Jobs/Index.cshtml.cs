@@ -16,6 +16,12 @@ namespace gui.Pages.Jobs
 
         }
 
+        override public async Task OnGetAsync()
+        {
+            Items = await repo.GetAllAsync(where(), true);
+            foreach (var item in Items)
+                Console.WriteLine("Item: " + item);
+        }
         protected override JobWhere where()
         {
             var Owner = User.FindFirst(System.Security.Claims.ClaimTypes.Email)?.Value;

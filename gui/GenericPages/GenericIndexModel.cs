@@ -13,14 +13,14 @@ namespace gui.GenericPages
         where C : IRepository<T, ID, Where>
         where Where : IRepositoryWhere<T>
     {
-        private IRepository<T, ID, Where> repo { get; }
+        protected IRepository<T, ID, Where> repo { get; }
         public GenericIndexModel(IRepository<T, ID, Where> repo)
         {
             this.repo = repo;
 
         }
 
-        public List<T> Items { get; private set; }
+        public List<T> Items { get;  set; }
 
         abstract protected Where where();
         virtual public async Task OnGetAsync()

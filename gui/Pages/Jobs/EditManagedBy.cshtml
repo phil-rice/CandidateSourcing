@@ -1,0 +1,30 @@
+﻿@page "{JobId}"
+@model EditManagedByModel
+@addTagHelper *, gui
+
+<display asp-for="Item">"</display>
+<h1>Editing 'Managed By' for Job @Model.Item.Title</h1>
+
+<p>'ManagedBy' is the way that we attach managers to Jobs. A Manager is a person that can view all the data about a job</p>
+
+<ul>
+    @foreach (var mb in Model.Item.ManagedBy)
+    {
+        <li>
+            @mb.Email
+            <form method="post">
+                <input type="hidden" name="Action" value="Remove">
+                <input type="hidden" name="Email" value="@mb.Email">
+                <input type="hidden" name="JobId" value="@mb.JobId">
+                <input type="submit" value="Remove">
+            </form>
+        </li>
+    }
+</ul>
+
+<form method="post">
+    <input type="hidden" name="Action" value="Add">
+    <label-and-input asp-for="Email"></label-and-input>
+    <input type="submit" class="btn btn-primary">
+
+</form>

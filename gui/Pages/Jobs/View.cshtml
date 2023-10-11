@@ -23,6 +23,10 @@
                 <th>Owner</th>
                 <td>@Model.Item.Owner</td>
             </tr>
+            <tr>
+                <th>Managed By</th>
+                <td>@Model.Item.GetManagedByEmails()</td>
+            </tr>
         </table>
     </div>
 </div>

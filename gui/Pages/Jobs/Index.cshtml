@@ -1,8 +1,8 @@
 ﻿@page
 @model gui.Pages.Jobs.JobIndexModel
+@addTagHelper *, gui
 
 <h1>Jobs</h1>
-
 <a class="btn btn-primary" href="/Jobs/Create">Add New Job</a>
 <table class="table">
     <thead>
@@ -10,6 +10,9 @@
             <th>Title</th>
             <th>Description</th>
             <th>Owner</th>
+            <th>Managed By</th>
+            <th></th>
+            <th></th>
             <th></th>
         </tr>
     </thead>
@@ -20,6 +23,8 @@
                 <td>@item.Title</td>
                 <td>@item.Description</td>
                 <td>@item.Owner</td>
+                <td>@item.GetManagedByEmails()</td>
+                <td> <a href="/Jobs/EditManagedBy/@item.Id">Edit Managed Bys</a></td>
                 <td><a href="/Jobs/View/@item.Id">View</a></td>
                 <td><a href="/Jobs/Edit/@item.Id">Edit</a></td>
                 <td><a href="/Applications/Create/@item.Id">Add Candidate</a></td>

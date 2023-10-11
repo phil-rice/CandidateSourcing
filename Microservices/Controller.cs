@@ -23,24 +23,17 @@ namespace xingyi.microservices.Controllers
     /// <typeparam name="TEntity"></typeparam>
     [Route("api/[controller]")]
     [ApiController]
-    abstract public class GenericController<TEntity, Id, Where> : ControllerBase
+    abstract public class GenericControllerWithNoIdMethods<TEntity, Id, Where> : ControllerBase
         where TEntity : class
         where Where : IRepositoryWhere<TEntity>
     {
         protected readonly IRepository<TEntity, Id, Where> _repository;
         private readonly Func<TEntity, Id> idFn;
 
-        public GenericController(IRepository<TEntity, Id, Where> repository, Func<TEntity, Id> idFn)
+        public GenericControllerWithNoIdMethods(IRepository<TEntity, Id, Where> repository, Func<TEntity, Id> idFn)
         {
             _repository = repository;
             this.idFn = idFn;
-        }
-
-        [HttpGet("{id}")]
-        public async Task<ActionResult<TEntity>> Get(Id id, [FromQuery] Boolean eagerLoad)
-        {
-            var entity = await _repository.GetByIdAsync(id, eagerLoad);
-            return entity == null ? NotFound() : Ok(entity);
         }
 
         [HttpPut()]
@@ -57,6 +50,26 @@ namespace xingyi.microservices.Controllers
             Id id = idFn(entityWithId);
             return CreatedAtAction("Get", new { id = id }, entity);
         }
+
+    }
+    [Route("api/[controller]")]
+    [ApiController]
+    abstract public class GenericController<TEntity, Id, Where> : GenericControllerWithNoIdMethods<TEntity, Id, Where>
+        where TEntity : class
+        where Where : IRepositoryWhere<TEntity>
+    {
+
+        public GenericController(IRepository<TEntity, Id, Where> repository, Func<TEntity, Id> idFn) : base(repository, idFn)
+        {
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<TEntity>> Get(Id id, [FromQuery] Boolean eagerLoad)
+        {
+            var entity = await _repository.GetByIdAsync(id, eagerLoad);
+            return entity == null ? NotFound() : Ok(entity);
+        }
+
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(Id id)

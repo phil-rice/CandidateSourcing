@@ -122,7 +122,7 @@ namespace xingyi.microservices.repository
 
         public async Task<bool> DeleteAsync(Id id)
         {
-            var entity = await _dbSet.FindAsync(id);
+            var entity = await GetByIdAsync(id,false);
             if (entity == null) return false;
 
             _dbSet.Remove(entity);
