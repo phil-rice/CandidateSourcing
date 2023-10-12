@@ -8,7 +8,6 @@ using xingyi.job.Repository;
 
 namespace gui.Pages
 {
-    [Authorize]
     public class IndexModel : PageModel
     {
         private readonly ILogger<IndexModel> _logger;
@@ -39,6 +38,7 @@ namespace gui.Pages
         {
             //if (!User.Identity.IsAuthenticated) return RedirectToPage("/Identity/Login");
             var email = User.FindFirst(System.Security.Claims.ClaimTypes.Email)?.Value;
+            if (email == null) return RedirectToPage("/Guest/Index");
             var sects = await sectionRepo.GetAllAsync(new SectionWhere { Email = email });
             MyTodoSections = sects.Where(s => !s.Finished).ToList();
             MyDoneSections = sects.Where(s => s.Finished).ToList();

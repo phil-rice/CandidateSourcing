@@ -129,4 +129,23 @@ Actually I made a mistake. I thought I didn't have time. But I think it
 would have been quicker if I had some reliable selenium tests. As ever it
 was a false economy to skip testing...
 
+# Why are the Help pages Razor Page?
+
+When I started I expected them to have a little dynamic content. In practice they have
+stayed 'pure html'. It was no extra work to make them this way, and
+the effort of moving them is none zero, so I left them like this
+
+I do expect them to become dynamic in the future if the project continued.
+
+# Why is the API not versioned
+
+I have a rabid dislike of versioned APIs. When making
+a public API perhaps there is a case for it.
+
+The way to view it is 'what is the fan out of the API'. 
+This API has only one client (fan out of one), the client is tightly coupled
+to it. The cost of versioning is very high and there
+is literally no value for a fanout of one.
+
+
 

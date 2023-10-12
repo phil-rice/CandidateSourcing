@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace gui.Pages.Info
+namespace gui.Pages.Help
 {
-    public class ManagingModel : PageModel
+    public class PostingVacanciesModel : PageModel
     {
         public void OnGet()
         {

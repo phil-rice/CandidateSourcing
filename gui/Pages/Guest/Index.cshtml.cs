@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace gui.Pages.Info
+namespace gui.Pages.Guest
 {
-    public class PostingVacanciesModel : PageModel
+    public class GuestModel : PageModel
     {
         public void OnGet()
         {
