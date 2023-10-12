@@ -10,6 +10,7 @@ namespace gui.Pages.Jobs
     public class SectionTemplateAndChecked
     {
         public String? Title { get; set; }
+        public String? HelpText { get; set; }   
         public Guid Id { get; set; }
         public bool IsChecked { get; set; }
     }
@@ -48,6 +49,7 @@ namespace gui.Pages.Jobs
                 {
                     Id = s.Id,
                     Title = s.Title,
+                    HelpText = s.HelpText,
                     IsChecked = job.contains(s)
                 }).ToList();
             Item = new JobAndSectionTemplates

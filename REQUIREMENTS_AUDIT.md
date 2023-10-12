@@ -341,5 +341,8 @@ Generic Razor Pages, Generic Controllers, Generic Clients, Generic Repositories
 ## Fody Library
 This autogenerates toString and equals methods
 
+## The tooltip help
+I've gone to a lot of trouble to have tooltip help in lots of places to
+help the users. This was a lot of work, but I think it is worth it
 
 

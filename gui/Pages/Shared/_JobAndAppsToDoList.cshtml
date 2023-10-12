@@ -15,7 +15,7 @@
         <div class="card-header">
 
             <div>
-                @jobAndApp.Job.Title@if (Model.ShowOwner)
+                <span data-toggle="tooltip" data-placement="top" title="@jobAndApp.Job.Description" >@jobAndApp.Job.Title</span>@if (Model.ShowOwner)
                 {
                     <span>owned by @jobAndApp.Job.Owner</span>
                 }  @if (Model.AllowEdits)

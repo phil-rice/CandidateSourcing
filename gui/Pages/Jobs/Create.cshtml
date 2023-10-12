@@ -8,7 +8,7 @@
 
 <form method="post">
 
-    <label-and-input asp-for="Item.Job.Title"></label-and-input>
+    <label-and-input asp-for="Item.Job.Title" ></label-and-input>
     <label-and-input asp-for="Item.Job.Description"></label-and-input>
     <label-and-input asp-for="Item.Job.Owner" readonly="true"></label-and-input>
 
@@ -23,7 +23,7 @@
     @for (int i = 0; i < count; i++)
     {
         <div class="form-check">
-            <label-and-boolean asp-for="Item.SectionTemplates[i].IsChecked" asp-label="Item.SectionTemplates[i].Title"></label-and-boolean>
+            <label-and-boolean asp-for="Item.SectionTemplates[i].IsChecked" asp-label="Item.SectionTemplates[i].Title" help-text="Item.SectionTemplates[i].HelpText"></label-and-boolean>
             <input asp-for="Item.SectionTemplates[i].Id" type="hidden" />
             <!-- You can add other properties from SectionTemplate here as hidden inputs if needed -->
         </div>
