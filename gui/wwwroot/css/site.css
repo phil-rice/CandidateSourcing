@@ -105,3 +105,6 @@ table td {
     background-color: #f8f9fa; /* Optional: light background color for emphasis */
 }
 
+.job-title{
+    font-weight: bold;
+}

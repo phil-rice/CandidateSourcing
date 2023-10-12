@@ -20,10 +20,12 @@
 else
 {
 
+    <h1>Candidate</h1>
+    <p>@Model.Candidate</p>
+
     @Html.Partial("_JobAndAppsToDoList", new ToDoAndAppsDto<JobAndApplications>
                 {
-                Title= "Applications for [@Model.Candidate] in Jobs that you own",
-                Message ="The email addresses in the 'section columns' are the people who need to fill in the sections.",
+                Title= "Applications  in Jobs that you own",
                 Items = Model.Items,
                 AllowEdits= false,
                 ShowOwner= false
@@ -39,7 +41,6 @@ else
     @Html.Partial("_JobAndAppsToDoList", new ToDoAndAppsDto<JobAndApplications>
                 {
                 Title= "In the Jobs I Manage",
-                Message ="The email addresses in the 'section columns' are the people who need to fill in the sections.",
                 Items = Model.ManagedByItems,
                 AllowEdits= false,
                 ShowOwner= true

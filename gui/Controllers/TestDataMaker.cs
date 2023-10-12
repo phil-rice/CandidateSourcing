@@ -217,6 +217,7 @@ namespace gui.Controllers
                 Id = testGuid,
                 Title = "An example Vacancy",
                 Owner = owner,
+                Description= "This was automatically added as an example",
 
 
             };

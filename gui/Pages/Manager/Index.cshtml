@@ -17,10 +17,8 @@ else
     @Html.Partial("_JobAndAppsToDoList", new ToDoAndAppsDto<JobAndApplications>
                 {
                 Title= "Jobs I Manage",
-                Message ="The email addresses in the 'section columns' are the people who need to fill in the sections.",
                 Items = Model.Items,
                 AllowEdits= false,
-                ShowOwner= true
-               
+                ShowOwner= true               
                 })
 }
