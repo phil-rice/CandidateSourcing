@@ -55,7 +55,7 @@
                         var allDone = ap.Sections.All(s => s.Finished);
                         var score = ap.calcScore();
                         <tr>
-                            <td data-placement="top" data-toggle="tooltip" title="Click here to see a summary of this application so far"><a href="/Applications/View/@ap.Id">@ap.Candidate</a></td>
+                            <td data-placement="top" data-toggle="tooltip" title="Click here to change who is doing each section, or to see a summary of this application so far"><a href="/Applications/View/@ap.Id">@ap.Candidate</a></td>
 
                             <td ><score-badge score="@score" Finished="@allDone" Weighting="ap.SumOfWeightings"></score-badge></td>
                             @foreach (var sect in ap.Sections)

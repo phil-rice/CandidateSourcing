@@ -18,8 +18,19 @@
 
         <p>You are currently not a candidate, or an interviewer. </p>
     }
+    else
+    {
+        if (Model.MyTodoSections.Count() == 0)
+        {
+            <p>You have no active tasks</p>
+        }
+        else
+        {
+            <p>Find out more about <a href="/Help/FillingIn">Filling in details</a></p>
 
-    <p>Find out more about <a href="/Help/FillingIn">Filling in details</a></p>
+        }
+    }
+
 
     @Html.Partial("_SectionToDoList", new ToDoAndAppsDto<Section>
     {
