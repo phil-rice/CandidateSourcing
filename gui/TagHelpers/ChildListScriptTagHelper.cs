@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using System.Collections.Generic;
 using System.Linq;
+using xingyi.common;
 
 namespace xingyi.TagHelpers
 {
@@ -24,12 +25,12 @@ namespace xingyi.TagHelpers
             output.TagName = "script";
             output.TagMode = TagMode.StartTagAndEndTag;
 
-            var definitions = ParseItemsDefinition(ItemsDefinition);
+            var definitions = AttributeParser.ParseAttributes(ItemsDefinition);
             var generatedTemplates = definitions.Select((definition) =>
             {
                 string attributeName = definition.Key;
-                string attributeType = definition.Value;
-                return InputHelper.GenerateInputHtml(attributeName, attributeType,BindTo, "newIndex","");
+                var (attributeType, helpText) = definition.Value;
+                return InputHelper.GenerateInputHtml(attributeName, attributeType,helpText,BindTo, "newIndex","");
             });
 
             string joinedTemplates = string.Join("", generatedTemplates);
@@ -47,20 +48,14 @@ namespace xingyi.TagHelpers
                 + $"template.className = 'card';"
                 + $"template.innerHTML = '{inCard}';"
                 + $"element.appendChild(template);"
+                +  @"$('[data-toggle=""tooltip""]').tooltip();"
                 + "});"
                 + "});";
 
             output.Content.SetHtmlContent(scriptContent);
         }
 
-        private Dictionary<string, string> ParseItemsDefinition(string itemsDefinition)
-        {
-            var attributes = itemsDefinition.Split(ATTRIBUTE_SEPARATOR)
-                                           .Select(attr => attr.Split(TYPE_SEPARATOR))
-                                           .ToDictionary(key => key[0], value => value[1]);
-            return attributes;
-        }
-
+       
      
 
 

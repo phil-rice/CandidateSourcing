@@ -54,12 +54,12 @@ namespace gui.Pages.Applications
         {
             var job = await jobRepo.GetByIdAsync(JobId);
             var jobAndApp = await jobAndAppRepo.GetByIdAsync(JobId);
-            var oneYearAgo = DateTime.Now.AddYears(-1);
-            var existing = jobAndApp.Applications.Where(a => a.Candidate == Item.Candidate && a.DateCreated >= oneYearAgo);
+            var sixMonthsAgo = DateTime.Now.AddMonths(-6);
+            var existing = jobAndApp.Applications.Where(a => a.Candidate == Item.Candidate && a.DateCreated >= sixMonthsAgo);
 
             if (existing.Count() > 0)
             {
-                ModelState.AddModelError("Item.Candidate", "This Candidate has already applied for this Job within the last year");
+                ModelState.AddModelError("Item.Candidate", "This Candidate has already applied for this Job within the six months");
                 return Page();
             }
 

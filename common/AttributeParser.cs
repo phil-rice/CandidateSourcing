@@ -6,7 +6,8 @@ namespace xingyi.common
 {
     public static class AttributeParser
     {
-        public static Dictionary<string, string> ParseAttributes(string attributes)
+
+        public static Dictionary<string, (string, string)> ParseAttributes(string attributes)
         {
             if (string.IsNullOrWhiteSpace(attributes))
             {
@@ -14,23 +15,32 @@ namespace xingyi.common
             }
 
             var pairs = attributes.Split(',')
-                .Select(a => a.Trim().Split(':'))
+                .Select(a => a.Trim().Split(new char[] { ':' }, 2)) // Split only on the first ':' to handle : in help text
                 .ToArray();
 
             foreach (var pair in pairs)
             {
                 if (pair.Length != 2)
                 {
-                    throw new ArgumentException($"Invalid attribute format in input: '{attributes}'. Each attribute should be of the form 'attribute:value'.");
+                    throw new ArgumentException($"Invalid attribute format in input: '{attributes}'. Each attribute should be of the form 'attribute:value' or 'attribute:value?helptext'.");
                 }
 
-                if (string.IsNullOrEmpty(pair[0]) || string.IsNullOrEmpty(pair[1]))
-                {
-                    throw new ArgumentException($"Invalid attribute format in input: '{attributes}'. Neither attribute name nor its value can be empty.");
-                }
             }
 
-            return pairs.ToDictionary(k => k[0], v => v[1]);
+            return pairs.ToDictionary(
+                k => k[0],
+                v => {
+                    var valueParts = v[1].Split(new char[] { '?' }, 2);
+
+                    if (string.IsNullOrEmpty(v[0]) || string.IsNullOrEmpty(valueParts[0]))
+                    {
+                        throw new ArgumentException($"Invalid attribute format in input: '{attributes}'. Neither attribute name nor its value can be empty.");
+                    }
+                    return (valueParts[0], valueParts.Length > 1 ? valueParts[1] : "");
+                });
         }
+
+
+
     }
 }

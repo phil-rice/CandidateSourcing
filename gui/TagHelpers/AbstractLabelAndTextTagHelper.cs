@@ -29,6 +29,9 @@ namespace gui.TagHelpers
         [HtmlAttributeName("help-text")]
         public ModelExpression HelpText { get; set; }
 
+        [HtmlAttributeName("help-text-static")]
+        public string HelpTextStatic { get; set; }
+
         [HtmlAttributeName("message")]
         public ModelExpression? Message { get; set; }
         [HtmlAttributeName("messageText")]
@@ -57,7 +60,7 @@ namespace gui.TagHelpers
             cardHeader.AddCssClass("card-header");
 
             cardHeader.InnerHtml.AppendHtml(CreateLabel());
-            if (HelpText?.Model != null)
+            if (HelpText?.Model != null || !string.IsNullOrEmpty(HelpTextStatic))
                 cardHeader.InnerHtml.AppendHtml(CreateTooltip());
 
 
@@ -65,12 +68,13 @@ namespace gui.TagHelpers
         }
         protected TagBuilder CreateTooltip()
         {
+            var helpText = HelpTextStatic == null ? HelpText.Model.ToString() : HelpTextStatic;
             var span = new TagBuilder("span");
             span.Attributes.Add("class", "help-text");
             span.Attributes.Add("data-toggle", "tooltip");
             span.Attributes.Add("data-placement", "top");
-            span.Attributes.Add("title", HelpText.Model.ToString());
-            span.InnerHtml.AppendHtml(" ?");
+            span.Attributes.Add("title", helpText);
+            span.InnerHtml.AppendHtml(" (help)");
             return span;
         }
 

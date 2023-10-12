@@ -39,7 +39,8 @@ namespace xingyi.TagHelpers
                         if (prop != null)
                         {
                             var value = prop.GetValue(item)?.ToString() ?? string.Empty;
-                            string inputHtml = InputHelper.GenerateInputHtml(attribute.Key, attribute.Value, Items, index, value);
+                            var (attrType, helpText) = attribute.Value;
+                            string inputHtml = InputHelper.GenerateInputHtml(attribute.Key, attrType, helpText, Items, index, value);
                             output.Content.AppendHtml(inputHtml);
                         }
                     }

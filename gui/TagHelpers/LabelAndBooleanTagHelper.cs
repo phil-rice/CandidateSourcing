@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using System;
+using System.Reflection.PortableExecutable;
 using xingyi.common;
 
 namespace xingyi.TagHelpers
@@ -18,6 +19,14 @@ namespace xingyi.TagHelpers
 
         [HtmlAttributeName("asp-label")]
         public ModelExpression Label { get; set; }
+
+        [HtmlAttributeName("help-text")]
+        public ModelExpression HelpText { get; set; }
+
+        [HtmlAttributeName("help-text-static")]
+        public string HelpTextStatic { get; set; }
+
+
 
         [ViewContext]
         [HtmlAttributeNotBound]
@@ -37,8 +46,20 @@ namespace xingyi.TagHelpers
             output.Content.AppendHtml(hiddenInput);
             output.Content.AppendHtml(checkboxInput);
             output.Content.AppendHtml(label);
+            if (HelpText?.Model != null || !string.IsNullOrEmpty(HelpTextStatic))
+                output.Content.AppendHtml(CreateTooltip());
         }
-
+        protected TagBuilder CreateTooltip()
+        {
+            var helpText = HelpTextStatic == null ? HelpText.Model.ToString() : HelpTextStatic;
+            var span = new TagBuilder("span");
+            span.Attributes.Add("class", "help-text");
+            span.Attributes.Add("data-toggle", "tooltip");
+            span.Attributes.Add("data-placement", "top");
+            span.Attributes.Add("title", helpText);
+            span.InnerHtml.AppendHtml(" (help)");
+            return span;
+        }
         private TagBuilder CreateHiddenInput(bool? isChecked)
         {
             var hiddenInput = new TagBuilder("input");

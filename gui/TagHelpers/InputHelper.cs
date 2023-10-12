@@ -13,14 +13,15 @@ namespace xingyi.TagHelpers
             return value;
         }
 
-        public static string GenerateInputHtml(string attributeName, string attributeType, ModelExpression BindTo, object index, object value)
+        public static string GenerateInputHtml(string attributeName, string attributeType, string helpText,ModelExpression BindTo, object index, object value)
         {
             string thisId = (index is int)?
                 $"{BindTo.Name}[{index}].{attributeName}":
                 $"{BindTo.Name}['+{index}+'].{attributeName}";
 
             string parentClass = attributeType == "checkbox" ? "form-check" : "form-group";
-            string labelString = attributeType == "hidden" ? "" : $"<label for=\"{thisId}\">{attributeName}</label>";
+            string help = string.IsNullOrEmpty(helpText)?"":@"<span class=""help-text"" data-placement=""top"" data-toggle=""tooltip"" title=""" + helpText + @""">(help)</span>";
+            string labelString = attributeType == "hidden" ? "" : $"<label for=\"{thisId}\">{attributeName} {help}</label>";
             string templateStart = $"<div class=\"{parentClass}\">{labelString}";
             string templateBody = string.Empty;
 

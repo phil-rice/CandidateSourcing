@@ -11,11 +11,12 @@
     <input type="hidden" asp-for="Item.Id" />
     <input type="hidden" asp-for="Item.Owner" />
     <label-and-input asp-for="Item.Title"></label-and-input>
-    <label-and-input asp-for="Item.HelpText"></label-and-input>
-    <label-and-boolean asp-for="Item.CanEditWho"></label-and-boolean>
-    <label-and-input asp-for="Item.Who"></label-and-input>   <h4>Questions</h4>
-    <label-and-boolean asp-for="Item.RequireComments"></label-and-boolean>
-    <label-and-textarea asp-for="Item.CommentsMessage" messageText="Any prefix you want to appear when sections are being filled in to explain the purpose of the comments"></label-and-textarea>
+    <label-and-input asp-for="Item.HelpText" help-text-static="This is the help text that describes the section"></label-and-input>
+    <label-and-boolean asp-for="Item.CanEditWho" help-text-static="You give a default 'who'. If this is fixed and cannot be changed click here. With the exception of 'Candidate Details' this is usually left unclicked"></label-and-boolean>
+    <label-and-input asp-for="Item.Who" help-text-static="The email of the 'default' person to fill in this. Use 'The Candidate' if it is the candidate"></label-and-input>
+    <label-and-input asp-for="Item.Weighting" help-text-static="How much this contributes to the score. You can use any units. If zero (default) this does NOT contribute to the score"></label-and-input>
+    <label-and-boolean asp-for="Item.RequireComments" help-text-static="Do we require the comments to be filled in before this section of the application is completed?"></label-and-boolean>
+    <label-and-textarea asp-for="Item.CommentsMessage" help-text-static="Any prefix you want to appear when sections are being filled in to explain the purpose of the comments"></label-and-textarea>
 
     <child-list bind-to="Item.Questions" attributes="@Model.QuestionFields"></child-list>
     <child-list-add-button bind-to="Item.Questions">Add Questions</child-list-add-button>
