@@ -211,7 +211,7 @@ I decided to make it more general.
     * So we can set up `Candidate Details`  and `HR Interview` which might be universal
     * But we can set up `Dot net full stack interview` or `Room Cleaner` or `Scrum Master interview 1` or `Architect interview 2` which are customised to the job
 
-To make it 'quick' to test, on page `https://localhost:7000/Info/PostingVacancies` there is a `click here to create a test job and test sections`. This can only be clicked once but creates the samples needed for the requirements
+To make it 'quick' to test, on page `https://localhost:7000/Help/PostingVacancies` there is a `click here to create a test job and test sections`. This can only be clicked once but creates the samples needed for the requirements
 
 ### Candidate Login
 >Candidate Login : Candidate updates his details, Passport Number, Name, address, DOB. He should not be able to view panellist forms  

@@ -147,5 +147,13 @@ This API has only one client (fan out of one), the client is tightly coupled
 to it. The cost of versioning is very high and there
 is literally no value for a fanout of one.
 
+# Why are all the questions in alphabetical order?
+It's consistant and easy, and fine to get going
+
+It's fine for a 'minimum viable product' but 
+I would add an 'ordering' to the questions in the future
+
+
+
 
 

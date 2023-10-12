@@ -17,6 +17,7 @@ namespace gui.Controllers
                 Owner = owner,
                 Who = "The Candidate",
                 CanEditWho = false,
+                HelpText = "Information the Candidate fills in about themselves",
                 CommentsMessage = "Are there any comments you would like to make (Not Required)?",
                 RequireComments = false,
                 Questions = new List<Question>
@@ -24,6 +25,7 @@ namespace gui.Controllers
                     new Question
                     {
                         Title = "Name",
+                        HelpText = "Please enter your name as it appears on your passport",
                         IsRequired = true,
                         Singleline= true
                     },
@@ -48,7 +50,8 @@ namespace gui.Controllers
                     },
                     new Question
                     {
-                        Title = "SAP code (if exists, otherwise leave blank)",
+                        Title = "SAP code",
+                        HelpText = "If it exists otherwise leave blank",
                         Singleline= true,
                         IsRequired = false
                     }
@@ -71,6 +74,7 @@ namespace gui.Controllers
                 Who = "alyson.rice@googlemail.com",
                 Weighting = 40,
                 RequireComments = true,
+                HelpText = "Interview 1 is a technical interview with a senior developer",
                 CommentsMessage = "Please summarise how the Candidate performed in this interview",
                 Questions = new List<Question>
                 {
@@ -128,7 +132,7 @@ namespace gui.Controllers
                 CommentsMessage = "Please summarise how the Candidate performed in this interview",
                 RequireComments = true,
                 Weighting = 50,
-
+                HelpText = "Interview 2 is a technical interview with a senior developer",
                 Questions = new List<Question>
                 {
                     new Question
@@ -173,7 +177,7 @@ namespace gui.Controllers
                 Weighting = 10,
                 CommentsMessage = "Please summarise how the Candidate performed in this interview",
                 RequireComments = true,
-
+                HelpText = "HR interview is a non technical interview with the 'Human Resources' department",
                 Questions = new List<Question>
                 {
                     new Question

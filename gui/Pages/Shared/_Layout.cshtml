@@ -110,6 +110,13 @@
             document.getElementById(targetId).textContent = value;
         }
     </script>
+    <script>
+        $(document).ready(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+    </script>
     @await RenderSectionAsync("Scripts", required: false)
+
+
 </body>
 </html>

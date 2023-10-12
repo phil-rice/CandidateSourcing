@@ -11,7 +11,7 @@
 
     <p>Currently you have no Jobs that you are the owner of</p>
 }
-<p>Find out more about <a href="/Info/PostingVacancies">Posting Vacancies</a></p>
+<p>Find out more about <a href="/Help/PostingVacancies">Posting Vacancies</a></p>
 
 @Html.Partial("_JobAndAppsToDoList", new ToDoAndAppsDto<JobAndApplications>
     {
@@ -24,4 +24,4 @@
     Title= "My inactive jobs",
     Items = Model.MyCompletedApps
     })
-<a href="/Jobs/Create"> Create a new Job (Vacancy)</a>
+<a data-placement="top" data-toggle="tooltip" title="Click here if you want to add a new Job. The process for this job (questions asked/name and number of sections) can be controlled by you" href="/Jobs/Create"> Create a new Job (Vacancy)</a>

@@ -265,7 +265,7 @@ namespace xingyi.job.Repository
             base(context, context => context.Applications,
                   id => j => j.Id == id,
                   set => set.Include(a => a.Job),
-                  set => set.Include(a => a.Job)
+                  set => set.Include(a => a.Job).ThenInclude(j => j.JobSectionTemplates).ThenInclude(jst =>jst.SectionTemplate)
                              .Include(a => a.Sections)
                             .ThenInclude(s => s.Answers),
                   orderFn: set => set.OrderBy(a => a.Candidate),

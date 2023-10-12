@@ -26,6 +26,8 @@ namespace gui.TagHelpers
         public bool ShowScoreOutOf10 { get; set; } = false;  // Default value is false
         [HtmlAttributeName("score")]
         public ModelExpression Score { get; set; }
+        [HtmlAttributeName("help-text")]
+        public ModelExpression HelpText { get; set; }
 
         [HtmlAttributeName("message")]
         public ModelExpression? Message { get; set; }
@@ -55,9 +57,21 @@ namespace gui.TagHelpers
             cardHeader.AddCssClass("card-header");
 
             cardHeader.InnerHtml.AppendHtml(CreateLabel());
+            if (HelpText?.Model != null)
+                cardHeader.InnerHtml.AppendHtml(CreateTooltip());
 
 
             return cardHeader;
+        }
+        protected TagBuilder CreateTooltip()
+        {
+            var span = new TagBuilder("span");
+            span.Attributes.Add("class", "help-text");
+            span.Attributes.Add("data-toggle", "tooltip");
+            span.Attributes.Add("data-placement", "top");
+            span.Attributes.Add("title", HelpText.Model.ToString());
+            span.InnerHtml.AppendHtml(" ?");
+            return span;
         }
 
         private TagBuilder CreateCardBody()

@@ -20,7 +20,8 @@
                     <span>owned by @jobAndApp.Job.Owner</span>
                 }  @if (Model.AllowEdits)
                 {
-                    <a href="/Applications/Create/@jobAndApp.Job.Id">Add Candidate</a> <a href="/Jobs/EditManagedBy/@jobAndApp.Job.Id">Edit Managed Bys</a>
+                    <a href="/Applications/Create/@jobAndApp.Job.Id" data-placement="top" data-toggle="tooltip" title="Click here to enter an email for a candidate and decide who does which interview for them">Add Candidate</a>
+                    <a href="/Jobs/EditManagedBy/@jobAndApp.Job.Id" data-placement="top" data-toggle="tooltip" title="Click here to add or remove a manager for this job. Managers can just see jobs, not edit them">Edit Managed Bys</a>
                 }
             </div>
 
@@ -31,12 +32,15 @@
             <table>
                 <thead>
                     <tr>
-                        <th>Candidate</th>
-                   
-                        <th>Score</th>
+                        <th data-placement="top" data-toggle="tooltip" title="This is a list of people who are applying for the job">Candidate</th>
+
+                        <th data-placement="top" data-toggle="tooltip" title="The weighted score of the results of the interviews. Shows 'waiting' if some interviews still need to be completed">Score</th>
                         @foreach (var app in jobAndApp.Job.JobSectionTemplates)
                         {
-                            <th>@app.SectionTemplate.Title <span class="score">(@app.SectionTemplate.Weighting)</span></th>
+                            <th>
+                                <span data-placement="top" data-toggle="tooltip" title="@app.SectionTemplate.HelpText">@app.SectionTemplate.Title</span>
+                                <span class="score">(@app.SectionTemplate.Weighting)</span>
+                            </th>
                         }
                     </tr>
                 </thead>
@@ -51,21 +55,21 @@
                         var allDone = ap.Sections.All(s => s.Finished);
                         var score = ap.calcScore();
                         <tr>
-                            <td><a href="/Applications/View/@ap.Id">@ap.Candidate</a></td>
-                       
-                            <td><score-badge score="@score" Finished="@allDone" Weighting="ap.SumOfWeightings"></score-badge></td>
+                            <td data-placement="top" data-toggle="tooltip" title="Click here to see a summary of this application so far"><a href="/Applications/View/@ap.Id">@ap.Candidate</a></td>
+
+                            <td ><score-badge score="@score" Finished="@allDone" Weighting="ap.SumOfWeightings"></score-badge></td>
                             @foreach (var sect in ap.Sections)
                             {
-                                <td>
+                                <td data-placement="top" data-toggle="tooltip" title="Click here to see a review of the data collected for this section so far">
                                     <score-badge score="@sect.Score" Weighting="@sect.Weighting" Finished="@sect.Finished" ShowText="false"></score-badge>
                                     <a href="/Sections/View/@sect.Id"><div>@sect.Who</div></a>
                                 </td>
                             }
                         </tr>
-                    }
+                        }
 
-            </table>
+                </table>
+            </div>
         </div>
-    </div>
 
-}
+        }
